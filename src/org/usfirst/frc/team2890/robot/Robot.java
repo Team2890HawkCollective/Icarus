@@ -30,6 +30,8 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 	
+	private static int counter = 0;
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -51,6 +53,9 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
+		
+		if(RobotMap.m_visionThread.isAlive())
+			RobotMap.m_visionThread.interrupt();
 
 	}
 
@@ -104,6 +109,7 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		
 	}
 
 	/**
@@ -112,6 +118,11 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		counter++;
+		SmartDashboard.putNumber("Rectangle", RobotMap.gripPipeline.filterContoursOutput.size());
+		
+	
 	}
 
 	/**
@@ -119,7 +130,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		
-		for(int i = 0; i < )
+		SmartDashboard.putNumber("Rectangle", RobotMap.gripPipeline.filterContoursOutput.size());
+	
 	}
 }
