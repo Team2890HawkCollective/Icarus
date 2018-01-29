@@ -7,7 +7,10 @@
 
 package org.usfirst.frc.team2890.robot;
 
+import java.util.ArrayList;
+
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
@@ -36,9 +39,13 @@ public class RobotMap
 	// public static int rangefinderModule = 1;
 	
 	public static Thread m_visionThread;
+	public static GripPipeline gripPipeline;
+	public ArrayList<MatOfPoint> findContoursOutput = new ArrayList<MatOfPoint>();
+	public ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<MatOfPoint>();
 	
 	public static void init()
 	{
+		gripPipeline = new GripPipeline();
 		m_visionThread = new Thread(() -> 
 		{
 			// Get the UsbCamera from CameraServer
