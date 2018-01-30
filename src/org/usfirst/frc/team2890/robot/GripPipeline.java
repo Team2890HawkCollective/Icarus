@@ -41,7 +41,6 @@ public class GripPipeline implements VisionPipeline {
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 */
 	@Override	public void process(Mat source0) {
-		System.out.println("In Process method.");
 		// Step HSL_Threshold0:
 		Mat hslThresholdInput = source0;
 		double[] hslThresholdHue = {43.70503597122302, 60.303030303030276};
@@ -155,7 +154,6 @@ public class GripPipeline implements VisionPipeline {
 		double minPerimeter, double minWidth, double maxWidth, double minHeight, double
 		maxHeight, double[] solidity, double maxVertexCount, double minVertexCount, double
 		minRatio, double maxRatio, List<MatOfPoint> output) {
-		System.out.println("In filterContours method.");
 		final MatOfInt hull = new MatOfInt();
 		output.clear();
 		//operation

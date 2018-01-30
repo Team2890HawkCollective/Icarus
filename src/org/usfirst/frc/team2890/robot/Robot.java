@@ -30,8 +30,6 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 	
-	private static int counter = 0;
-	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -118,11 +116,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		
-		counter++;
+
 		SmartDashboard.putNumber("Rectangle", RobotMap.gripPipeline.filterContoursOutput.size());
+		SmartDashboard.putNumber("Center X: ", RobotMap.centerX);
+		SmartDashboard.putNumber("Distance From Target: ", RobotMap.distanceFromTargetUsingTargeting);
+		SmartDashboard.putNumber("Angle: ", RobotMap.angleFromTarget);
 		
-	
 	}
 
 	/**
@@ -130,7 +129,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		SmartDashboard.putNumber("Rectangle", RobotMap.gripPipeline.filterContoursOutput.size());
 	
 	}
 }

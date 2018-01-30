@@ -41,10 +41,18 @@ public class RobotMap
 	public static Thread m_visionThread;
 	public static GripPipeline gripPipeline;
 	
+	public static double centerX;
+	public static double distanceFromTargetUsingTargeting;
+	public static double angleFromTarget;
+	
 	public static void init()
 	{
-		System.out.println("Init");
 		gripPipeline = new GripPipeline();
+		
+		centerX = -1;
+		distanceFromTargetUsingTargeting = -1;
+		angleFromTarget = -1;
+		
 		m_visionThread = new Thread(() -> 
 		{
 			System.out.println("In vision thread");
@@ -82,6 +90,10 @@ public class RobotMap
 				// Give the output stream a new image to display
 				outputStream.putFrame(mat);
 				gripPipeline.process(mat);
+				
+				centerX = Processing.returnCenterX(gripPipeline.filterContoursOutput);
+				distanceFromTargetUsingTargeting = Processing.distanceFromTarget(gripPipeline.filterContoursOutput);
+				angleFromTarget = Processing.getAngle(gripPipeline.filterContoursOutput);
 			}
 		});
 		m_visionThread.setDaemon(true);
