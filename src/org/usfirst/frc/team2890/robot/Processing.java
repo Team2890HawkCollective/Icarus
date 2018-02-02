@@ -43,7 +43,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Processing {
 
 //	Process for GRIP	
-	static GripPipeline pipeline;
 //	Constants for known variables
 	static Mat matOriginal;
 	public static final double OFFSET_TO_FRONT = 0;
