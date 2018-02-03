@@ -7,6 +7,17 @@
 
 package org.usfirst.frc.team2890.robot;
 
+import org.usfirst.frc.team2890.robot.commands.*;
+import org.usfirst.frc.team2890.robot.subsystems.*;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.Trigger;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -24,10 +35,63 @@ public class RobotMap
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
+	public static final int FRONT_RIGHT_TALON_ID = 1;
+	public static final int REAR_RIGHT_TALON_ID = 2;
+	public static final int FRONT_LEFT_TALON_ID = 3;
+	public static final int REAR_LEFT_TALON_ID = 4;
+	public static final int DRIVER_CONTROLLER_PORT = 1;
 	
-	public void init()
+	public static final int X_INVERTED = -1;
+	public static final double x_AxisLowerDeadband = -0.1;
+	public static final double x_AxisUpperDeadband = 0.1;
+	public static double rotationSensitivity = 0.5;
+	
+	
+	public static XboxController driverController;
+	public static WPI_TalonSRX frontRightTalon;
+	public static WPI_TalonSRX rearRightTalon;
+	public static WPI_TalonSRX frontLeftTalon;
+	public static WPI_TalonSRX rearLeftTalon;
+	public static SpeedControllerGroup rightTalonGroup;
+	public static SpeedControllerGroup leftTalonGroup;
+	public static DifferentialDrive tankDrive;
+	public static DriveTrainSubsystem driveTrainSubsystem;
+	public static ExampleSubsystem kExampleSubsystem;
+	public static OI m_oi;
+	public static Command m_autonomousCommand;
+	public static Command exampleCommand;
+	public static Command xboxDriveCommand;
+	public static Command talonRampOnCommand;
+	public static Command talonRampOffCommand;
+	
+	public static void init()
 	{
+		m_oi = new OI();
 		
+		driverController = new XboxController(DRIVER_CONTROLLER_PORT);
+		
+		frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
+		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
+		frontLeftTalon = new WPI_TalonSRX(FRONT_LEFT_TALON_ID);
+		rearLeftTalon = new WPI_TalonSRX(REAR_LEFT_TALON_ID);
+		
+		rightTalonGroup = new SpeedControllerGroup(frontRightTalon, rearRightTalon);
+		leftTalonGroup = new SpeedControllerGroup(frontLeftTalon, rearLeftTalon);
+		
+		//DriveTrainSubsystem.talonRampOn(); // This is for testing, a command should be called instead
+		
+		rightTalonGroup.setInverted(true);
+		leftTalonGroup.setInverted(true);
+		
+		tankDrive = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
+		
+		kExampleSubsystem = new ExampleSubsystem();
+		driveTrainSubsystem = new DriveTrainSubsystem();
+		
+		exampleCommand = new ExampleCommand();
+		xboxDriveCommand = new XboxDriveCommand();
+		talonRampOnCommand = new TalonRampOnCommand();
+		talonRampOffCommand = new TalonRampOffCommand();
 	}
 
 }

@@ -13,20 +13,25 @@ import org.usfirst.frc.team2890.robot.*;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class ExampleCommand extends Command {
-	public ExampleCommand() {
+public class TalonRampOnCommand extends Command 
+{
+	public TalonRampOnCommand() 
+	{
 		// Use requires() here to declare subsystem dependencies
-		requires(RobotMap.kExampleSubsystem);
+		requires(RobotMap.driveTrainSubsystem);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
-	protected void initialize() {
+	protected void initialize() 
+	{
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
-	protected void execute() {
+	protected void execute() 
+	{
+		RobotMap.driveTrainSubsystem.talonRampOn();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
