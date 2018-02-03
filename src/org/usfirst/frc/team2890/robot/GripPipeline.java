@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.HashMap;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.VisionPipeline;
 
 import org.opencv.core.*;
@@ -43,9 +42,9 @@ public class GripPipeline implements VisionPipeline {
 	@Override	public void process(Mat source0) {
 		// Step HSL_Threshold0:
 		Mat hslThresholdInput = source0;
-		double[] hslThresholdHue = {43.70503597122302, 60.303030303030276};
-		double[] hslThresholdSaturation = {50.44964028776978, 255.0};
-		double[] hslThresholdLuminance = {233.90287769784175, 255.0};
+		double[] hslThresholdHue = {38.84892086330935, 93.99317406143346};
+		double[] hslThresholdSaturation = {59.62230215827338, 255.0};
+		double[] hslThresholdLuminance = {183.45323741007192, 255.0};
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 		// Step Find_Contours0:
@@ -55,11 +54,11 @@ public class GripPipeline implements VisionPipeline {
 
 		// Step Filter_Contours0:
 		ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
-		double filterContoursMinArea = 50.0;
-		double filterContoursMinPerimeter = 0.0;
-		double filterContoursMinWidth = 5.0;
-		double filterContoursMaxWidth = 50.0;
-		double filterContoursMinHeight = 60.0;
+		double filterContoursMinArea = 100.0;
+		double filterContoursMinPerimeter = 0;
+		double filterContoursMinWidth = 0;
+		double filterContoursMaxWidth = 1000;
+		double filterContoursMinHeight = 0;
 		double filterContoursMaxHeight = 1000;
 		double[] filterContoursSolidity = {0, 100};
 		double filterContoursMaxVertices = 1000000;
