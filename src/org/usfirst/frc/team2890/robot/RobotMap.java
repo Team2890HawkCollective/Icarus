@@ -39,7 +39,7 @@ public class RobotMap
 	public static final int REAR_RIGHT_TALON_ID = 2;
 	public static final int FRONT_LEFT_TALON_ID = 3;
 	public static final int REAR_LEFT_TALON_ID = 4;
-	public static final int DRIVER_CONTROLLER_PORT = 1;
+	public static final int DRIVER_CONTROLLER_PORT = 0;
 	
 	public static final int X_INVERTED = -1;
 	public static final double x_AxisLowerDeadband = -0.1;

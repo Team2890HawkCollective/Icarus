@@ -5,9 +5,11 @@
 	<classpathentry exported="true" kind="var" path="networktables" sourcepath="ntcore.sources"/>
 	<classpathentry exported="true" kind="var" path="opencv" sourcepath="opencv.sources"/>
 	<classpathentry exported="true" kind="var" path="cscore" sourcepath="cscore.sources"/>
-	<classpathentry exported="true" kind="var" path="wpiutil" sourcepath="wpiutil.sources"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/2890/wpilib/java/current/lib/CTRE_Phoenix.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/2890/wpilib/java/current/lib/CTRE_Phoenix-sources.jar"/>
+	<classpathentry exported="true" kind="var" path="wpiutil" sourcepath="wpiutil.sources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_162"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
