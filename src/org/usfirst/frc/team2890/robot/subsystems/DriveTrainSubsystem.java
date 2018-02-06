@@ -90,21 +90,31 @@ public class DriveTrainSubsystem extends Subsystem
 	
 	public void driveForward()
 	{
-		
+		RobotMap.leftTalonGroup.set(1);
+		RobotMap.rightTalonGroup.set(1);
 	}
 	
 	public void driveBackward()
 	{
-		
+		RobotMap.leftTalonGroup.set(-1);
+		RobotMap.rightTalonGroup.set(-1);
 	}
 	
 	public void turnLeft()
 	{
-		
+		RobotMap.leftTalonGroup.set(-1);
+		RobotMap.rightTalonGroup.set(1);
 	}
 	
 	public void turnRight()
 	{
-		
+		RobotMap.leftTalonGroup.set(1);
+		RobotMap.rightTalonGroup.set(-1);
+	}
+	
+	public void stopMoving()
+	{
+		RobotMap.leftTalonGroup.set(0);
+		RobotMap.rightTalonGroup.set(0);
 	}
 }
