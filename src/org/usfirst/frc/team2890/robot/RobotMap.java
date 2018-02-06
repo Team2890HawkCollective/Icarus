@@ -14,7 +14,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -42,10 +41,11 @@ public class RobotMap
 	public static final int DRIVER_CONTROLLER_PORT = 0;
 	
 	public static final int X_INVERTED = -1;
-	public static final double x_AxisLowerDeadband = -0.1;
-	public static final double x_AxisUpperDeadband = 0.1;
-	public static double rotationSensitivity = 0.5;
-	
+	public static final int RAMP_TIMEOUT = 1;
+	public static final double RAMP_TIME = 0.5;
+	public static final double X_AXIS_LOWER_DEADBAND = -0.01;
+	public static final double X_AXIS_UPPER_DEADBAND = 0.01;
+	public static final double ROTATION_SENSITIVTY = 0.65;
 	
 	public static XboxController driverController;
 	public static WPI_TalonSRX frontRightTalon;

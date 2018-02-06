@@ -29,10 +29,11 @@ public class DriveTrainSubsystem extends Subsystem
 	
 	public void arcadeDrive()
 	{
-		RobotMap.tankDrive.arcadeDrive(RobotMap.driverController.getY(Hand.kLeft), RobotMap.driverController.getX(Hand.kRight) * RobotMap.X_INVERTED * RobotMap.rotationSensitivity);
+		RobotMap.tankDrive.arcadeDrive(RobotMap.driverController.getY(Hand.kLeft), 
+				RobotMap.driverController.getX(Hand.kRight) * RobotMap.X_INVERTED * RobotMap.ROTATION_SENSITIVTY);
 	}
 	
-	public void talonRampOn()
+	/*public void talonRampOn()
 	{
 		if (RobotMap.x_AxisLowerDeadband >= RobotMap.driverController.getX(Hand.kRight) && RobotMap.x_AxisUpperDeadband <= RobotMap.driverController.getX(Hand.kRight))
 		{
@@ -45,31 +46,42 @@ public class DriveTrainSubsystem extends Subsystem
 	
 	public void toggleTalonRampOn()
 	{
-		
-			RobotMap.frontLeftTalon.configOpenloopRamp(0.5, 1);
-			RobotMap.rearLeftTalon.configOpenloopRamp(0.5, 1);
-			RobotMap.frontRightTalon.configOpenloopRamp(0.5, 1);
-			RobotMap.rearRightTalon.configOpenloopRamp(0.5, 1);
+		//RobotMap.leftTalonGroup.set(0);
+		//RobotMap.rightTalonGroup.set(0);
+		RobotMap.frontLeftTalon.configOpenloopRamp(0.5, 1);
+		RobotMap.rearLeftTalon.configOpenloopRamp(0.5, 1);
+		RobotMap.frontRightTalon.configOpenloopRamp(0.5, 1);
+		RobotMap.rearRightTalon.configOpenloopRamp(0.5, 1);
 	}
 	
 	public void talonRampOff()
 	{
-		if (RobotMap.x_AxisLowerDeadband <= RobotMap.driverController.getX(Hand.kRight) && RobotMap.x_AxisUpperDeadband >= RobotMap.driverController.getX(Hand.kRight))
+		if (RobotMap.x_AxisLowerDeadband >= RobotMap.driverController.getX(Hand.kRight) && RobotMap.x_AxisUpperDeadband <= RobotMap.driverController.getX(Hand.kRight))
 		{
 			RobotMap.frontLeftTalon.configOpenloopRamp(0, 1);
 			RobotMap.rearLeftTalon.configOpenloopRamp(0, 1);
 			RobotMap.frontRightTalon.configOpenloopRamp(0, 1);
 			RobotMap.rearRightTalon.configOpenloopRamp(0, 1);
 		}
+		else
+		{
+			RobotMap.frontLeftTalon.configOpenloopRamp(0.5, 1);
+			RobotMap.rearLeftTalon.configOpenloopRamp(0.5, 1);
+			RobotMap.frontRightTalon.configOpenloopRamp(0.5, 1);
+			RobotMap.rearRightTalon.configOpenloopRamp(0.5, 1);
+		}
+			
 	}
 	
 	public void toggleTalonRampOff()
 	{
+		//RobotMap.leftTalonGroup.set(0);
+		//RobotMap.rightTalonGroup.set(0);
 		RobotMap.frontLeftTalon.configOpenloopRamp(0, 1);
 		RobotMap.rearLeftTalon.configOpenloopRamp(0, 1);
 		RobotMap.frontRightTalon.configOpenloopRamp(0, 1);
 		RobotMap.rearRightTalon.configOpenloopRamp(0, 1);
-	}
+	}*/
 	
 	public void tankDrive()
 	{

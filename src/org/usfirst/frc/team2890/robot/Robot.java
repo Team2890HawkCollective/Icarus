@@ -26,7 +26,7 @@ import org.usfirst.frc.team2890.robot.subsystems.*;
 public class Robot extends TimedRobot 
 {
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
-
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -109,10 +109,12 @@ public class Robot extends TimedRobot
 			RobotMap.m_autonomousCommand.cancel();
 		}
 		//Scheduler.getInstance().
-		RobotMap.talonRampOnCommand.start();
+		//RobotMap.talonRampOnCommand.start();
+		RobotMap.frontLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.rearLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.frontRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		
-		Scheduler.getInstance().add(RobotMap.talonRampOnCommand);
-		Scheduler.getInstance().add(RobotMap.talonRampOffCommand);
 		Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
 	}
 
@@ -122,30 +124,10 @@ public class Robot extends TimedRobot
 	@Override
 	public void teleopPeriodic() 
 	{
-		
 		Scheduler.getInstance().run();
 		//test to tell if we are able to send data using the buttons by displaying it on SmartDashboard
 		SmartDashboard.putBoolean("Y",RobotMap.driverController.getYButton());
 		SmartDashboard.putBoolean("X",RobotMap.driverController.getXButton());
-		/*if (RobotMap.driverController.getAButton())
-		{
-			RobotMap.talonRampOnCommand.cancel();
-			RobotMap.talonRampOffCommand.start();
-		}
-		else
-		{
-			RobotMap.talonRampOffCommand.cancel();
-			RobotMap.talonRampOnCommand.start();
-		}*/
-		// tried not using commands 
-		if (RobotMap.driverController.getYButton())
-		{
-			RobotMap.driveTrainSubsystem.toggleTalonRampOn();
-		}
-		if (RobotMap.driverController.getXButton())
-		{
-			RobotMap.driveTrainSubsystem.toggleTalonRampOff();
-		}
 	}
 
 	/**
