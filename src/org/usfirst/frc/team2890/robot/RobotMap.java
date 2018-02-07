@@ -46,7 +46,7 @@ public class RobotMap
 	public static final double X_AXIS_LOWER_DEADBAND = -0.01;
 	public static final double X_AXIS_UPPER_DEADBAND = 0.01;
 	public static final double ROTATION_SENSITIVTY = 0.65;
-	public static final double FORWARDS_BACKWARDS_SENSITIVITY = 0.75;
+	public static final double FORWARDS_BACKWARDS_SENSITIVITY = 0.8;
 	public static final double AUTONOMOUS_FORWARD_SPEED = 1.0;
 	public static final double AUTONOMOUS_BACKWARD_SPEED = -1.0;
 	public static final double AUTONOMOUS_KILL_SWITCH = 0;
