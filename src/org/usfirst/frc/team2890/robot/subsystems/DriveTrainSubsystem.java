@@ -29,7 +29,7 @@ public class DriveTrainSubsystem extends Subsystem
 	
 	public void arcadeDrive()
 	{
-		RobotMap.tankDrive.arcadeDrive(RobotMap.driverController.getY(Hand.kLeft), 
+		RobotMap.tankDrive.arcadeDrive(RobotMap.driverController.getY(Hand.kLeft) * RobotMap.FORWARDS_BACKWARDS_SENSITIVITY, 
 				RobotMap.driverController.getX(Hand.kRight) * RobotMap.X_INVERTED * RobotMap.ROTATION_SENSITIVTY);
 	}
 	
@@ -90,31 +90,31 @@ public class DriveTrainSubsystem extends Subsystem
 	
 	public void driveForward()
 	{
-		RobotMap.leftTalonGroup.set(1);
-		RobotMap.rightTalonGroup.set(1);
+		RobotMap.leftTalonGroup.set(RobotMap.AUTONOMOUS_FORWARD_SPEED);
+		RobotMap.rightTalonGroup.set(RobotMap.AUTONOMOUS_FORWARD_SPEED);
 	}
 	
 	public void driveBackward()
 	{
-		RobotMap.leftTalonGroup.set(-1);
-		RobotMap.rightTalonGroup.set(-1);
+		RobotMap.leftTalonGroup.set(RobotMap.AUTONOMOUS_BACKWARD_SPEED);
+		RobotMap.rightTalonGroup.set(RobotMap.AUTONOMOUS_BACKWARD_SPEED);
 	}
 	
 	public void turnLeft()
 	{
-		RobotMap.leftTalonGroup.set(-1);
-		RobotMap.rightTalonGroup.set(1);
+		RobotMap.leftTalonGroup.set(RobotMap.AUTONOMOUS_BACKWARD_SPEED);
+		RobotMap.rightTalonGroup.set(RobotMap.AUTONOMOUS_FORWARD_SPEED);
 	}
 	
 	public void turnRight()
 	{
-		RobotMap.leftTalonGroup.set(1);
-		RobotMap.rightTalonGroup.set(-1);
+		RobotMap.leftTalonGroup.set(RobotMap.AUTONOMOUS_FORWARD_SPEED);
+		RobotMap.rightTalonGroup.set(RobotMap.AUTONOMOUS_BACKWARD_SPEED);
 	}
-	
+	    
 	public void stopMoving()
 	{
-		RobotMap.leftTalonGroup.set(0);
-		RobotMap.rightTalonGroup.set(0);
+		RobotMap.leftTalonGroup.set(RobotMap.AUTONOMOUS_KILL_SWITCH);
+		RobotMap.rightTalonGroup.set(RobotMap.AUTONOMOUS_KILL_SWITCH);
 	}
 }
