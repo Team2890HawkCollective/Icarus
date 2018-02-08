@@ -26,6 +26,7 @@ import org.usfirst.frc.team2890.robot.subsystems.*;
 public class Robot extends TimedRobot 
 {
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	//Command driveForwardCommand;
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -36,6 +37,8 @@ public class Robot extends TimedRobot
 	{
 		RobotMap.init();
 		RobotMap.m_oi = new OI();
+		//driveForwardCommand = new DriveForward();
+		
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -86,6 +89,8 @@ public class Robot extends TimedRobot
 		{
 			RobotMap.m_autonomousCommand.start();
 		}
+		
+		//Scheduler.getInstance().add(driveForwardCommand);
 	}
 
 	/**
