@@ -52,7 +52,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 		
-		if(RobotMap.m_visionThread.isAlive())
+		if(RobotMap.m_visionThread != null)
 			RobotMap.m_visionThread.interrupt();
 
 	}
@@ -104,6 +104,7 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
+		RobotMap.startThread();
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}

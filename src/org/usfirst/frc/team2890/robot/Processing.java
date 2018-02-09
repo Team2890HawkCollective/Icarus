@@ -64,7 +64,9 @@ public class Processing {
 	public static double returnCenterX(ArrayList<MatOfPoint> filterContoursOutput){
 		if(filterContoursOutput != null)
 		{
-			SmartDashboard.putNumber("Got in. ", 0);
+			
+			System.out.println("Iahsdhsgfgnrejgbvfdjcvnrngiperghfjkwrjkgrefghbe2wfbierhbgyfi3webfe");
+			
 			SmartDashboard.putNumber("size. ", filterContoursOutput.size());
 			double[] defaultValue = new double[0];
 				// This is the center value returned by GRIP thank WPI
