@@ -40,70 +40,16 @@ public class RobotMap
 	
 	public static Thread m_visionThread;
 	public static GripPipeline gripPipeline;
+	public static HambyRoomGripPipelineLongRange hambyRoomGripPipeline;
 	
 	public static double centerX;
 	public static double distanceFromTargetUsingTargeting;
 	public static double angleFromTarget;
 	
-	public static void init()
-	{
-		/*
-		gripPipeline = new GripPipeline();
-		
-		centerX = -1;
-		distanceFromTargetUsingTargeting = -1;
-		angleFromTarget = -1;
-		
-		m_visionThread = new Thread(() -> 
-		{
-			System.out.println("In vision thread");
-			// Get the UsbCamera from CameraServer
-			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-			// Set the resolution
-			camera.setResolution(640, 480);
-
-			// Get a CvSink. This will capture Mats from the camera
-			CvSink cvSink = CameraServer.getInstance().getVideo();
-			// Setup a CvSource. This will send images back to the Dashboard
-			CvSource outputStream
-					= CameraServer.getInstance().putVideo("Rectangle", 640, 480);
-
-			// Mats are very memory expensive. Lets reuse this Mat.
-			Mat mat = new Mat();
-			System.out.println(Thread.interrupted());
-
-			// This cannot be 'true'. The program will never exit if it is. This
-			// lets the robot stop this thread when restarting robot code or
-			// deploying.
-			while (!Thread.interrupted()) {
-				System.out.println("In infinite thread loop.");
-				// Tell the CvSink to grab a frame from the camera and put it
-				// in the source mat.  If there is an error notify the output.
-				if (cvSink.grabFrame(mat) == 0) {
-					// Send the output the error.
-					outputStream.notifyError(cvSink.getError());
-					// skip the rest of the current iteration
-					continue;
-				}
-				// Put a rectangle on the image
-				Imgproc.rectangle(mat, new Point(100, 100), new Point(400, 400),
-						new Scalar(255, 255, 255), 5);
-				// Give the output stream a new image to display
-				outputStream.putFrame(mat);
-				gripPipeline.process(mat);
-				
-				centerX = Processing.returnCenterX(gripPipeline.filterContoursOutput);
-				distanceFromTargetUsingTargeting = Processing.distanceFromTarget(gripPipeline.filterContoursOutput);
-				angleFromTarget = Processing.getAngle(gripPipeline.filterContoursOutput);
-			}
-		});
-		m_visionThread.setDaemon(true);
-		*/
-	}
-	
 	public static void startThread()
 	{
 		gripPipeline = new GripPipeline();
+		hambyRoomGripPipeline = new HambyRoomGripPipelineLongRange();
 		
 		centerX = -1;
 		distanceFromTargetUsingTargeting = -1;
@@ -130,6 +76,7 @@ public class RobotMap
 			// This cannot be 'true'. The program will never exit if it is. This
 			// lets the robot stop this thread when restarting robot code or
 			// deploying.
+			
 			while (!Thread.interrupted()) {
 				System.out.println("In infinite thread loop.");
 				// Tell the CvSink to grab a frame from the camera and put it
@@ -145,11 +92,11 @@ public class RobotMap
 						new Scalar(255, 255, 255), 5);
 				// Give the output stream a new image to display
 				outputStream.putFrame(mat);
-				gripPipeline.process(mat);
+				hambyRoomGripPipeline.process(mat);
 				
-				centerX = Processing.returnCenterX(gripPipeline.filterContoursOutput);
-				distanceFromTargetUsingTargeting = Processing.distanceFromTarget(gripPipeline.filterContoursOutput);
-				angleFromTarget = Processing.getAngle(gripPipeline.filterContoursOutput);
+				centerX = Processing.returnCenterX(hambyRoomGripPipeline.filterContoursOutput);
+				distanceFromTargetUsingTargeting = Processing.distanceFromTarget(hambyRoomGripPipeline.filterContoursOutput);
+				angleFromTarget = Processing.getAngle(hambyRoomGripPipeline.filterContoursOutput);
 			}
 		});
 		m_visionThread.setDaemon(true);

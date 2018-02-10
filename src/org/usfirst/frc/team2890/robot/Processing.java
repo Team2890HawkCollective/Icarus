@@ -48,7 +48,7 @@ public class Processing {
 	public static final double OFFSET_TO_FRONT = 0;
 	public static final double CAMERA_WIDTH = 640;
 	public static final double DISTANCE_CONSTANT= 5738;
-	public static final double WIDTH_BETWEEN_TARGET = 4;
+	public static final double WIDTH_BETWEEN_TARGET = 8.5;
 	public static boolean shouldRun = true;
 	static double lengthBetweenContours = 0;
 	static double distanceFromTarget;
@@ -64,8 +64,6 @@ public class Processing {
 	public static double returnCenterX(ArrayList<MatOfPoint> filterContoursOutput){
 		if(filterContoursOutput != null)
 		{
-			
-			System.out.println("Iahsdhsgfgnrejgbvfdjcvnrngiperghfjkwrjkgrefghbe2wfbierhbgyfi3webfe");
 			
 			SmartDashboard.putNumber("size. ", filterContoursOutput.size());
 			double[] defaultValue = new double[0];
