@@ -8,6 +8,7 @@
 package org.usfirst.frc.team2890.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.*;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -26,7 +27,6 @@ import org.usfirst.frc.team2890.robot.subsystems.*;
 public class Robot extends TimedRobot 
 {
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
-	//Command driveForwardCommand;
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -37,7 +37,6 @@ public class Robot extends TimedRobot
 	{
 		RobotMap.init();
 		RobotMap.m_oi = new OI();
-		//driveForwardCommand = new DriveForward();
 		
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -76,7 +75,7 @@ public class Robot extends TimedRobot
 	public void autonomousInit() 
 	{
 		RobotMap.m_autonomousCommand = m_chooser.getSelected();
-
+		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -90,7 +89,9 @@ public class Robot extends TimedRobot
 			RobotMap.m_autonomousCommand.start();
 		}
 		
-		//Scheduler.getInstance().add(driveForwardCommand);
+		//Scheduler.getInstance().add(RobotMap.rotationAutonomous);
+		//Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
+		//Scheduler.getInstance().add(RobotMap.stopMovingCommand);
 	}
 
 	/**
@@ -121,6 +122,7 @@ public class Robot extends TimedRobot
 		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		
 		Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
+		//Scheduler.getInstance().add(RobotMap.driveForwardAutonomousCommand);
 	}
 
 	/**
@@ -130,9 +132,20 @@ public class Robot extends TimedRobot
 	public void teleopPeriodic() 
 	{
 		Scheduler.getInstance().run();
+		
 		//test to tell if we are able to send data using the buttons by displaying it on SmartDashboard
 		SmartDashboard.putBoolean("Y",RobotMap.driverController.getYButton());
 		SmartDashboard.putBoolean("X",RobotMap.driverController.getXButton());
+		SmartDashboard.putBoolean("B",RobotMap.driverController.getBButton());
+		SmartDashboard.putBoolean("A",RobotMap.driverController.getAButton());
+		//SmartDashboard.putNumber("Gryo Angle: ", RobotMap.gyro.getAngle());
+		
+		if(RobotMap.driverController.getBButton())
+		{
+			RobotMap.driveTrainSubsystem.stopMoving();
+			Scheduler.getInstance().removeAll();
+			Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
+		}
 	}
 
 	/**
@@ -141,5 +154,6 @@ public class Robot extends TimedRobot
 	@Override
 	public void testPeriodic() 
 	{
+		
 	}
 }

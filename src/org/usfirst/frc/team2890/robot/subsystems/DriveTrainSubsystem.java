@@ -27,9 +27,9 @@ public class DriveTrainSubsystem extends Subsystem
 		setDefaultCommand(new XboxDriveCommand());
 	}
 	
-	public void arcadeDrive()
+	public void xboxArcadeDrive()
 	{
-		RobotMap.tankDrive.arcadeDrive(RobotMap.driverController.getY(Hand.kLeft) * RobotMap.FORWARDS_BACKWARDS_SENSITIVITY, 
+		RobotMap.driveTrain.arcadeDrive(RobotMap.driverController.getY(Hand.kLeft) * RobotMap.FORWARDS_BACKWARDS_SENSITIVITY, 
 				RobotMap.driverController.getX(Hand.kRight) * RobotMap.X_INVERTED * RobotMap.ROTATION_SENSITIVTY);
 	}
 	
@@ -85,36 +85,33 @@ public class DriveTrainSubsystem extends Subsystem
 	
 	public void tankDrive()
 	{
-		RobotMap.tankDrive.tankDrive(RobotMap.driverController.getY(Hand.kLeft), RobotMap.driverController.getY(Hand.kRight));
+		RobotMap.driveTrain.tankDrive(RobotMap.driverController.getY(Hand.kLeft), RobotMap.driverController.getY(Hand.kRight));
 	}
 	
 	public void driveForward()
 	{
-		RobotMap.leftTalonGroup.set(RobotMap.AUTONOMOUS_FORWARD_SPEED);
-		RobotMap.rightTalonGroup.set(RobotMap.AUTONOMOUS_FORWARD_SPEED);
+		RobotMap.driveTrain.arcadeDrive(RobotMap.AUTONOMOUS_FORWARD_SPEED, 0);
 	}
+	
 	
 	public void driveBackward()
 	{
-		RobotMap.leftTalonGroup.set(RobotMap.AUTONOMOUS_BACKWARD_SPEED);
-		RobotMap.rightTalonGroup.set(RobotMap.AUTONOMOUS_BACKWARD_SPEED);
+		RobotMap.driveTrain.arcadeDrive(RobotMap.AUTONOMOUS_BACKWARD_SPEED, 0);
 	}
 	
 	public void turnLeft()
 	{
-		RobotMap.leftTalonGroup.set(RobotMap.AUTONOMOUS_BACKWARD_SPEED);
-		RobotMap.rightTalonGroup.set(RobotMap.AUTONOMOUS_FORWARD_SPEED);
+		RobotMap.driveTrain.arcadeDrive(0, RobotMap.AUTONOMOUS_BACKWARD_SPEED);
 	}
 	
 	public void turnRight()
 	{
-		RobotMap.leftTalonGroup.set(RobotMap.AUTONOMOUS_FORWARD_SPEED);
-		RobotMap.rightTalonGroup.set(RobotMap.AUTONOMOUS_BACKWARD_SPEED);
+		RobotMap.driveTrain.arcadeDrive(0, RobotMap.AUTONOMOUS_FORWARD_SPEED);
 	}
 	    
 	public void stopMoving()
 	{
-		RobotMap.leftTalonGroup.set(RobotMap.AUTONOMOUS_KILL_SWITCH);
-		RobotMap.rightTalonGroup.set(RobotMap.AUTONOMOUS_KILL_SWITCH);
+		RobotMap.driveTrain.stopMotor();
 	}
+	
 }
