@@ -88,10 +88,6 @@ public class Robot extends TimedRobot
 		{
 			RobotMap.m_autonomousCommand.start();
 		}
-		
-		//Scheduler.getInstance().add(RobotMap.rotationAutonomous);
-		//Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
-		//Scheduler.getInstance().add(RobotMap.stopMovingCommand);
 	}
 
 	/**
@@ -114,15 +110,13 @@ public class Robot extends TimedRobot
 		{
 			RobotMap.m_autonomousCommand.cancel();
 		}
-		//Scheduler.getInstance().
-		//RobotMap.talonRampOnCommand.start();
+		
 		RobotMap.frontLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.rearLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.frontRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		
 		Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
-		//Scheduler.getInstance().add(RobotMap.driveForwardAutonomousCommand);
 	}
 
 	/**
@@ -138,7 +132,6 @@ public class Robot extends TimedRobot
 		SmartDashboard.putBoolean("X",RobotMap.driverController.getXButton());
 		SmartDashboard.putBoolean("B",RobotMap.driverController.getBButton());
 		SmartDashboard.putBoolean("A",RobotMap.driverController.getAButton());
-		//SmartDashboard.putNumber("Gryo Angle: ", RobotMap.gyro.getAngle());
 		
 		if(RobotMap.driverController.getBButton())
 		{

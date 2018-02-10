@@ -33,56 +33,6 @@ public class DriveTrainSubsystem extends Subsystem
 				RobotMap.driverController.getX(Hand.kRight) * RobotMap.X_INVERTED * RobotMap.ROTATION_SENSITIVTY);
 	}
 	
-	/*public void talonRampOn()
-	{
-		if (RobotMap.x_AxisLowerDeadband >= RobotMap.driverController.getX(Hand.kRight) && RobotMap.x_AxisUpperDeadband <= RobotMap.driverController.getX(Hand.kRight))
-		{
-			RobotMap.frontLeftTalon.configOpenloopRamp(0.5, 1);
-			RobotMap.rearLeftTalon.configOpenloopRamp(0.5, 1);
-			RobotMap.frontRightTalon.configOpenloopRamp(0.5, 1);
-			RobotMap.rearRightTalon.configOpenloopRamp(0.5, 1);
-		}
-	}
-	
-	public void toggleTalonRampOn()
-	{
-		//RobotMap.leftTalonGroup.set(0);
-		//RobotMap.rightTalonGroup.set(0);
-		RobotMap.frontLeftTalon.configOpenloopRamp(0.5, 1);
-		RobotMap.rearLeftTalon.configOpenloopRamp(0.5, 1);
-		RobotMap.frontRightTalon.configOpenloopRamp(0.5, 1);
-		RobotMap.rearRightTalon.configOpenloopRamp(0.5, 1);
-	}
-	
-	public void talonRampOff()
-	{
-		if (RobotMap.x_AxisLowerDeadband >= RobotMap.driverController.getX(Hand.kRight) && RobotMap.x_AxisUpperDeadband <= RobotMap.driverController.getX(Hand.kRight))
-		{
-			RobotMap.frontLeftTalon.configOpenloopRamp(0, 1);
-			RobotMap.rearLeftTalon.configOpenloopRamp(0, 1);
-			RobotMap.frontRightTalon.configOpenloopRamp(0, 1);
-			RobotMap.rearRightTalon.configOpenloopRamp(0, 1);
-		}
-		else
-		{
-			RobotMap.frontLeftTalon.configOpenloopRamp(0.5, 1);
-			RobotMap.rearLeftTalon.configOpenloopRamp(0.5, 1);
-			RobotMap.frontRightTalon.configOpenloopRamp(0.5, 1);
-			RobotMap.rearRightTalon.configOpenloopRamp(0.5, 1);
-		}
-			
-	}
-	
-	public void toggleTalonRampOff()
-	{
-		//RobotMap.leftTalonGroup.set(0);
-		//RobotMap.rightTalonGroup.set(0);
-		RobotMap.frontLeftTalon.configOpenloopRamp(0, 1);
-		RobotMap.rearLeftTalon.configOpenloopRamp(0, 1);
-		RobotMap.frontRightTalon.configOpenloopRamp(0, 1);
-		RobotMap.rearRightTalon.configOpenloopRamp(0, 1);
-	}*/
-	
 	public void tankDrive()
 	{
 		RobotMap.driveTrain.tankDrive(RobotMap.driverController.getY(Hand.kLeft), RobotMap.driverController.getY(Hand.kRight));
@@ -101,12 +51,12 @@ public class DriveTrainSubsystem extends Subsystem
 	
 	public void turnLeft()
 	{
-		RobotMap.driveTrain.arcadeDrive(0, RobotMap.AUTONOMOUS_BACKWARD_SPEED);
+		RobotMap.driveTrain.arcadeDrive(0, RobotMap.AUTONOMOUS_ROTATE_LEFT_SPEED);
 	}
 	
 	public void turnRight()
 	{
-		RobotMap.driveTrain.arcadeDrive(0, RobotMap.AUTONOMOUS_FORWARD_SPEED);
+		RobotMap.driveTrain.arcadeDrive(0, RobotMap.AUTONOMOUS_ROTATE_RIGHT_SPEED);
 	}
 	    
 	public void stopMoving()

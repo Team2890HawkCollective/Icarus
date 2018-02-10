@@ -57,6 +57,8 @@ public class RobotMap
 	public static final double FORWARDS_BACKWARDS_SENSITIVITY = 1.0; //from 0.8
 	public static final double AUTONOMOUS_FORWARD_SPEED = -0.65;
 	public static final double AUTONOMOUS_BACKWARD_SPEED = 0.65;
+	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.65;
+	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.65;
 	public static final double AUTONOMOUS_KILL_SWITCH = 0;
 	public static final double AUTONOMOUS_ANGLE = 0.65;
 	public static final double AUTONOMOUS_DRIVE_FORWARD_TIME = 4; //time in seconds 
@@ -116,8 +118,6 @@ public class RobotMap
 		
 		rightTalonGroup = new SpeedControllerGroup(frontRightTalon, rearRightTalon);
 		leftTalonGroup = new SpeedControllerGroup(frontLeftTalon, rearLeftTalon);
-		
-		//DriveTrainSubsystem.talonRampOn(); // This is for testing, a command should be called instead
 		
 		rightTalonGroup.setInverted(true);
 		leftTalonGroup.setInverted(true);
