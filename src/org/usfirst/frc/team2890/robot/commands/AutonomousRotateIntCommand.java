@@ -35,11 +35,14 @@ public class AutonomousRotateIntCommand extends Command
 	protected void execute() 
 	{
 		RobotMap.driveTrain.arcadeDrive(0, rotationSpeed);
+		//RobotMap.driveTrain.arcadeDrive(0, rotationSpeed);
+		//RobotMap.driveTrain.arcadeDrive(xSpeed, zRotation); //clockwise is positive
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
-	protected boolean isFinished() {
+	protected boolean isFinished() 
+	{
 		return false;
 	}
 

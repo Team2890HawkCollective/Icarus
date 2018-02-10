@@ -12,6 +12,7 @@ import org.usfirst.frc.team2890.robot.subsystems.*;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
@@ -44,6 +45,7 @@ public class RobotMap
 	public static final int FRONT_LEFT_TALON_ID = 3;
 	public static final int REAR_LEFT_TALON_ID = 4;
 	public static final int DRIVER_CONTROLLER_PORT = 0;
+	public static final int GYRO_CHANNEL = 0;
 	
 	//===============================================
 	//VARIABLES
@@ -82,7 +84,7 @@ public class RobotMap
 	public static DriveTrainSubsystem driveTrainSubsystem;
 	public static ExampleSubsystem kExampleSubsystem;
 	public static OI m_oi;
-	public static Gyro gyro;
+	public static ADXRS450_Gyro gyro;
 
 	//===============================================
 	//COMMANDS
@@ -110,6 +112,8 @@ public class RobotMap
 		m_oi = new OI();
 		
 		driverController = new XboxController(DRIVER_CONTROLLER_PORT);
+		
+		gyro = new ADXRS450_Gyro();
 		
 		frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
 		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);

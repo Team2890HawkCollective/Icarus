@@ -41,6 +41,7 @@ public class Robot extends TimedRobot
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
+		RobotMap.gyro.reset();
 	}
 
 	/**
@@ -132,6 +133,7 @@ public class Robot extends TimedRobot
 		SmartDashboard.putBoolean("X",RobotMap.driverController.getXButton());
 		SmartDashboard.putBoolean("B",RobotMap.driverController.getBButton());
 		SmartDashboard.putBoolean("A",RobotMap.driverController.getAButton());
+		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
 		
 		if(RobotMap.driverController.getBButton())
 		{
