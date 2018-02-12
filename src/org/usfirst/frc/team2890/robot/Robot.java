@@ -118,7 +118,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 
-		SmartDashboard.putNumber("Rectangle", RobotMap.hambyRoomGripPipeline.filterContoursOutput.size());
+		SmartDashboard.putNumber("Rectangle", RobotMap.hambyRoomGripPipelineShortRange.filterContoursOutput.size());
 		SmartDashboard.putNumber("Center X: ", RobotMap.centerX);
 		SmartDashboard.putNumber("Distance From Target: ", RobotMap.distanceFromTargetUsingTargeting);
 		SmartDashboard.putNumber("Angle: ", RobotMap.angleFromTarget);

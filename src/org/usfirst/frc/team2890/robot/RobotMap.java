@@ -40,7 +40,8 @@ public class RobotMap
 	
 	public static Thread m_visionThread;
 	public static GripPipeline gripPipeline;
-	public static HambyRoomGripPipelineLongRange hambyRoomGripPipeline;
+	public static HambyRoomGripPipelineLongRange hambyRoomGripPipelineLongRange;
+	public static HambyRoomGripPipelineShortRange hambyRoomGripPipelineShortRange;
 	
 	public static double centerX;
 	public static double distanceFromTargetUsingTargeting;
@@ -49,7 +50,8 @@ public class RobotMap
 	public static void startThread()
 	{
 		gripPipeline = new GripPipeline();
-		hambyRoomGripPipeline = new HambyRoomGripPipelineLongRange();
+		hambyRoomGripPipelineLongRange = new HambyRoomGripPipelineLongRange();
+		hambyRoomGripPipelineShortRange = new HambyRoomGripPipelineShortRange();
 		
 		centerX = -1;
 		distanceFromTargetUsingTargeting = -1;
@@ -92,11 +94,11 @@ public class RobotMap
 						new Scalar(255, 255, 255), 5);
 				// Give the output stream a new image to display
 				outputStream.putFrame(mat);
-				hambyRoomGripPipeline.process(mat);
+				hambyRoomGripPipelineShortRange.process(mat);
 				
-				centerX = Processing.returnCenterX(hambyRoomGripPipeline.filterContoursOutput);
-				distanceFromTargetUsingTargeting = Processing.distanceFromTarget(hambyRoomGripPipeline.filterContoursOutput);
-				angleFromTarget = Processing.getAngle(hambyRoomGripPipeline.filterContoursOutput);
+				centerX = Processing.returnCenterX(hambyRoomGripPipelineShortRange.filterContoursOutput);
+				distanceFromTargetUsingTargeting = Processing.distanceFromTarget(hambyRoomGripPipelineShortRange.filterContoursOutput);
+				angleFromTarget = Processing.getAngle(hambyRoomGripPipelineShortRange.filterContoursOutput);
 			}
 		});
 		m_visionThread.setDaemon(true);
