@@ -7,6 +7,27 @@
 
 package org.usfirst.frc.team2890.robot;
 
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
+import org.usfirst.frc.team2890.robot.commands.ExampleCommand;
+import org.usfirst.frc.team2890.robot.commands.TalonRampOffCommand;
+import org.usfirst.frc.team2890.robot.commands.TalonRampOnCommand;
+import org.usfirst.frc.team2890.robot.commands.XboxDriveCommand;
+import org.usfirst.frc.team2890.robot.subsystems.*;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
