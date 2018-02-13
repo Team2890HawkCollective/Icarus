@@ -11,7 +11,6 @@ import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
-import org.usfirst.frc.team2890.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2890.robot.commands.TalonRampOffCommand;
 import org.usfirst.frc.team2890.robot.commands.TalonRampOnCommand;
 import org.usfirst.frc.team2890.robot.commands.XboxDriveCommand;
@@ -75,7 +74,6 @@ public class RobotMap
 	public static SpeedControllerGroup leftTalonGroup;
 	public static DifferentialDrive tankDrive;
 	public static DriveTrainSubsystem driveTrainSubsystem;
-	public static ExampleSubsystem kExampleSubsystem;
 	public static OI m_oi;
 	public static Command m_autonomousCommand;
 	public static Command exampleCommand;
@@ -108,13 +106,13 @@ public class RobotMap
 		
 		tankDrive = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
 		
-		kExampleSubsystem = new ExampleSubsystem();
 		driveTrainSubsystem = new DriveTrainSubsystem();
 		
-		exampleCommand = new ExampleCommand();
 		xboxDriveCommand = new XboxDriveCommand();
 		talonRampOnCommand = new TalonRampOnCommand();
 		talonRampOffCommand = new TalonRampOffCommand();
+		
+		System.out.println("In robotInit method");
 	}
 
 	public static void startThread()
@@ -122,6 +120,8 @@ public class RobotMap
 		gripPipeline = new GripPipeline();
 		hambyRoomGripPipelineLongRange = new HambyRoomGripPipelineLongRange();
 		hambyRoomGripPipelineShortRange = new HambyRoomGripPipelineShortRange();
+		
+		System.out.println("In startThread method");
 		
 		centerX = -1;
 		distanceFromTargetUsingTargeting = -1;

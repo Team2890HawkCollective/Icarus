@@ -12,8 +12,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team2890.robot.commands.ExampleCommand;
-import org.usfirst.frc.team2890.robot.subsystems.ExampleSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,8 +21,6 @@ import org.usfirst.frc.team2890.robot.subsystems.ExampleSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static final ExampleSubsystem kExampleSubsystem
-			= new ExampleSubsystem();
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
@@ -42,7 +38,6 @@ public class Robot extends TimedRobot {
 		RobotMap.m_oi = new OI();
 		//driveForwardCommand = new DriveForward();
 		
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
@@ -110,15 +105,18 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopInit() 
 	{
+		System.out.println("TeleopInit test");
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		RobotMap.startThread();
 		if (RobotMap.m_autonomousCommand != null) 
 		{
 			RobotMap.m_autonomousCommand.cancel();
 		}
+		
+		RobotMap.startThread();
+		
 		//Scheduler.getInstance().
 		//RobotMap.talonRampOnCommand.start();
 		RobotMap.frontLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
