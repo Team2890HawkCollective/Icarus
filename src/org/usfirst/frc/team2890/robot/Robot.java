@@ -41,7 +41,6 @@ public class Robot extends TimedRobot
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
-		RobotMap.gyro.reset();
 	}
 
 	/**
@@ -118,6 +117,9 @@ public class Robot extends TimedRobot
 		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		
 		Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
+		
+		RobotMap.gyro.calibrate();
+		RobotMap.gyro.reset();
 	}
 
 	/**
@@ -134,6 +136,7 @@ public class Robot extends TimedRobot
 		SmartDashboard.putBoolean("B",RobotMap.driverController.getBButton());
 		SmartDashboard.putBoolean("A",RobotMap.driverController.getAButton());
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
+		SmartDashboard.putNumber("Gyro Rate:", RobotMap.gyro.getRate());
 		
 		if(RobotMap.driverController.getBButton())
 		{

@@ -45,7 +45,6 @@ public class RobotMap
 	public static final int FRONT_LEFT_TALON_ID = 3;
 	public static final int REAR_LEFT_TALON_ID = 4;
 	public static final int DRIVER_CONTROLLER_PORT = 0;
-	public static final int GYRO_CHANNEL = 0;
 	
 	//===============================================
 	//VARIABLES
@@ -82,6 +81,7 @@ public class RobotMap
 	public static SpeedControllerGroup leftTalonGroup;
 	public static DifferentialDrive driveTrain;
 	public static DriveTrainSubsystem driveTrainSubsystem;
+	public static SensorSubsystem sensorSubsystem;
 	public static ExampleSubsystem kExampleSubsystem;
 	public static OI m_oi;
 	public static ADXRS450_Gyro gyro;
@@ -130,6 +130,7 @@ public class RobotMap
 		
 		kExampleSubsystem = new ExampleSubsystem();
 		driveTrainSubsystem = new DriveTrainSubsystem();
+		sensorSubsystem = new SensorSubsystem();
 		
 		exampleCommand = new ExampleCommand();
 		xboxDriveCommand = new XboxDriveCommand();
