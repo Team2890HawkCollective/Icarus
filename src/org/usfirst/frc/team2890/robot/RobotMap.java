@@ -12,9 +12,7 @@ import org.usfirst.frc.team2890.robot.subsystems.*;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.*;
@@ -44,6 +42,7 @@ public class RobotMap
 	public static final int REAR_RIGHT_TALON_ID = 4;
 	public static final int FRONT_LEFT_TALON_ID = 3;
 	public static final int REAR_LEFT_TALON_ID = 2;
+	public static final int TEST_TALON_ID = 6;
 	public static final int DRIVER_CONTROLLER_PORT = 0;
 	
 	//===============================================
@@ -67,9 +66,10 @@ public class RobotMap
 	public static final double AUTONOMOUS_CONSTANT_ANGLE = 15;
 	public static double autonomousAngle = 15;
 	public static double initialGyro;
-	/* TESTING VARIABLES
-	 * public static boolean flag = true;
-	*/
+	
+	//TESTING VARIABLES
+	public static boolean flag = true;
+	//
 	
 	//===============================================
 	//TALONS, CONTROLLERS & OTHER OBJECTS
@@ -79,6 +79,7 @@ public class RobotMap
 	public static WPI_TalonSRX rearRightTalon;
 	public static WPI_TalonSRX frontLeftTalon;
 	public static WPI_TalonSRX rearLeftTalon;
+	public static WPI_TalonSRX testTalon;
 	public static SpeedControllerGroup rightTalonGroup;
 	public static SpeedControllerGroup leftTalonGroup;
 	public static DifferentialDrive driveTrain;
@@ -87,6 +88,7 @@ public class RobotMap
 	public static ExampleSubsystem kExampleSubsystem;
 	public static OI m_oi;
 	public static ADXRS450_Gyro gyro;
+	public static Compressor compressor;
 
 	//===============================================
 	//COMMANDS
@@ -118,10 +120,13 @@ public class RobotMap
 		
 		gyro = new ADXRS450_Gyro();
 		
+		compressor = new Compressor();
+		
 		frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
 		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
 		frontLeftTalon = new WPI_TalonSRX(FRONT_LEFT_TALON_ID);
 		rearLeftTalon = new WPI_TalonSRX(REAR_LEFT_TALON_ID);
+		testTalon = new WPI_TalonSRX(TEST_TALON_ID); 
 		
 		rightTalonGroup = new SpeedControllerGroup(frontRightTalon, rearRightTalon);
 		leftTalonGroup = new SpeedControllerGroup(frontLeftTalon, rearLeftTalon);
@@ -148,7 +153,6 @@ public class RobotMap
 		rotationAutonomous = new AutonomousRotateIntCommand();
 		
 		initialGyro = RobotMap.gyro.getAngle();
-		
 	}
 
 }

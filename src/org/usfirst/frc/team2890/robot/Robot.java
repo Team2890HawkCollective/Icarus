@@ -126,6 +126,7 @@ public class Robot extends TimedRobot
 		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		
 		Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
+		RobotMap.compressor.setClosedLoopControl(true);
 		
 		//RobotMap.gyro.reset();
 	}
@@ -160,6 +161,15 @@ public class Robot extends TimedRobot
 	@Override
 	public void testPeriodic() 
 	{
-		
+		if(RobotMap.flag)
+		{ 
+			RobotMap.compressor.setClosedLoopControl(true);
+			RobotMap.flag = false;
+		}
+		//if(RobotMap.driverController.getBButton())
+		//{
+			//RobotMap.testTalon.set(1);
+		//}
+		//RobotMap.compressor.setClosedLoopControl(true);
 	}
 }
