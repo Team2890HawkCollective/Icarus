@@ -11,18 +11,23 @@ import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
-import org.usfirst.frc.team2890.robot.commands.*;
+import org.usfirst.frc.team2890.robot.commands.TalonRampOffCommand;
+import org.usfirst.frc.team2890.robot.commands.TalonRampOnCommand;
+import org.usfirst.frc.team2890.robot.commands.XboxDriveCommand;
 import org.usfirst.frc.team2890.robot.subsystems.*;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+<<<<<<< HEAD
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
+=======
+import edu.wpi.first.wpilibj.*;
+>>>>>>> Autonomous
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.*;
@@ -52,12 +57,17 @@ public class RobotMap
 	public static final int REAR_RIGHT_TALON_ID = 4;
 	public static final int FRONT_LEFT_TALON_ID = 3;
 	public static final int REAR_LEFT_TALON_ID = 2;
+<<<<<<< HEAD
+	public static final int DRIVER_CONTROLLER_PORT = 0;
+
+=======
 	public static final int TEST_TALON_ID = 6;
 	public static final int DRIVER_CONTROLLER_PORT = 0;
 	
 	//===============================================
 	//VARIABLES
 	//===============================================
+>>>>>>> Autonomous
 	public static final int X_INVERTED = -1;
 	public static final int RAMP_TIMEOUT = 1;
 	public static final double RAMP_TIME = 0.25;
@@ -71,6 +81,12 @@ public class RobotMap
 	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.60; // from -0.65
 	public static final double AUTONOMOUS_KILL_SWITCH = 0;
 	
+<<<<<<< HEAD
+	public static Thread m_visionThread;
+	public static GripPipeline gripPipeline;
+	public static HambyRoomGripPipelineLongRange hambyRoomGripPipelineLongRange;
+	public static HambyRoomGripPipelineShortRange hambyRoomGripPipelineShortRange;	
+=======
 	public static final double AUTONOMOUS_DRIVE_FORWARD_TIME = 4; //time in seconds 
 																  //use Driver Station Timer!
 	public static final double AUTONOMOUS_CONSTANT_ANGLE = 15;
@@ -84,10 +100,7 @@ public class RobotMap
 	//===============================================
 	//TALONS, CONTROLLERS & OTHER OBJECTS
 	//===============================================
-	public static Thread m_visionThread;
-	public static GripPipeline gripPipeline;
-	public static HambyRoomGripPipelineLongRange hambyRoomGripPipelineLongRange;
-	public static HambyRoomGripPipelineShortRange hambyRoomGripPipelineShortRange;	
+>>>>>>> Autonomous
 	public static XboxController driverController;
 	public static WPI_TalonSRX frontRightTalon;
 	public static WPI_TalonSRX rearRightTalon;
@@ -98,7 +111,11 @@ public class RobotMap
 	public static SpeedControllerGroup leftTalonGroup;
 	public static DifferentialDrive driveTrain;
 	public static DriveTrainSubsystem driveTrainSubsystem;
+<<<<<<< HEAD
+=======
 	public static SensorSubsystem sensorSubsystem;
+	public static ExampleSubsystem kExampleSubsystem;
+>>>>>>> Autonomous
 	public static OI m_oi;
 	public static ADXRS450_Gyro gyro;
 	public static Compressor compressor;
@@ -110,6 +127,12 @@ public class RobotMap
 	public static Command xboxDriveCommand;
 	public static Command talonRampOnCommand;
 	public static Command talonRampOffCommand;
+<<<<<<< HEAD
+
+	public static double centerX;
+	public static double distanceFromTargetUsingTargeting;
+	public static double angleFromTarget;
+=======
 	public static Command stopMovingCommand;
 	
 	//===============================================
@@ -124,6 +147,7 @@ public class RobotMap
 	public static Command rotationAutonomous; 
 	
 	
+>>>>>>> Autonomous
 	
 	public static void init()
 	{
@@ -144,8 +168,6 @@ public class RobotMap
 		rightTalonGroup = new SpeedControllerGroup(frontRightTalon, rearRightTalon);
 		leftTalonGroup = new SpeedControllerGroup(frontLeftTalon, rearLeftTalon);
 		
-		//DriveTrainSubsystem.talonRampOn(); // This is for testing, a command should be called instead
-		
 		rightTalonGroup.setInverted(true);
 		leftTalonGroup.setInverted(true);
 		
@@ -153,19 +175,12 @@ public class RobotMap
 		
 		driveTrainSubsystem = new DriveTrainSubsystem();
 		sensorSubsystem = new SensorSubsystem();
-
+		
 		xboxDriveCommand = new XboxDriveCommand();
 		talonRampOnCommand = new TalonRampOnCommand();
 		talonRampOffCommand = new TalonRampOffCommand();
-		driveForwardAutonomousCommand = new AutonomousDriveForwardCommand();
-		stopMovingCommand = new StopMovingCommand();
-		driveBackwardAutonomousCommand = new AutonomousDriveBackwardCommand();
-		turnLeftAutonomousCommand = new AutonomousTurnLeftCommand();
-		turnRightAutonomousCommand = new AutonomousTurnRightCommand();
-		timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(AUTONOMOUS_DRIVE_FORWARD_TIME);
-		rotationAutonomous = new AutonomousRotateIntCommand();
-		initialGyro = RobotMap.gyro.getAngle();
-
+<<<<<<< HEAD
+		
 		System.out.println("In robotInit method");
 	}
 
@@ -227,6 +242,17 @@ public class RobotMap
 		});
 		m_visionThread.setDaemon(true);
 		m_visionThread.start();
+=======
+		driveForwardAutonomousCommand = new AutonomousDriveForwardCommand();
+		stopMovingCommand = new StopMovingCommand();
+		driveBackwardAutonomousCommand = new AutonomousDriveBackwardCommand();
+		turnLeftAutonomousCommand = new AutonomousTurnLeftCommand();
+		turnRightAutonomousCommand = new AutonomousTurnRightCommand();
+		timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(AUTONOMOUS_DRIVE_FORWARD_TIME);
+		rotationAutonomous = new AutonomousRotateIntCommand();
+		
+		initialGyro = RobotMap.gyro.getAngle();
+>>>>>>> Autonomous
 	}
 
 }

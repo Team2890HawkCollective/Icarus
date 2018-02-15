@@ -8,28 +8,29 @@
 package org.usfirst.frc.team2890.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team2890.robot.Robot;
-import org.usfirst.frc.team2890.robot.RobotMap;
+import org.usfirst.frc.team2890.robot.*;
 
 /**
  * An example command.  You can replace me with your own command.
  */
-public class XboxDriveCommand extends Command {
-	public XboxDriveCommand() {
+public class AutonomousTurnLeftCommand extends Command {
+	public AutonomousTurnLeftCommand() {
 		// Use requires() here to declare subsystem dependencies
 		requires(RobotMap.driveTrainSubsystem);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
-	protected void initialize() {
+	protected void initialize() 
+	{
+		
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() 
 	{
-		RobotMap.driveTrainSubsystem.xboxArcadeDrive();
+		RobotMap.driveTrainSubsystem.turnLeft();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

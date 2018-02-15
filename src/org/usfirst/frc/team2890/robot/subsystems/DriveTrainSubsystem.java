@@ -27,94 +27,104 @@ public class DriveTrainSubsystem extends Subsystem
 		setDefaultCommand(new XboxDriveCommand());
 	}
 	
-	public void arcadeDrive()
+	public void xboxArcadeDrive()
 	{
-		RobotMap.tankDrive.arcadeDrive(RobotMap.driverController.getY(Hand.kLeft) * RobotMap.FORWARDS_BACKWARDS_SENSITIVITY, 
+		RobotMap.driveTrain.arcadeDrive(RobotMap.driverController.getY(Hand.kLeft) * RobotMap.FORWARDS_BACKWARDS_SENSITIVITY, 
 				RobotMap.driverController.getX(Hand.kRight) * RobotMap.X_INVERTED * RobotMap.ROTATION_SENSITIVTY);
 	}
 	
-	/*public void talonRampOn()
-	{
-		if (RobotMap.x_AxisLowerDeadband >= RobotMap.driverController.getX(Hand.kRight) && RobotMap.x_AxisUpperDeadband <= RobotMap.driverController.getX(Hand.kRight))
-		{
-			RobotMap.frontLeftTalon.configOpenloopRamp(0.5, 1);
-			RobotMap.rearLeftTalon.configOpenloopRamp(0.5, 1);
-			RobotMap.frontRightTalon.configOpenloopRamp(0.5, 1);
-			RobotMap.rearRightTalon.configOpenloopRamp(0.5, 1);
-		}
-	}
-	
-	public void toggleTalonRampOn()
-	{
-		//RobotMap.leftTalonGroup.set(0);
-		//RobotMap.rightTalonGroup.set(0);
-		RobotMap.frontLeftTalon.configOpenloopRamp(0.5, 1);
-		RobotMap.rearLeftTalon.configOpenloopRamp(0.5, 1);
-		RobotMap.frontRightTalon.configOpenloopRamp(0.5, 1);
-		RobotMap.rearRightTalon.configOpenloopRamp(0.5, 1);
-	}
-	
-	public void talonRampOff()
-	{
-		if (RobotMap.x_AxisLowerDeadband >= RobotMap.driverController.getX(Hand.kRight) && RobotMap.x_AxisUpperDeadband <= RobotMap.driverController.getX(Hand.kRight))
-		{
-			RobotMap.frontLeftTalon.configOpenloopRamp(0, 1);
-			RobotMap.rearLeftTalon.configOpenloopRamp(0, 1);
-			RobotMap.frontRightTalon.configOpenloopRamp(0, 1);
-			RobotMap.rearRightTalon.configOpenloopRamp(0, 1);
-		}
-		else
-		{
-			RobotMap.frontLeftTalon.configOpenloopRamp(0.5, 1);
-			RobotMap.rearLeftTalon.configOpenloopRamp(0.5, 1);
-			RobotMap.frontRightTalon.configOpenloopRamp(0.5, 1);
-			RobotMap.rearRightTalon.configOpenloopRamp(0.5, 1);
-		}
-			
-	}
-	
-	public void toggleTalonRampOff()
-	{
-		//RobotMap.leftTalonGroup.set(0);
-		//RobotMap.rightTalonGroup.set(0);
-		RobotMap.frontLeftTalon.configOpenloopRamp(0, 1);
-		RobotMap.rearLeftTalon.configOpenloopRamp(0, 1);
-		RobotMap.frontRightTalon.configOpenloopRamp(0, 1);
-		RobotMap.rearRightTalon.configOpenloopRamp(0, 1);
-	}*/
-	
 	public void tankDrive()
 	{
-		RobotMap.tankDrive.tankDrive(RobotMap.driverController.getY(Hand.kLeft), RobotMap.driverController.getY(Hand.kRight));
+		RobotMap.driveTrain.tankDrive(RobotMap.driverController.getY(Hand.kLeft), RobotMap.driverController.getY(Hand.kRight));
 	}
 	
 	public void driveForward()
 	{
-		RobotMap.leftTalonGroup.set(RobotMap.AUTONOMOUS_FORWARD_SPEED);
-		RobotMap.rightTalonGroup.set(RobotMap.AUTONOMOUS_FORWARD_SPEED);
+		RobotMap.driveTrain.arcadeDrive(RobotMap.AUTONOMOUS_FORWARD_SPEED, 0);
 	}
+	
 	
 	public void driveBackward()
 	{
-		RobotMap.leftTalonGroup.set(RobotMap.AUTONOMOUS_BACKWARD_SPEED);
-		RobotMap.rightTalonGroup.set(RobotMap.AUTONOMOUS_BACKWARD_SPEED);
+		RobotMap.driveTrain.arcadeDrive(RobotMap.AUTONOMOUS_BACKWARD_SPEED, 0);
 	}
 	
 	public void turnLeft()
 	{
-		RobotMap.leftTalonGroup.set(RobotMap.AUTONOMOUS_BACKWARD_SPEED);
-		RobotMap.rightTalonGroup.set(RobotMap.AUTONOMOUS_FORWARD_SPEED);
+
+		RobotMap.driveTrain.arcadeDrive(0, RobotMap.AUTONOMOUS_ROTATE_LEFT_SPEED);
 	}
 	
 	public void turnRight()
 	{
-		RobotMap.leftTalonGroup.set(RobotMap.AUTONOMOUS_FORWARD_SPEED);
-		RobotMap.rightTalonGroup.set(RobotMap.AUTONOMOUS_BACKWARD_SPEED);
+		RobotMap.driveTrain.arcadeDrive(0, RobotMap.AUTONOMOUS_ROTATE_RIGHT_SPEED);
 	}
 	    
 	public void stopMoving()
 	{
-		RobotMap.leftTalonGroup.set(RobotMap.AUTONOMOUS_KILL_SWITCH);
-		RobotMap.rightTalonGroup.set(RobotMap.AUTONOMOUS_KILL_SWITCH);
+		RobotMap.driveTrain.stopMotor();
 	}
+	
+	public void autonomousRotateWithCamera()
+	{
+		double turnValue = 0; //PLEASE REPLACE ZERO WITH CAMERA THREAD INPUT!!!
+								//PLEASE REPLACE THIS!!!
+		double currentAngle = RobotMap.gyro.getAngle();
+		double goalAngle = currentAngle + turnValue;
+		
+		/*if(Math.abs(currentAngle)<Math.abs(goalAngle))
+		{
+			if(turnValue > 0) turnRight();
+			if(turnValue < 0) turnLeft();
+			//if(RobotMap.gyro.getAngle()-turnValue <= 1 || RobotMap.gyro.getAngle()-turnValue >= -1) stopMoving();
+		} */
+		
+		if(turnValue > 0) 
+			{
+				turnLeft();
+				goalAngle = currentAngle + turnValue;
+				if(currentAngle <= goalAngle+1 || currentAngle >= goalAngle-1) stopMoving();
+			}
+		if(turnValue < 0) 
+			{
+				turnRight();
+				goalAngle = currentAngle + turnValue;
+				if(currentAngle <= goalAngle+1 || currentAngle >= goalAngle-1) stopMoving();
+			}
+	}
+	
+	public void turnDegrees()
+	{
+		//double initialGyro = firstGyroValue;
+		double currentGyro = RobotMap.gyro.getAngle();
+		//double turnValue = RobotMap.autonomousAngle;
+		double goalAngle = RobotMap.initialGyro + RobotMap.AUTONOMOUS_CONSTANT_ANGLE;
+		
+		System.out.println("Initial Gyro: " + RobotMap.initialGyro);
+		System.out.println("Gyro Angle: " + RobotMap.gyro.getAngle());
+		System.out.println("Turn Value: " + RobotMap.autonomousAngle);
+		System.out.println("Goal Angle: " + goalAngle + "\n    ");
+		System.out.println();
+		
+		if(RobotMap.autonomousAngle > 3) 
+		{	
+			turnRight();
+			//RobotMap.autonomousAngle = currentGyro - goalAngle; 
+			RobotMap.autonomousAngle = goalAngle - currentGyro;
+			System.out.println("Turn Right Activated!\n");
+		}
+		else if(RobotMap.autonomousAngle < -3) 
+		{
+			turnLeft();
+			//RobotMap.autonomousAngle = currentGyro - goalAngle; 
+			RobotMap.autonomousAngle = goalAngle + Math.abs(currentGyro);
+			System.out.println("Turn Left Activated!\n");
+		}
+		else 
+		{
+			stopMoving();
+			System.out.println("We have stopped moving\n");
+		}
+	}
+	
 }

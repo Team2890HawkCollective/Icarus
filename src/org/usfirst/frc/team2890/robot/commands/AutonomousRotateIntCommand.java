@@ -8,15 +8,19 @@
 package org.usfirst.frc.team2890.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team2890.robot.Robot;
-import org.usfirst.frc.team2890.robot.RobotMap;
+import org.usfirst.frc.team2890.robot.*;
 
 /**
  * An example command.  You can replace me with your own command.
  */
-public class XboxDriveCommand extends Command {
-	public XboxDriveCommand() {
+public class AutonomousRotateIntCommand extends Command 
+{
+	//public double rotationAngle;
+	//double degrees
+	public AutonomousRotateIntCommand() 
+	{
 		// Use requires() here to declare subsystem dependencies
+		//rotationAngle = degrees;
 		requires(RobotMap.driveTrainSubsystem);
 	}
 
@@ -29,12 +33,13 @@ public class XboxDriveCommand extends Command {
 	@Override
 	protected void execute() 
 	{
-		RobotMap.driveTrainSubsystem.xboxArcadeDrive();
+		RobotMap.driveTrainSubsystem.turnDegrees();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
-	protected boolean isFinished() {
+	protected boolean isFinished() 
+	{
 		return false;
 	}
 
