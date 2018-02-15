@@ -71,6 +71,10 @@ public class RobotMap
 	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.60; // from -0.65
 	public static final double AUTONOMOUS_KILL_SWITCH = 0;
 	
+	public static double centerX;
+	public static double distanceFromTargetUsingTargeting;
+	public static double angleFromTarget;
+	
 	public static final double AUTONOMOUS_DRIVE_FORWARD_TIME = 4; //time in seconds 
 																  //use Driver Station Timer!
 	public static final double AUTONOMOUS_CONSTANT_ANGLE = 15;
@@ -88,6 +92,7 @@ public class RobotMap
 	public static GripPipeline gripPipeline;
 	public static HambyRoomGripPipelineLongRange hambyRoomGripPipelineLongRange;
 	public static HambyRoomGripPipelineShortRange hambyRoomGripPipelineShortRange;	
+	
 	public static XboxController driverController;
 	public static WPI_TalonSRX frontRightTalon;
 	public static WPI_TalonSRX rearRightTalon;

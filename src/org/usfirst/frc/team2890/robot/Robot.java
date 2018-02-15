@@ -42,7 +42,6 @@ public class Robot extends TimedRobot
 		
 		RobotMap.gyro.reset();
 		
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
@@ -149,6 +148,7 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("Center X: ", RobotMap.centerX);
 		SmartDashboard.putNumber("Distance From Target: ", RobotMap.distanceFromTargetUsingTargeting);
 		SmartDashboard.putNumber("Angle: ", RobotMap.angleFromTarget);
+		
 		//test to tell if we are able to send data using the buttons by displaying it on SmartDashboard
 		SmartDashboard.putBoolean("Y",RobotMap.driverController.getYButton());
 		SmartDashboard.putBoolean("X",RobotMap.driverController.getXButton());
