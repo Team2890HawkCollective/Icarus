@@ -96,7 +96,8 @@ public class Robot extends TimedRobot
 		
 		RobotMap.gyro.reset();
 		
-		Scheduler.getInstance().add(RobotMap.rotationAutonomous);
+		Scheduler.getInstance().add(RobotMap.autonomousTargetingCommandGroup);
+		//Scheduler.getInstance().add(RobotMap.rotationAutonomous);
 	}
 
 	/**

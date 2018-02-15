@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.*;
 
@@ -75,7 +76,7 @@ public class RobotMap
 	public static double distanceFromTargetUsingTargeting;
 	public static double angleFromTarget;
 	
-	public static final double AUTONOMOUS_DRIVE_FORWARD_TIME = 4; //time in seconds 
+	public static final double AUTONOMOUS_DRIVE_FORWARD_TIME = 1; //time in seconds 
 																  //use Driver Station Timer!
 	public static final double AUTONOMOUS_CONSTANT_ANGLE = 15;
 	public static double autonomousAngle = 15;
@@ -83,6 +84,7 @@ public class RobotMap
 	
 	//TESTING VARIABLES
 	public static boolean flag = true;
+	public static boolean stopRotating = false;
 	//
 	
 	//===============================================
@@ -126,9 +128,10 @@ public class RobotMap
 	public static Command turnLeftAutonomousCommand;
 	public static Command turnRightAutonomousCommand;
 	public static Command timedDriveForwardAutonomousCommand;
-	public static Command rotationAutonomous; 
+	public static Command rotationAutonomous;
+	public static Command commandGroupRotate;
 	
-	
+	public static CommandGroup autonomousTargetingCommandGroup;
 	
 	public static void init()
 	{
@@ -169,6 +172,10 @@ public class RobotMap
 		turnRightAutonomousCommand = new AutonomousTurnRightCommand();
 		timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(AUTONOMOUS_DRIVE_FORWARD_TIME);
 		rotationAutonomous = new AutonomousRotateIntCommand();
+		commandGroupRotate = new AutonomousCommandGroupRotate();
+		
+		autonomousTargetingCommandGroup = new AutonomousTargetingCommandGroup();
+		
 		initialGyro = RobotMap.gyro.getAngle();
 
 		System.out.println("In robotInit method");

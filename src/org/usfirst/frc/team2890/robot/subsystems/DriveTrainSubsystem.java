@@ -123,6 +123,7 @@ public class DriveTrainSubsystem extends Subsystem
 		else 
 		{
 			stopMoving();
+			RobotMap.stopRotating = true;
 			System.out.println("We have stopped moving\n");
 		}
 	}
