@@ -38,9 +38,12 @@ public class Robot extends TimedRobot
 		RobotMap.init();
 		RobotMap.m_oi = new OI();
 		
+		RobotMap.gyro.reset();
+		
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
+		//RobotMap.gyro.calibrate();
 	}
 
 	/**
@@ -88,6 +91,10 @@ public class Robot extends TimedRobot
 		{
 			RobotMap.m_autonomousCommand.start();
 		}
+		
+		RobotMap.gyro.reset();
+		
+		Scheduler.getInstance().add(RobotMap.rotationAutonomous);
 	}
 
 	/**
@@ -96,6 +103,8 @@ public class Robot extends TimedRobot
 	@Override
 	public void autonomousPeriodic() 
 	{
+		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
+		
 		Scheduler.getInstance().run();
 	}
 
@@ -118,8 +127,7 @@ public class Robot extends TimedRobot
 		
 		Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
 		
-		RobotMap.gyro.calibrate();
-		RobotMap.gyro.reset();
+		//RobotMap.gyro.reset();
 	}
 
 	/**

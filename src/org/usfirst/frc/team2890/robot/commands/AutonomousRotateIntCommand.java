@@ -15,13 +15,12 @@ import org.usfirst.frc.team2890.robot.*;
  */
 public class AutonomousRotateIntCommand extends Command 
 {
-	public double rotationSpeed = 0.65;
-	public double rotationAngle;
-	
-	public AutonomousRotateIntCommand(double degrees) 
+	//public double rotationAngle;
+	//double degrees
+	public AutonomousRotateIntCommand() 
 	{
 		// Use requires() here to declare subsystem dependencies
-		rotationAngle = degrees;
+		//rotationAngle = degrees;
 		requires(RobotMap.driveTrainSubsystem);
 	}
 
@@ -34,21 +33,7 @@ public class AutonomousRotateIntCommand extends Command
 	@Override
 	protected void execute() 
 	{
-		double robotDegree = RobotMap.gyro.getAngle();
-		
-		//rotate right
-		if(robotDegree >= 90)
-		{
-			RobotMap.driveTrain.arcadeDrive(0, rotationSpeed);
-		}
-		
-		//left
-		if(robotDegree <= 90)
-		{
-			
-		}
-		//RobotMap.driveTrain.arcadeDrive(0, rotationSpeed);
-		//RobotMap.driveTrain.arcadeDrive(xSpeed, zRotation); //clockwise is positive
+		RobotMap.driveTrainSubsystem.turnDegrees();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -41,9 +41,9 @@ public class RobotMap
 	//PORT IDS
 	//===============================================
 	public static final int FRONT_RIGHT_TALON_ID = 1;
-	public static final int REAR_RIGHT_TALON_ID = 2;
+	public static final int REAR_RIGHT_TALON_ID = 4;
 	public static final int FRONT_LEFT_TALON_ID = 3;
-	public static final int REAR_LEFT_TALON_ID = 4;
+	public static final int REAR_LEFT_TALON_ID = 2;
 	public static final int DRIVER_CONTROLLER_PORT = 0;
 	
 	//===============================================
@@ -58,13 +58,15 @@ public class RobotMap
 	public static final double FORWARDS_BACKWARDS_SENSITIVITY = 1.0; //from 0.8
 	public static final double AUTONOMOUS_FORWARD_SPEED = -0.65;
 	public static final double AUTONOMOUS_BACKWARD_SPEED = 0.65;
-	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.65;
-	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.65;
+	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.60; // from 0.65
+	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.60; // from -0.65
 	public static final double AUTONOMOUS_KILL_SWITCH = 0;
-	public static final double AUTONOMOUS_ANGLE = 0.65;
+	
 	public static final double AUTONOMOUS_DRIVE_FORWARD_TIME = 4; //time in seconds 
 																  //use Driver Station Timer!
-	
+	public static final double AUTONOMOUS_CONSTANT_ANGLE = 15;
+	public static double autonomousAngle = 15;
+	public static double initialGyro;
 	/* TESTING VARIABLES
 	 * public static boolean flag = true;
 	*/
@@ -107,6 +109,7 @@ public class RobotMap
 	public static Command rotationAutonomous; 
 	
 	
+	
 	public static void init()
 	{
 		m_oi = new OI();
@@ -142,7 +145,9 @@ public class RobotMap
 		turnLeftAutonomousCommand = new AutonomousTurnLeftCommand();
 		turnRightAutonomousCommand = new AutonomousTurnRightCommand();
 		timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(AUTONOMOUS_DRIVE_FORWARD_TIME);
-		rotationAutonomous = new AutonomousRotateIntCommand(AUTONOMOUS_ANGLE);
+		rotationAutonomous = new AutonomousRotateIntCommand();
+		
+		initialGyro = RobotMap.gyro.getAngle();
 		
 	}
 
