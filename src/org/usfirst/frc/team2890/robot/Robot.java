@@ -163,6 +163,7 @@ public class Robot extends TimedRobot
 			Scheduler.getInstance().removeAll();
 			Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
 		}
+		System.out.println(RobotMap.compressor.getPressureSwitchValue());
 	}
 
 	/**

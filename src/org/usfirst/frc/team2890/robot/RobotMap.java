@@ -53,7 +53,15 @@ public class RobotMap
 	public static final int FRONT_LEFT_TALON_ID = 3;
 	public static final int REAR_LEFT_TALON_ID = 2;
 	public static final int TEST_TALON_ID = 6;
+	public static final int TOWER_TALON_ID = 5;
 	public static final int DRIVER_CONTROLLER_PORT = 0;
+	public static final int ASSISTANT_DRIVER_CONTROLLER_PORT = 1;
+	public static final int GRABBER_SOLENOID_FORWARD_PORT = 0;
+	public static final int GRABBER_SOLENOID_BACKWARD_PORT = 1;
+	public static final int ROTATE_SOLENOID_FORWARD_PORT = 2;
+	public static final int ROTATE_SOLENOID_BACKWARD_PORT = 3;
+	public static final int GEARBOX_SOLENOID_FORWARD_PORT = 4;
+	public static final int GEARBOX_SOLENOID_BACKWARD_PORT = 5;
 	
 	//===============================================
 	//VARIABLES
@@ -94,19 +102,25 @@ public class RobotMap
 	public static HambyRoomGripPipelineShortRange hambyRoomGripPipelineShortRange;	
 	
 	public static XboxController driverController;
+	public static XboxController assistantDriverController;
 	public static WPI_TalonSRX frontRightTalon;
 	public static WPI_TalonSRX rearRightTalon;
 	public static WPI_TalonSRX frontLeftTalon;
 	public static WPI_TalonSRX rearLeftTalon;
 	public static WPI_TalonSRX testTalon;
+	public static WPI_TalonSRX towerTalon;
 	public static SpeedControllerGroup rightTalonGroup;
 	public static SpeedControllerGroup leftTalonGroup;
 	public static DifferentialDrive driveTrain;
 	public static DriveTrainSubsystem driveTrainSubsystem;
 	public static SensorSubsystem sensorSubsystem;
+	public static ManipulatorSubsystem manipulatorSubsystem;
 	public static OI m_oi;
 	public static ADXRS450_Gyro gyro;
 	public static Compressor compressor;
+	public static DoubleSolenoid grabberSolenoid;
+	public static DoubleSolenoid rotateSolenoid;
+	public static DoubleSolenoid gearBoxSolenoid;
 
 	//===============================================
 	//COMMANDS
@@ -135,16 +149,21 @@ public class RobotMap
 		m_oi = new OI();
 		
 		driverController = new XboxController(DRIVER_CONTROLLER_PORT);
+		assistantDriverController = new XboxController(ASSISTANT_DRIVER_CONTROLLER_PORT);
 		
 		gyro = new ADXRS450_Gyro();
 		
 		compressor = new Compressor();
+		grabberSolenoid = new DoubleSolenoid(GRABBER_SOLENOID_FORWARD_PORT, GRABBER_SOLENOID_BACKWARD_PORT);
+		rotateSolenoid = new DoubleSolenoid(ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT);
+		gearBoxSolenoid = new DoubleSolenoid(GEARBOX_SOLENOID_FORWARD_PORT, GEARBOX_SOLENOID_BACKWARD_PORT);
 		
 		frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
 		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
 		frontLeftTalon = new WPI_TalonSRX(FRONT_LEFT_TALON_ID);
 		rearLeftTalon = new WPI_TalonSRX(REAR_LEFT_TALON_ID);
 		testTalon = new WPI_TalonSRX(TEST_TALON_ID); 
+		towerTalon = new WPI_TalonSRX(TOWER_TALON_ID);
 		
 		rightTalonGroup = new SpeedControllerGroup(frontRightTalon, rearRightTalon);
 		leftTalonGroup = new SpeedControllerGroup(frontLeftTalon, rearLeftTalon);
@@ -158,6 +177,7 @@ public class RobotMap
 		
 		driveTrainSubsystem = new DriveTrainSubsystem();
 		sensorSubsystem = new SensorSubsystem();
+		manipulatorSubsystem = new ManipulatorSubsystem();
 
 		xboxDriveCommand = new XboxDriveCommand();
 		talonRampOnCommand = new TalonRampOnCommand();
