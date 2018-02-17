@@ -85,7 +85,6 @@ public class RobotMap
 	public static DifferentialDrive driveTrain;
 	public static DriveTrainSubsystem driveTrainSubsystem;
 	public static SensorSubsystem sensorSubsystem;
-	public static ExampleSubsystem kExampleSubsystem;
 	public static OI m_oi;
 	public static ADXRS450_Gyro gyro;
 	public static Compressor compressor;
@@ -136,11 +135,9 @@ public class RobotMap
 		
 		driveTrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
 		
-		kExampleSubsystem = new ExampleSubsystem();
 		driveTrainSubsystem = new DriveTrainSubsystem();
 		sensorSubsystem = new SensorSubsystem();
 		
-		exampleCommand = new ExampleCommand();
 		xboxDriveCommand = new XboxDriveCommand();
 		talonRampOnCommand = new TalonRampOnCommand();
 		talonRampOffCommand = new TalonRampOffCommand();
