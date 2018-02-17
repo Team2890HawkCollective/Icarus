@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team2890.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.*;
@@ -27,7 +28,6 @@ import org.usfirst.frc.team2890.robot.subsystems.*;
 public class Robot extends TimedRobot 
 {
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
-	//Command driveForwardCommand;
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -36,14 +36,21 @@ public class Robot extends TimedRobot
 	@Override
 	public void robotInit() 
 	{
+		
 		RobotMap.init();
 		RobotMap.m_oi = new OI();
-		//driveForwardCommand = new DriveForward();
 		
 		RobotMap.gyro.reset();
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
+		
+		m_chooser.addObject("Autonomous from the Middle Right: ", RobotMap.autonomousTargetingRightCommandGroup);
+		m_chooser.addObject("Autonomous from the Middle Left: ", RobotMap.autonomousTargetingLeftCommandGroup);
+		m_chooser.addObject("Autonomous from the Left: ", RobotMap.autonomousLeftCommandGroup);
+		m_chooser.addObject("Autonomous from the Right: ", RobotMap.autonomousRightCommandGroup);
 		SmartDashboard.putData("Auto mode", m_chooser);
+		
+		//RobotMap.gyro.calibrate();
 	}
 
 	/**
@@ -52,10 +59,8 @@ public class Robot extends TimedRobot
 	 * the robot is disabled.
 	 */
 	@Override
-	public void disabledInit() {
-		
-		if(RobotMap.m_visionThread != null)
-			RobotMap.m_visionThread.interrupt();
+	public void disabledInit() 
+	{
 
 	}
 
@@ -80,7 +85,7 @@ public class Robot extends TimedRobot
 	public void autonomousInit() 
 	{
 		RobotMap.m_autonomousCommand = m_chooser.getSelected();
-
+		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -96,8 +101,46 @@ public class Robot extends TimedRobot
 		
 		RobotMap.gyro.reset();
 		
-		Scheduler.getInstance().add(RobotMap.autonomousTargetingCommandGroup);
-		//Scheduler.getInstance().add(RobotMap.rotationAutonomous);
+		RobotMap.autonomousCommandGroupChooser = (CommandGroup) m_chooser.getSelected();
+		
+		while((DriverStation.getInstance().getGameSpecificMessage()) == null)
+		{
+			
+		}	 
+		
+		RobotMap.gameData = DriverStation.getInstance().getGameSpecificMessage();
+		RobotMap.gameDataLetter = RobotMap.gameData.substring(0, 1);
+		
+		if(RobotMap.gameDataLetter.equalsIgnoreCase("R"))
+		{
+			if(m_chooser.getSelected().getName() == "Autonomous from the Right: ")
+			{
+				RobotMap.autonomousCommandGroupChooser.start();
+			}
+			else if(m_chooser.getSelected().getName() == "Autonomous from the Left: ")
+			{
+				Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
+			}
+			else if(m_chooser.getSelected().getName() == "Autonomous from the Middle Right: ")
+			{
+				RobotMap.autonomousCommandGroupChooser.start();
+			}
+		}
+		else if(RobotMap.gameDataLetter.equalsIgnoreCase("L"));
+		{
+			if(m_chooser.getSelected().getName() == "Autonomous from the Right: ")
+			{
+				Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
+			}
+			else if(m_chooser.getSelected().getName() == "Autonomous from the Left: ")
+			{
+				RobotMap.autonomousCommandGroupChooser.start();
+			}
+			else if(m_chooser.getSelected().getName() == "Autonomous from the Middle Left: ")
+			{
+				RobotMap.autonomousCommandGroupChooser.start();
+			}
+		}
 	}
 
 	/**
@@ -123,10 +166,6 @@ public class Robot extends TimedRobot
 			RobotMap.m_autonomousCommand.cancel();
 		}
 		
-		RobotMap.startThread();
-		
-		//Scheduler.getInstance().
-		//RobotMap.talonRampOnCommand.start();
 		RobotMap.frontLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.rearLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.frontRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
@@ -135,6 +174,7 @@ public class Robot extends TimedRobot
 		Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
 		RobotMap.compressor.setClosedLoopControl(true);
 		
+		//RobotMap.gyro.reset();
 	}
 
 	/**
@@ -144,11 +184,6 @@ public class Robot extends TimedRobot
 	public void teleopPeriodic() 
 	{
 		Scheduler.getInstance().run();
-
-		SmartDashboard.putNumber("Rectangle", RobotMap.hambyRoomGripPipelineShortRange.filterContoursOutput.size());
-		SmartDashboard.putNumber("Center X: ", RobotMap.centerX);
-		SmartDashboard.putNumber("Distance From Target: ", RobotMap.distanceFromTargetUsingTargeting);
-		SmartDashboard.putNumber("Angle: ", RobotMap.angleFromTarget);
 		
 		//test to tell if we are able to send data using the buttons by displaying it on SmartDashboard
 		SmartDashboard.putBoolean("Y",RobotMap.driverController.getYButton());
@@ -172,5 +207,15 @@ public class Robot extends TimedRobot
 	@Override
 	public void testPeriodic() 
 	{
+		if(RobotMap.flag)
+		{ 
+			RobotMap.compressor.setClosedLoopControl(true);
+			RobotMap.flag = false;
+		}
+		//if(RobotMap.driverController.getBButton())
+		//{
+			//RobotMap.testTalon.set(1);
+		//}
+		//RobotMap.compressor.setClosedLoopControl(true);
 	}
 }

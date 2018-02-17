@@ -1,22 +1,17 @@
 package org.usfirst.frc.team2890.robot.commands;
 
-import org.usfirst.frc.team2890.robot.RobotMap;
-
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AutonomousTargetingCommandGroup extends CommandGroup 
-{
-    public AutonomousTargetingCommandGroup() 
+public class RRAutonomousRightCommandGroup extends CommandGroup {
+
+    public RRAutonomousRightCommandGroup() 
     {
-    	
     	addSequential(new AutonomousTimedDriveForward(1));
-    	addSequential(new AutonomousCommandGroupRotate());
+    	addSequential(new AutonomousCommandGroupRotateBack());
     	addSequential(new AutonomousTimedDriveForward(1));
-    	
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

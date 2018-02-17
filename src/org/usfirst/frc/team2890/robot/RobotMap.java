@@ -66,10 +66,10 @@ public class RobotMap
 	public static final double X_AXIS_UPPER_DEADBAND = 0.01;
 	public static final double ROTATION_SENSITIVTY = 0.7; //from 0.65
 	public static final double FORWARDS_BACKWARDS_SENSITIVITY = 1.0; //from 0.8
-	public static final double AUTONOMOUS_FORWARD_SPEED = -0.65;
-	public static final double AUTONOMOUS_BACKWARD_SPEED = 0.65;
-	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.60; // from 0.65
-	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.60; // from -0.65
+	public static final double AUTONOMOUS_FORWARD_SPEED = -0.4; //-.65
+	public static final double AUTONOMOUS_BACKWARD_SPEED = 0.4; //.65
+	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.5; // from 0.65
+	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.5; // from -0.65
 	public static final double AUTONOMOUS_KILL_SWITCH = 0;
 	
 	public static double centerX;
@@ -78,9 +78,12 @@ public class RobotMap
 	
 	public static final double AUTONOMOUS_DRIVE_FORWARD_TIME = 1; //time in seconds 
 																  //use Driver Station Timer!
-	public static final double AUTONOMOUS_CONSTANT_ANGLE = 15;
-	public static double autonomousAngle = 15;
+	public static double AUTONOMOUS_CONSTANT_ANGLE = 90;
+	public static double autonomousAngle = 90;
 	public static double initialGyro;
+	
+	public static String gameData;
+	public static String gameDataLetter;
 	
 	//TESTING VARIABLES
 	public static boolean flag = true;
@@ -131,7 +134,11 @@ public class RobotMap
 	public static Command rotationAutonomous;
 	public static Command commandGroupRotate;
 	
-	public static CommandGroup autonomousTargetingCommandGroup;
+	public static CommandGroup autonomousTargetingRightCommandGroup;
+	public static CommandGroup autonomousTargetingLeftCommandGroup;
+	public static CommandGroup autonomousLeftCommandGroup;
+	public static CommandGroup autonomousRightCommandGroup;
+	public static CommandGroup autonomousCommandGroupChooser;
 	
 	public static void init()
 	{
@@ -174,7 +181,11 @@ public class RobotMap
 		rotationAutonomous = new AutonomousRotateIntCommand();
 		commandGroupRotate = new AutonomousCommandGroupRotate();
 		
-		autonomousTargetingCommandGroup = new AutonomousTargetingCommandGroup();
+		autonomousTargetingRightCommandGroup = new AutonomousTargetingRightCommandGroup();
+		autonomousTargetingLeftCommandGroup = new AutonomousTargetingLeftCommandGroup();
+		autonomousLeftCommandGroup = new LLAutonomousLeftCommandGroup();
+		autonomousRightCommandGroup = new RRAutonomousRightCommandGroup();
+		autonomousCommandGroupChooser = new CommandGroup();
 		
 		initialGyro = RobotMap.gyro.getAngle();
 
