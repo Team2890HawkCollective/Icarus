@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -76,8 +77,8 @@ public class RobotMap
 	public static double distanceFromTargetUsingTargeting;
 	public static double angleFromTarget;
 	
-	public static final double AUTONOMOUS_DRIVE_FORWARD_TIME = 1; //time in seconds 
-																  //use Driver Station Timer!
+	public static double AUTONOMOUS_DRIVE_FORWARD_TIME; //time in seconds 
+															//use Driver Station Timer!
 	public static double AUTONOMOUS_CONSTANT_ANGLE = 90;
 	public static double autonomousAngle = 90;
 	public static double initialGyro;
@@ -188,8 +189,6 @@ public class RobotMap
 		autonomousCommandGroupChooser = new CommandGroup();
 		
 		initialGyro = RobotMap.gyro.getAngle();
-
-		System.out.println("In robotInit method");
 	}
 
 	public static void startThread()

@@ -13,10 +13,10 @@ public class AutonomousTargetingRightCommandGroup extends CommandGroup
     public AutonomousTargetingRightCommandGroup() 
     {
     	
-    	addSequential(new AutonomousTimedDriveForward(1));
+    	addSequential(new AutonomousTimedDriveForward(3));
     	addSequential(new AutonomousCommandGroupRotate());
-    	addSequential(new AutonomousTimedDriveForward(1));
-    	addSequential(new AutonomousCommandGroupRotateBack());
+    	addSequential(new AutonomousTimedDriveForward(3));
+    	//addSequential(new AutonomousCommandGroupRotateBack());
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());

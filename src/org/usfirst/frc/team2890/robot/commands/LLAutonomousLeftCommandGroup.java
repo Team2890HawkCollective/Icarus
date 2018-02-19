@@ -9,9 +9,9 @@ public class LLAutonomousLeftCommandGroup extends CommandGroup {
 
     public LLAutonomousLeftCommandGroup() {
     	
-    	addSequential(new AutonomousTimedDriveForward(1));
-    	addSequential(new AutonomousCommandGroupRotate());
-    	addSequential(new AutonomousTimedDriveForward(1));
+    	addSequential(new AutonomousTimedDriveForward(3));
+    	addSequential(new AutonomousCommandGroupRotateBack());
+    	addSequential(new AutonomousTimedDriveForward(3));
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());

@@ -36,6 +36,7 @@ public class Robot extends TimedRobot
 	@Override
 	public void robotInit() 
 	{
+		SmartDashboard.putNumber("Time Drive Forward: ", 0);
 		
 		RobotMap.init();
 		RobotMap.m_oi = new OI();
@@ -44,7 +45,8 @@ public class Robot extends TimedRobot
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		
-		m_chooser.addObject("Autonomous from the Middle Right: ", RobotMap.autonomousTargetingRightCommandGroup);
+		//Have to have .addDefault() or else will not show up.
+		m_chooser.addDefault("Autonomous from the Middle Right: ", RobotMap.autonomousTargetingRightCommandGroup);
 		m_chooser.addObject("Autonomous from the Middle Left: ", RobotMap.autonomousTargetingLeftCommandGroup);
 		m_chooser.addObject("Autonomous from the Left: ", RobotMap.autonomousLeftCommandGroup);
 		m_chooser.addObject("Autonomous from the Right: ", RobotMap.autonomousRightCommandGroup);
@@ -102,6 +104,8 @@ public class Robot extends TimedRobot
 		RobotMap.gyro.reset();
 		
 		RobotMap.autonomousCommandGroupChooser = (CommandGroup) m_chooser.getSelected();
+		RobotMap.autonomousCommandGroupChooser.start();
+		
 		
 		while((DriverStation.getInstance().getGameSpecificMessage()) == null)
 		{
@@ -116,6 +120,7 @@ public class Robot extends TimedRobot
 			if(m_chooser.getSelected().getName() == "Autonomous from the Right: ")
 			{
 				RobotMap.autonomousCommandGroupChooser.start();
+				
 			}
 			else if(m_chooser.getSelected().getName() == "Autonomous from the Left: ")
 			{
@@ -141,6 +146,7 @@ public class Robot extends TimedRobot
 				RobotMap.autonomousCommandGroupChooser.start();
 			}
 		}
+		
 	}
 
 	/**
@@ -150,6 +156,7 @@ public class Robot extends TimedRobot
 	public void autonomousPeriodic() 
 	{
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
+		RobotMap.AUTONOMOUS_DRIVE_FORWARD_TIME = SmartDashboard.getNumber("Time Drive Forward: ", -1);
 		
 		Scheduler.getInstance().run();
 	}

@@ -8,6 +8,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousTargetingLeftCommandGroup extends CommandGroup {
 
     public AutonomousTargetingLeftCommandGroup() {
+    	
+    	addSequential(new AutonomousTimedDriveForward(1));
+    	addSequential(new AutonomousCommandGroupRotateBack());
+    	addSequential(new AutonomousTimedDriveForward(1));
+    	addSequential(new AutonomousCommandGroupRotate());
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
