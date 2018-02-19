@@ -82,6 +82,8 @@ public class RobotMap
 	public static double AUTONOMOUS_CONSTANT_ANGLE = 90;
 	public static double autonomousAngle = 90;
 	public static double initialGyro;
+	public static double goalAngle;
+	public static double turnDegrees;
 	
 	public static String gameData;
 	public static String gameDataLetter;
@@ -179,7 +181,7 @@ public class RobotMap
 		turnLeftAutonomousCommand = new AutonomousTurnLeftCommand();
 		turnRightAutonomousCommand = new AutonomousTurnRightCommand();
 		timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(AUTONOMOUS_DRIVE_FORWARD_TIME);
-		rotationAutonomous = new AutonomousRotateIntCommand();
+		rotationAutonomous = new AutonomousRotateIntCommand(turnDegrees);
 		commandGroupRotate = new AutonomousCommandGroupRotate();
 		
 		autonomousTargetingRightCommandGroup = new AutonomousTargetingRightCommandGroup();

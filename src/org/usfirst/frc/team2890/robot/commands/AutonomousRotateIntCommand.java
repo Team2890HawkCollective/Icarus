@@ -17,16 +17,20 @@ public class AutonomousRotateIntCommand extends Command
 {
 	//public double rotationAngle;
 	//double degrees
-	public AutonomousRotateIntCommand() 
+	public AutonomousRotateIntCommand(double turnDegrees) 
 	{
 		// Use requires() here to declare subsystem dependencies
 		//rotationAngle = degrees;
 		requires(RobotMap.driveTrainSubsystem);
+		RobotMap.turnDegrees = turnDegrees;
+		
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		RobotMap.stopRotating = false;
+		RobotMap.goalAngle = RobotMap.gyro.getAngle() + RobotMap.goalAngle;
 		
 	}
 
@@ -34,14 +38,14 @@ public class AutonomousRotateIntCommand extends Command
 	@Override
 	protected void execute() 
 	{
-		RobotMap.driveTrainSubsystem.turnDegrees();
+		RobotMap.driveTrainSubsystem.turnDegrees(RobotMap.goalAngle, RobotMap.turnDegrees);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() 
 	{
-		return false;
+		return RobotMap.stopRotating;
 	}
 
 	// Called once after isFinished returns true

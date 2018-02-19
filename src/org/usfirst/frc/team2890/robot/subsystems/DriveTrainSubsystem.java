@@ -65,6 +65,7 @@ public class DriveTrainSubsystem extends Subsystem
 		RobotMap.driveTrain.stopMotor();
 	}
 	
+	/*
 	public void autonomousRotateWithCamera()
 	{
 		double turnValue = 0; //PLEASE REPLACE ZERO WITH CAMERA THREAD INPUT!!!
@@ -77,7 +78,7 @@ public class DriveTrainSubsystem extends Subsystem
 			if(turnValue > 0) turnRight();
 			if(turnValue < 0) turnLeft();
 			//if(RobotMap.gyro.getAngle()-turnValue <= 1 || RobotMap.gyro.getAngle()-turnValue >= -1) stopMoving();
-		} */
+		} 
 		
 		if(turnValue > 0) 
 			{
@@ -92,40 +93,31 @@ public class DriveTrainSubsystem extends Subsystem
 				if(currentAngle <= goalAngle+1 || currentAngle >= goalAngle-1) stopMoving();
 			}
 	}
+	*/
 	
-	public void turnDegrees()
+	public void turnDegrees(double goalAngle, double turnDegrees)
 	{
-		//double initialGyro = firstGyroValue;
-		double currentGyro = RobotMap.gyro.getAngle();
-		//double turnValue = RobotMap.autonomousAngle;
-		double goalAngle = RobotMap.initialGyro + RobotMap.AUTONOMOUS_CONSTANT_ANGLE;
-		
-		System.out.println("Initial Gyro: " + RobotMap.initialGyro);
-		System.out.println("Gyro Angle: " + RobotMap.gyro.getAngle());
-		System.out.println("Turn Value: " + RobotMap.autonomousAngle);
-		System.out.println("Goal Angle: " + goalAngle + "\n    ");
-		System.out.println();
-		
-		if(RobotMap.autonomousAngle > 3) 
-		{	
-			turnRight();
-			//RobotMap.autonomousAngle = currentGyro - goalAngle; 
-			RobotMap.autonomousAngle = goalAngle - currentGyro;
-			System.out.println("Turn Right Activated!\n");
-		}
-		else if(RobotMap.autonomousAngle < -3) 
+		if(turnDegrees > 0)
 		{
-			turnLeft();
-			//RobotMap.autonomousAngle = currentGyro - goalAngle; 
-			RobotMap.autonomousAngle = goalAngle + Math.abs(currentGyro);
-			System.out.println("Turn Left Activated!\n");
+			if(RobotMap.gyro.getAngle() < goalAngle)
+				turnRight();
+			else
+			{
+				stopMoving();
+				RobotMap.stopRotating = true;
+			}
 		}
-		else 
+		else
 		{
-			stopMoving();
-			RobotMap.stopRotating = true;
-			System.out.println("We have stopped moving\n");
+			if(RobotMap.gyro.getAngle() > goalAngle)
+				turnLeft();
+			else
+			{
+				stopMoving();
+				RobotMap.stopRotating = true;
+			}
 		}
 	}
+	
 	
 }

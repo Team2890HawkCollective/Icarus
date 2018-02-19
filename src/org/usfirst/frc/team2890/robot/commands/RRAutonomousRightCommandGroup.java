@@ -10,7 +10,7 @@ public class RRAutonomousRightCommandGroup extends CommandGroup {
     public RRAutonomousRightCommandGroup() 
     {
     	addSequential(new AutonomousTimedDriveForward(1));
-    	addSequential(new AutonomousCommandGroupRotateBack());
+    	addSequential(new AutonomousCommandGroupRotate());
     	addSequential(new AutonomousTimedDriveForward(1));
         // Add Commands here:
         // e.g. addSequential(new Command1());

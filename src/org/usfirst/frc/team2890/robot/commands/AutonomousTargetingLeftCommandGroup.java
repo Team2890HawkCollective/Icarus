@@ -10,7 +10,7 @@ public class AutonomousTargetingLeftCommandGroup extends CommandGroup {
     public AutonomousTargetingLeftCommandGroup() {
     	
     	addSequential(new AutonomousTimedDriveForward(1));
-    	addSequential(new AutonomousCommandGroupRotateBack());
+    	addSequential(new AutonomousCommandGroupRotate());
     	addSequential(new AutonomousTimedDriveForward(1));
     	addSequential(new AutonomousCommandGroupRotate());
         // Add Commands here:
