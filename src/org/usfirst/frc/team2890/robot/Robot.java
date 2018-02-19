@@ -98,7 +98,6 @@ public class Robot extends TimedRobot
 		
 		RobotMap.autonomousCommandGroupChooser = (CommandGroup) m_chooser.getSelected();
 		
-		//Scheduler.getInstance().add(RobotMap.rotationAutonomous);
 		
 		/*RobotMap.autonomousCommandGroupChooser.start();
 		
@@ -153,18 +152,20 @@ public class Robot extends TimedRobot
 	public void autonomousPeriodic() 
 	{
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
-		RobotMap.AUTONOMOUS_DRIVE_FORWARD_TIME = SmartDashboard.getNumber("Time Drive Forward: ", -1);
 		
-		
-		RobotMap.turnDegrees = SmartDashboard.getNumber("Rotate number: ", -20);
+		//RobotMap.AUTONOMOUS_DRIVE_FORWARD_TIME = SmartDashboard.getNumber("Time Drive Forward: ", -1);
+		//RobotMap.turnDegrees = SmartDashboard.getNumber("Rotate number: ", -20);
 		
 		// Done this way so we can use the SmartDashboard number
+		
 		if(RobotMap.firstTimeThrough)
 		{
 			RobotMap.timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(RobotMap.AUTONOMOUS_DRIVE_FORWARD_TIME);
 			RobotMap.rotationAutonomous = new AutonomousRotateIntCommand(RobotMap.turnDegrees);
+			RobotMap.autonomousTargetingRightCommandGroup = new AutonomousTargetingRightCommandGroup();
+			System.out.println(RobotMap.turnDegrees);
 			
-			Scheduler.getInstance().add(RobotMap.rotationAutonomous);
+			Scheduler.getInstance().add(RobotMap.autonomousTargetingRightCommandGroup);
 			RobotMap.firstTimeThrough = false;
 		}
 		

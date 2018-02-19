@@ -77,11 +77,11 @@ public class RobotMap
 	public static double distanceFromTargetUsingTargeting;
 	public static double angleFromTarget;
 	
-	public static double AUTONOMOUS_DRIVE_FORWARD_TIME; //time in seconds 
+	public static double AUTONOMOUS_DRIVE_FORWARD_TIME = 3.0; //time in seconds 
 															//use Driver Station Timer!
 	public static double initialGyro;
 	public static double goalAngle;
-	public static double turnDegrees;
+	public static double turnDegrees = 90;
 	
 	public static String gameData;
 	public static String gameDataLetter;
