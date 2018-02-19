@@ -20,63 +20,75 @@ public class ManipulatorSubsystem extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void openGripper()
+    public void controlGripper()
     {
-    	if (RobotMap.assistantDriverController.getAButton())
+    	if(RobotMap.assistantDriverController.getXButtonPressed())
     	{
-    		RobotMap.grabberSolenoid.set(DoubleSolenoid.Value.kReverse);
+    		//open gripper
+    		if(RobotMap.controlGripperFlag)
+        	{
+    			RobotMap.grabberSolenoid.set(DoubleSolenoid.Value.kReverse);
+        		RobotMap.controlGripperFlag = false;
+        	}
+    		//close gripper
+        	else
+        	{
+        		RobotMap.grabberSolenoid.set(DoubleSolenoid.Value.kForward);
+        		RobotMap.controlGripperFlag = true;
+        	}
     	}
+    	//System.out.println("shiftGearMethod is working");
     }
     
-    public void closeGripper()
+    public void controlCube()
     {
-    	if(RobotMap.assistantDriverController.getXButton())
+    	if(RobotMap.assistantDriverController.getYButtonPressed())
     	{
-    		RobotMap.grabberSolenoid.set(DoubleSolenoid.Value.kForward);
+    		//cube up
+    		if(RobotMap.controlCubeFlag)
+        	{
+    			RobotMap.rotateSolenoid.set(DoubleSolenoid.Value.kReverse);
+        		RobotMap.controlCubeFlag = false;
+        	}
+    		//cube down
+        	else
+        	{
+        		RobotMap.rotateSolenoid.set(DoubleSolenoid.Value.kForward);
+        		RobotMap.controlCubeFlag = true;
+        	}
     	}
+    	//System.out.println("shiftGearMethod is working");
     }
     
-    public void cubeUp()
+    public void shiftGearMethod()
     {
-    	if (RobotMap.assistantDriverController.getYButton())
+    	if(RobotMap.assistantDriverController.getAButtonPressed())
     	{
-    		RobotMap.rotateSolenoid.set(DoubleSolenoid.Value.kReverse);
+    		if(RobotMap.shiftGearButtonFlag)
+        	{
+        		RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kForward);
+        		System.out.println("shifting to low gear");
+        		RobotMap.shiftGearButtonFlag = false;
+        	}
+        	else
+        	{
+        		RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kReverse);
+        		System.out.println("shifting to high gearr");
+        		RobotMap.shiftGearButtonFlag = true;
+        	}
     	}
-    }
-    
-    public void cubeDown()
-    {
-    	if (RobotMap.assistantDriverController.getBButton())
-    	{
-    		RobotMap.rotateSolenoid.set(DoubleSolenoid.Value.kForward);
-    	}
-    }
-    
-    public void shiftToHighGear()
-    {
-    	if(RobotMap.assistantDriverController.getBackButton())
-    	{
-    		RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kReverse);
-    	}
-    }
-    
-    public void shiftToLowGear()
-    {
-    	if(RobotMap.assistantDriverController.getStartButton())
-    	{
-    		RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kForward);
-    	}
+    	System.out.println("shiftGearMethod is working"); //if(!RobotMap.shiftGearButtonFlag)
     }
     
     public void towerUp()
     {
     	if (RobotMap.assistantDriverController.getBumper(Hand.kLeft))
     	{
-    		RobotMap.towerTalon.set(0.1);
+    		RobotMap.rightTowerTalon.set(0.1);
     	}
     	else 
     	{
-    		RobotMap.towerTalon.set(0.0);
+    		RobotMap.rightTowerTalon.set(0.0);
     	}
     }
     
@@ -84,16 +96,13 @@ public class ManipulatorSubsystem extends Subsystem {
     {
     	if (RobotMap.assistantDriverController.getBumper(Hand.kRight))
     	{
-    		RobotMap.towerTalon.set(-0.1);
+    		RobotMap.rightTowerTalon.set(-0.1);
     	}
     	else
     	{
-    		RobotMap.towerTalon.set(0.0);
+    		RobotMap.rightTowerTalon.set(0.0);
     	}
     }
-    
-    
-    
     
 }
 	

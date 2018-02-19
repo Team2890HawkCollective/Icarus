@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class GripperOpenCommand extends Command {
+public class ShiftGearCommand extends Command {
 
-    public GripperOpenCommand() 
+    public ShiftGearCommand() 
     {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -25,7 +25,7 @@ public class GripperOpenCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
     {
-    	RobotMap.manipulatorSubsystem.openGripper();
+    	RobotMap.manipulatorSubsystem.shiftGearMethod();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -37,7 +37,7 @@ public class GripperOpenCommand extends Command {
     // Called once after isFinished returns true
     protected void end() 
     {
-    	
+    
     }
 
     // Called when another command which requires one or more of the same

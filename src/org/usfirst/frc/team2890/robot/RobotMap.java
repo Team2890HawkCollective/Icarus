@@ -52,8 +52,8 @@ public class RobotMap
 	public static final int REAR_RIGHT_TALON_ID = 4;
 	public static final int FRONT_LEFT_TALON_ID = 3;
 	public static final int REAR_LEFT_TALON_ID = 2;
-	public static final int TEST_TALON_ID = 6;
-	public static final int TOWER_TALON_ID = 5;
+	public static final int RIGHT_TALON_TOWER_ID = 6;
+	public static final int LEFT_TALON_TOWER_ID = 5;
 	public static final int DRIVER_CONTROLLER_PORT = 0;
 	public static final int ASSISTANT_DRIVER_CONTROLLER_PORT = 1;
 	public static final int GRABBER_SOLENOID_FORWARD_PORT = 0;
@@ -88,10 +88,15 @@ public class RobotMap
 	public static final double AUTONOMOUS_CONSTANT_ANGLE = 15;
 	public static double autonomousAngle = 15;
 	public static double initialGyro;
+	public static boolean keepThreadRunning = true;
+	public static boolean shiftGearButtonFlag = true;
 	
+	//===============================================
 	//TESTING VARIABLES
-	public static boolean flag = true;
-	//
+	//===============================================
+	
+	public static boolean controlGripperFlag = true;
+	public static boolean controlCubeFlag = true;
 	
 	//===============================================
 	//TALONS, CONTROLLERS & OTHER OBJECTS
@@ -107,8 +112,8 @@ public class RobotMap
 	public static WPI_TalonSRX rearRightTalon;
 	public static WPI_TalonSRX frontLeftTalon;
 	public static WPI_TalonSRX rearLeftTalon;
-	public static WPI_TalonSRX testTalon;
-	public static WPI_TalonSRX towerTalon;
+	public static WPI_TalonSRX leftTowerTalon;
+	public static WPI_TalonSRX rightTowerTalon;
 	public static SpeedControllerGroup rightTalonGroup;
 	public static SpeedControllerGroup leftTalonGroup;
 	public static DifferentialDrive driveTrain;
@@ -141,8 +146,11 @@ public class RobotMap
 	public static Command turnRightAutonomousCommand;
 	public static Command timedDriveForwardAutonomousCommand;
 	public static Command rotationAutonomous; 
-	
-	
+	public static Command controlCubeCommand;
+	public static Command controlGripperCommand;
+	public static Command shiftGearCommand;
+	public static Command towerDownCommand;
+	public static Command towerUpCommand;
 	
 	public static void init()
 	{
@@ -162,8 +170,8 @@ public class RobotMap
 		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
 		frontLeftTalon = new WPI_TalonSRX(FRONT_LEFT_TALON_ID);
 		rearLeftTalon = new WPI_TalonSRX(REAR_LEFT_TALON_ID);
-		testTalon = new WPI_TalonSRX(TEST_TALON_ID); 
-		towerTalon = new WPI_TalonSRX(TOWER_TALON_ID);
+		leftTowerTalon = new WPI_TalonSRX(RIGHT_TALON_TOWER_ID); 
+		rightTowerTalon = new WPI_TalonSRX(LEFT_TALON_TOWER_ID);
 		
 		rightTalonGroup = new SpeedControllerGroup(frontRightTalon, rearRightTalon);
 		leftTalonGroup = new SpeedControllerGroup(frontLeftTalon, rearLeftTalon);
@@ -189,6 +197,12 @@ public class RobotMap
 		turnRightAutonomousCommand = new AutonomousTurnRightCommand();
 		timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(AUTONOMOUS_DRIVE_FORWARD_TIME);
 		rotationAutonomous = new AutonomousRotateIntCommand();
+		shiftGearCommand = new ShiftGearCommand();
+		controlCubeCommand = new ControlCubeCommand();
+		controlGripperCommand = new ControlGripperCommand();
+		towerDownCommand = new TowerDownCommand();
+		towerUpCommand = new TowerUpCommand();
+		
 		initialGyro = RobotMap.gyro.getAngle();
 
 		System.out.println("In robotInit method");
@@ -228,8 +242,8 @@ public class RobotMap
 			// lets the robot stop this thread when restarting robot code or
 			// deploying.
 			
-			while (!Thread.interrupted()) {
-				System.out.println("In infinite thread loop.");
+			while (keepThreadRunning) {
+				//System.out.println("In infinite thread loop.");
 				// Tell the CvSink to grab a frame from the camera and put it
 				// in the source mat.  If there is an error notify the output.
 				if (cvSink.grabFrame(mat) == 0) {

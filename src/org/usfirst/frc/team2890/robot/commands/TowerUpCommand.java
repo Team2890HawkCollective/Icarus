@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class GripperCloseCommand extends Command {
+public class TowerUpCommand extends Command {
 
-    public GripperCloseCommand() 
+    public TowerUpCommand()
     {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -23,9 +23,9 @@ public class GripperCloseCommand extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() 
+    protected void execute()
     {
-    	RobotMap.manipulatorSubsystem.closeGripper();
+    	RobotMap.manipulatorSubsystem.towerUp();
     }
 
     // Make this return true when this Command no longer needs to run execute()

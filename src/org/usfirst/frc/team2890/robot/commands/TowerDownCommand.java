@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class CubeUpCommand extends Command {
+public class TowerDownCommand extends Command {
 
-    public CubeUpCommand() 
+    public TowerDownCommand() 
     {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -17,7 +17,7 @@ public class CubeUpCommand extends Command {
     }
 
     // Called just before this Command runs the first time
-    protected void initialize()
+    protected void initialize() 
     {
     	
     }
@@ -25,7 +25,7 @@ public class CubeUpCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
     {
-    	RobotMap.manipulatorSubsystem.cubeUp();
+    	RobotMap.manipulatorSubsystem.towerDown();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -42,7 +42,7 @@ public class CubeUpCommand extends Command {
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
-    protected void interrupted() 
+    protected void interrupted()
     {
     	
     }

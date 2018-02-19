@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team2890.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.*;
@@ -97,7 +98,7 @@ public class Robot extends TimedRobot
 		RobotMap.gyro.reset();
 		
 		Scheduler.getInstance().add(RobotMap.rotationAutonomous);
-	}
+ 	}
 
 	/**
 	 * This function is called periodically during autonomous.
@@ -131,7 +132,18 @@ public class Robot extends TimedRobot
 		RobotMap.frontRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		
+		Scheduler.getInstance().add(RobotMap.shiftGearCommand);
+		//Scheduler.getInstance().add(RobotMap.shiftToHighGearCommand);
+		//Scheduler.getInstance().add(RobotMap.shiftToLowGearCommand);
+		//Scheduler.getInstance().add(RobotMap.shiftToHighGearCommand);
+		
 		Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
+		//Scheduler.getInstance().add(RobotMap.cubeDownCommand);
+		//Scheduler.getInstance().add(RobotMap.cubeUpCommand);
+		//Scheduler.getInstance().add(RobotMap.gripperCloseCommand);
+		//Scheduler.getInstance().add(RobotMap.gripperOpenCommand);
+		//Scheduler.getInstance().add(RobotMap.towerDownCommand);
+		//Scheduler.getInstance().add(RobotMap.towerUpCommand);
 		RobotMap.compressor.setClosedLoopControl(true);
 		
 	}
@@ -163,7 +175,24 @@ public class Robot extends TimedRobot
 			Scheduler.getInstance().removeAll();
 			Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
 		}
-		System.out.println(RobotMap.compressor.getPressureSwitchValue());
+		
+		//RobotMap.leftTowerTalon.set(1);
+		//RobotMap.rightTowerTalon.set(1);
+		
+		/*if(RobotMap.driverController.getAButton())
+    	{
+    		RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kForward);
+    		System.out.println("shifting to low gear");
+    			
+    	}
+		else if(RobotMap.driverController.getBButton())
+    	{
+    		RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kReverse);
+    		System.out.println("shifting to high gearr");
+    	}
+		else if (RobotMap.driverController.getXButton())
+			RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kOff);*/
+	
 	}
 
 	/**
@@ -173,4 +202,14 @@ public class Robot extends TimedRobot
 	public void testPeriodic() 
 	{
 	}
+
+	@Override
+	public boolean isDisabled() 
+	{
+		// TODO Auto-generated method stub
+		 RobotMap.keepThreadRunning = false;
+		return super.isDisabled();
+	}
+	
+	
 }
