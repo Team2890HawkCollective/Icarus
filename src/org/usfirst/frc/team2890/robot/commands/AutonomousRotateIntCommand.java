@@ -30,7 +30,7 @@ public class AutonomousRotateIntCommand extends Command
 	@Override
 	protected void initialize() {
 		RobotMap.stopRotating = false;
-		RobotMap.goalAngle = RobotMap.gyro.getAngle() + RobotMap.goalAngle;
+		RobotMap.goalAngle = RobotMap.gyro.getAngle() + RobotMap.turnDegrees;
 		
 	}
 

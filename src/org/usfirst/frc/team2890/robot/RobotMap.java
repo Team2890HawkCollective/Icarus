@@ -79,8 +79,6 @@ public class RobotMap
 	
 	public static double AUTONOMOUS_DRIVE_FORWARD_TIME; //time in seconds 
 															//use Driver Station Timer!
-	public static double AUTONOMOUS_CONSTANT_ANGLE = 90;
-	public static double autonomousAngle = 90;
 	public static double initialGyro;
 	public static double goalAngle;
 	public static double turnDegrees;
@@ -91,6 +89,7 @@ public class RobotMap
 	//TESTING VARIABLES
 	public static boolean flag = true;
 	public static boolean stopRotating = false;
+	public static boolean firstTimeThrough = true;
 	//
 	
 	//===============================================
@@ -180,8 +179,8 @@ public class RobotMap
 		driveBackwardAutonomousCommand = new AutonomousDriveBackwardCommand();
 		turnLeftAutonomousCommand = new AutonomousTurnLeftCommand();
 		turnRightAutonomousCommand = new AutonomousTurnRightCommand();
-		timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(AUTONOMOUS_DRIVE_FORWARD_TIME);
-		rotationAutonomous = new AutonomousRotateIntCommand(turnDegrees);
+		//timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(AUTONOMOUS_DRIVE_FORWARD_TIME);
+		//rotationAutonomous = new AutonomousRotateIntCommand(turnDegrees);
 		commandGroupRotate = new AutonomousCommandGroupRotate();
 		
 		autonomousTargetingRightCommandGroup = new AutonomousTargetingRightCommandGroup();

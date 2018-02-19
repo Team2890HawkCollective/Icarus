@@ -37,6 +37,7 @@ public class Robot extends TimedRobot
 	public void robotInit() 
 	{
 		SmartDashboard.putNumber("Time Drive Forward: ", 0);
+		SmartDashboard.putNumber("Rotate number: ", 0);
 		
 		RobotMap.init();
 		RobotMap.m_oi = new OI();
@@ -85,26 +86,21 @@ public class Robot extends TimedRobot
 	 */
 	@Override
 	public void autonomousInit() 
-	{
-		RobotMap.m_autonomousCommand = m_chooser.getSelected();
-		
+	{		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
 		 * = new MyAutoCommand(); break; case "Default Auto": default:
 		 * autonomousCommand = new ExampleCommand(); break; }
 		 */
-
-		// schedule the autonomous command (example)
-		if (RobotMap.m_autonomousCommand != null) 
-		{
-			RobotMap.m_autonomousCommand.start();
-		}
 		
 		RobotMap.gyro.reset();
 		
 		RobotMap.autonomousCommandGroupChooser = (CommandGroup) m_chooser.getSelected();
-		RobotMap.autonomousCommandGroupChooser.start();
+		
+		//Scheduler.getInstance().add(RobotMap.rotationAutonomous);
+		
+		/*RobotMap.autonomousCommandGroupChooser.start();
 		
 		
 		while((DriverStation.getInstance().getGameSpecificMessage()) == null)
@@ -146,6 +142,7 @@ public class Robot extends TimedRobot
 				RobotMap.autonomousCommandGroupChooser.start();
 			}
 		}
+		*/
 		
 	}
 
@@ -157,6 +154,19 @@ public class Robot extends TimedRobot
 	{
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
 		RobotMap.AUTONOMOUS_DRIVE_FORWARD_TIME = SmartDashboard.getNumber("Time Drive Forward: ", -1);
+		
+		
+		RobotMap.turnDegrees = SmartDashboard.getNumber("Rotate number: ", -20);
+		
+		// Done this way so we can use the SmartDashboard number
+		if(RobotMap.firstTimeThrough)
+		{
+			RobotMap.timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(RobotMap.AUTONOMOUS_DRIVE_FORWARD_TIME);
+			RobotMap.rotationAutonomous = new AutonomousRotateIntCommand(RobotMap.turnDegrees);
+			
+			Scheduler.getInstance().add(RobotMap.rotationAutonomous);
+			RobotMap.firstTimeThrough = false;
+		}
 		
 		Scheduler.getInstance().run();
 	}
@@ -180,6 +190,7 @@ public class Robot extends TimedRobot
 		
 		Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
 		RobotMap.compressor.setClosedLoopControl(true);
+		
 		
 		//RobotMap.gyro.reset();
 	}

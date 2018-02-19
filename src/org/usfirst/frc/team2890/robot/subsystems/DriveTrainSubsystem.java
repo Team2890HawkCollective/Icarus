@@ -103,6 +103,7 @@ public class DriveTrainSubsystem extends Subsystem
 				turnRight();
 			else
 			{
+				System.out.println("Stopped Moving");
 				stopMoving();
 				RobotMap.stopRotating = true;
 			}
