@@ -154,13 +154,8 @@ public class RobotMap
 	public static Command timedDriveForwardAutonomousCommand;
 	public static Command rotationAutonomous; 
 	public static Command controlManipulatorCommand;
-	public static Command controlGripperCommand;
-	public static Command shiftGearCommand;
-	public static Command controlTowerCommand;
 	public static Command getDistanceInInches;
-	
-	public static CommandGroup manipulatorCommandGroup;
-	
+		
 	public static void init()
 	{
 		m_oi = new OI();
@@ -207,13 +202,8 @@ public class RobotMap
 		turnRightAutonomousCommand = new AutonomousTurnRightCommand();
 		timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(AUTONOMOUS_DRIVE_FORWARD_TIME);
 		rotationAutonomous = new AutonomousRotateIntCommand();
-		shiftGearCommand = new ShiftGearCommand();
 		controlManipulatorCommand = new ControlManipulatorCommand();
-		controlGripperCommand = new ControlGripperCommand();
-		controlTowerCommand = new ControlTowerCommand();
 		getDistanceInInches = new RangeFinderFindDistanceInInchesCommand();
-		
-		manipulatorCommandGroup = new ManipulatorCommandGroup();
 				
 		
 		initialGyro = RobotMap.gyro.getAngle();
