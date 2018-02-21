@@ -3,6 +3,7 @@ package org.usfirst.frc.team2890.robot.commands;
 import org.usfirst.frc.team2890.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -11,9 +12,14 @@ public class LLAutonomousLeftCommandGroup extends CommandGroup {
 
     public LLAutonomousLeftCommandGroup() {
     	
-    	addSequential(new AutonomousTimedDriveForward(RobotMap.AUTONOMOUS_DRIVE_FORWARD_TIME));
+    	//addSequential(new AutonomousTimedDriveForward(SmartDashboard.getNumber("Left OR Right Side Time Drive: ", -19)));
+    	//System.out.println(SmartDashboard.getNumber("Rotate Left Degrees: ", 360));
+    	//addSequential(new AutonomousRotateIntCommand(SmartDashboard.getNumber("Rotate Left Degrees: ", 360)));
+    	//addSequential(new AutonomousTimedDriveForward(SmartDashboard.getNumber("Left OR Right Side Time Drive: ", -19)));
+    	
+    	addSequential(new AutonomousTimedDriveForward(RobotMap.autonomousLeftOrRightTimeDrive));
     	addSequential(new AutonomousRotateIntCommand(RobotMap.leftTurnDegrees));
-    	addSequential(new AutonomousTimedDriveForward(RobotMap.AUTONOMOUS_DRIVE_FORWARD_TIME));
+    	addSequential(new AutonomousTimedDriveForward(RobotMap.autonomousLeftOrRightTimeDrive));
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());

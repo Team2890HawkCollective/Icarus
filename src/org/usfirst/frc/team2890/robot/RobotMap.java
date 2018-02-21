@@ -77,8 +77,10 @@ public class RobotMap
 	public static double distanceFromTargetUsingTargeting;
 	public static double angleFromTarget;
 	
-	public static double AUTONOMOUS_DRIVE_FORWARD_TIME = 1.0; //time in seconds 
-															//use Driver Station Timer!
+	public static double autonomousMiddleTimeDrive = 1.0; //time in seconds 
+	public static double autonomousLeftOrRightTimeDrive = 3.0;
+	public static double driveStraightTimeDrive = 5.0;
+	
 	public static double initialGyro;
 	public static double goalAngle;
 	public static double rightTurnDegrees = 90;
@@ -182,14 +184,14 @@ public class RobotMap
 		driveBackwardAutonomousCommand = new AutonomousDriveBackwardCommand();
 		turnLeftAutonomousCommand = new AutonomousTurnLeftCommand();
 		turnRightAutonomousCommand = new AutonomousTurnRightCommand();
-		timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(AUTONOMOUS_DRIVE_FORWARD_TIME);
-		rotationAutonomous = new AutonomousRotateIntCommand(rightTurnDegrees);
+		//timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(driveStraightTimeDrive);
+		//rotationAutonomous = new AutonomousRotateIntCommand(rightTurnDegrees);
 		
-		autonomousTargetingRightCommandGroup = new AutonomousTargetingRightCommandGroup();
-		autonomousTargetingLeftCommandGroup = new AutonomousTargetingLeftCommandGroup();
-		autonomousLeftCommandGroup = new LLAutonomousLeftCommandGroup();
-		autonomousRightCommandGroup = new RRAutonomousRightCommandGroup();
-		autonomousCommandGroupChooser = new CommandGroup();
+		//autonomousTargetingRightCommandGroup = new AutonomousTargetingRightCommandGroup();
+		//autonomousTargetingLeftCommandGroup = new AutonomousTargetingLeftCommandGroup();
+		//autonomousLeftCommandGroup = new LLAutonomousLeftCommandGroup();
+		//autonomousRightCommandGroup = new RRAutonomousRightCommandGroup();
+		//autonomousCommandGroupChooser = new CommandGroup();
 		testCommandGroup = new TestCommandDontHateMeTaylor();
 		
 		initialGyro = RobotMap.gyro.getAngle();
