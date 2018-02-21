@@ -127,4 +127,18 @@ public class DriveTrainSubsystem extends Subsystem
 		}
 	}
 	
+	public void rangedDriveForward()
+	{
+		if(RobotMap.rangeFinder.getRangeInches() >= RobotMap.RANGE_TARGET)
+		{
+			driveForward();
+			System.out.println("Have Not Reached Target Range");
+		}
+		else
+		{
+			stopMoving();
+			System.out.println("Reached Target Range");
+		}
+	}
+	
 }

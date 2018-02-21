@@ -63,8 +63,8 @@ public class RobotMap
 	public static final int ROTATE_SOLENOID_BACKWARD_PORT = 3;
 	public static final int GEARBOX_SOLENOID_FORWARD_PORT = 4;
 	public static final int GEARBOX_SOLENOID_BACKWARD_PORT = 5;
-	public static final int RANGEFINDER_PINGCHANNEL = 1;
-	public static final int RANGEFINDER_ECHOCHANNEL = 0;
+	public static final int RANGEFINDER_PINGCHANNEL = 0;
+	public static final int RANGEFINDER_ECHOCHANNEL = 1;
 	
 	//===============================================
 	//VARIABLES
@@ -83,6 +83,7 @@ public class RobotMap
 	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.60; // from 0.65
 	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.60; // from -0.65
 	public static final double AUTONOMOUS_KILL_SWITCH = 0;
+	public static final double RANGE_TARGET = 5;
 	
 	public static double centerX;
 	public static double distanceFromTargetUsingTargeting;
@@ -155,6 +156,7 @@ public class RobotMap
 	public static Command rotationAutonomous; 
 	public static Command controlManipulatorCommand;
 	public static Command getDistanceInInches;
+	public static Command rangedDriveForwardCommand;
 		
 	public static void init()
 	{
@@ -204,6 +206,7 @@ public class RobotMap
 		rotationAutonomous = new AutonomousRotateIntCommand();
 		controlManipulatorCommand = new ControlManipulatorCommand();
 		getDistanceInInches = new RangeFinderFindDistanceInInchesCommand();
+		rangedDriveForwardCommand = new AutonomousRangedDriveForwardCommand();
 				
 		
 		initialGyro = RobotMap.gyro.getAngle();

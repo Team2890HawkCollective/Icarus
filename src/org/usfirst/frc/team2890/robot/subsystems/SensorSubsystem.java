@@ -37,6 +37,6 @@ public class SensorSubsystem extends Subsystem
 	public void getRangeInInches()
 	{
 		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
-		System.out.println(RobotMap.rangeFinder.getRangeInches());
+		//System.out.println(RobotMap.rangeFinder.getRangeInches());
 	}
 }

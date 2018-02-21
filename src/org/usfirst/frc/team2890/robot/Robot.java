@@ -42,6 +42,7 @@ public class Robot extends TimedRobot
 		//driveForwardCommand = new DriveForward();
 		
 		RobotMap.gyro.reset();
+		RobotMap.rangeFinder.setEnabled(true); //required for the HC SR04 RangeFinder else it will only return 0
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -97,7 +98,7 @@ public class Robot extends TimedRobot
 		
 		RobotMap.gyro.reset();
 		
-		Scheduler.getInstance().add(RobotMap.getDistanceInInches);
+		Scheduler.getInstance().add(RobotMap.rangedDriveForwardCommand);
  	}
 
 	/**
