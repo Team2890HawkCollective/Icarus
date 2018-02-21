@@ -3,6 +3,7 @@ package org.usfirst.frc.team2890.robot.commands;
 import org.usfirst.frc.team2890.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -24,6 +25,7 @@ public class RangeFinderFindDistanceInInchesCommand extends Command {
     protected void execute() 
     {
     	RobotMap.sensorSubsystem.getRangeInInches();
+    	SmartDashboard.putNumber("RangeFinder Distance: ", RobotMap.rangeFinderDistanceInches);
     }
 
     // Make this return true when this Command no longer needs to run execute()

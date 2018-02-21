@@ -63,8 +63,8 @@ public class RobotMap
 	public static final int ROTATE_SOLENOID_BACKWARD_PORT = 3;
 	public static final int GEARBOX_SOLENOID_FORWARD_PORT = 4;
 	public static final int GEARBOX_SOLENOID_BACKWARD_PORT = 5;
-	public static final int RANGEFINDER_PINGCHANNEL = 0;
-	public static final int RANGEFINDER_ECHOCHANNEL = 1;
+	public static final int RANGEFINDER_PINGCHANNEL = 1;
+	public static final int RANGEFINDER_ECHOCHANNEL = 0;
 	
 	//===============================================
 	//VARIABLES
@@ -73,7 +73,7 @@ public class RobotMap
 	public static final int X_INVERTED = -1;
 	public static final int RAMP_TIMEOUT = 1;
 	public static final double RAMP_TIME = 0.25;
-	public static final double TOWER_UP_VARIABLE = .25;
+	public static final double TOWER_UP_VARIABLE = .1;
 	public static final double X_AXIS_LOWER_DEADBAND = -0.01;
 	public static final double X_AXIS_UPPER_DEADBAND = 0.01;
 	public static final double ROTATION_SENSITIVTY = 0.7; //from 0.65

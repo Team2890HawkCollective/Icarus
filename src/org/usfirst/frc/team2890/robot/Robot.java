@@ -97,7 +97,7 @@ public class Robot extends TimedRobot
 		
 		RobotMap.gyro.reset();
 		
-		Scheduler.getInstance().add(RobotMap.getDistanceInInches );
+		Scheduler.getInstance().add(RobotMap.getDistanceInInches);
  	}
 
 	/**
@@ -107,7 +107,7 @@ public class Robot extends TimedRobot
 	public void autonomousPeriodic() 
 	{
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
-		SmartDashboard.putNumber("Rangefinder Inches:", RobotMap.rangeFinder.getRangeInches());
+		SmartDashboard.putNumber("Rangefinder Inches:", RobotMap.rangeFinderDistanceInches);
 		
 		Scheduler.getInstance().run();
 	}

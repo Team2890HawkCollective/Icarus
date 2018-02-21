@@ -23,14 +23,16 @@ public class ManipulatorSubsystem extends Subsystem {
     public void controlManipulator()
     {
     	//controlTower method
-    	if (RobotMap.assistantDriverController.getBumper(Hand.kRight))
+    	//Tower up
+    	if (RobotMap.assistantDriverController.getBumper(Hand.kLeft))
     	{
     		RobotMap.rightTowerTalon.set(RobotMap.TOWER_UP_VARIABLE);
     		RobotMap.leftTowerTalon.set(RobotMap.TOWER_UP_VARIABLE);
     		//.rightTowerTalon.set(-1); //0.1
     		System.out.println("Hello, K.Right is Pressed");
     	}
-    	else if (RobotMap.assistantDriverController.getBumper(Hand.kLeft))
+    	//Tower down
+    	else if (RobotMap.assistantDriverController.getBumper(Hand.kRight))
     	{
     		RobotMap.rightTowerTalon.set(-RobotMap.TOWER_UP_VARIABLE);
     		RobotMap.leftTowerTalon.set(-RobotMap.TOWER_UP_VARIABLE);
