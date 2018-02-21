@@ -13,11 +13,11 @@ import org.usfirst.frc.team2890.robot.*;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class AutonomousRotateIntCommand extends Command 
+public class AngleDegreesFromCamera extends Command 
 {
 
 	private double turnDegrees;
-	public AutonomousRotateIntCommand(double turnDegrees) 
+	public AngleDegreesFromCamera(double turnDegrees) 
 	{
 		// Use requires() here to declare subsystem dependencies
 		//rotationAngle = degrees;
@@ -30,14 +30,27 @@ public class AutonomousRotateIntCommand extends Command
 	@Override
 	protected void initialize() {
 		RobotMap.stopRotating = false;
-		RobotMap.goalAngle = RobotMap.gyro.getAngle() + turnDegrees;
+		RobotMap.goalAngle = RobotMap.gyro.getAngle() + turnDegrees;	
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() 
 	{
-		RobotMap.driveTrainSubsystem.turnDegrees(RobotMap.goalAngle, turnDegrees);
+		if(RobotMap.hambyRoomGripPipelineLongRange.filterContoursOutput.size() > 2)
+		{
+			if(RobotMap.angleFromTarget <= 20 && RobotMap.angleFromTarget >= -20)
+				//INSTEAD OF THIS, ASSIGN THE VALUE OF ANGLEFROMTARGET TO A STATIC VARIABLE IN ROBOTMAP
+				RobotMap.driveTrainSubsystem.turnDegrees(RobotMap.goalAngle, turnDegrees);
+			else
+				//ASSIGN VALUE OF 0 TO VALUE IN ROBOTMAP
+				RobotMap.stopRotating = true;
+		}
+		else
+			//ASSIGN VALUE OF 0 IN ROBOTMAP
+			RobotMap.stopRotating = true;
+		
+		//SET STOP ROTATING = TRUE NO MATTER WHAT SO IT ONLY RUNS ONCE
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
