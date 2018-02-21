@@ -25,11 +25,17 @@ public class SensorSubsystem extends Subsystem
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
 		// setDefaultCommand(new XboxDriveCommand());
+		RobotMap.rangeFinder.setAutomaticMode(true);
 	}
 	
 	public void gyroSetting()
 	{
 		RobotMap.gyro.reset();
 		RobotMap.gyro.calibrate();
+	}
+	
+	public void getRangeInInches()
+	{
+		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
 	}
 }

@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.*;
 
@@ -62,13 +63,17 @@ public class RobotMap
 	public static final int ROTATE_SOLENOID_BACKWARD_PORT = 3;
 	public static final int GEARBOX_SOLENOID_FORWARD_PORT = 4;
 	public static final int GEARBOX_SOLENOID_BACKWARD_PORT = 5;
+	public static final int RANGEFINDER_PINGCHANNEL = 0;
+	public static final int RANGEFINDER_ECHOCHANNEL = 1;
 	
 	//===============================================
 	//VARIABLES
 	//===============================================
+	
 	public static final int X_INVERTED = -1;
 	public static final int RAMP_TIMEOUT = 1;
 	public static final double RAMP_TIME = 0.25;
+	public static final double TOWER_UP_VARIABLE = .25;
 	public static final double X_AXIS_LOWER_DEADBAND = -0.01;
 	public static final double X_AXIS_UPPER_DEADBAND = 0.01;
 	public static final double ROTATION_SENSITIVTY = 0.7; //from 0.65
@@ -82,6 +87,7 @@ public class RobotMap
 	public static double centerX;
 	public static double distanceFromTargetUsingTargeting;
 	public static double angleFromTarget;
+	public static double rangeFinderDistanceInches;
 	
 	public static final double AUTONOMOUS_DRIVE_FORWARD_TIME = 4; //time in seconds 
 																  //use Driver Station Timer!
@@ -114,6 +120,7 @@ public class RobotMap
 	public static WPI_TalonSRX rearLeftTalon;
 	public static WPI_TalonSRX leftTowerTalon;
 	public static WPI_TalonSRX rightTowerTalon;
+	public static Ultrasonic rangeFinder;
 	public static SpeedControllerGroup rightTalonGroup;
 	public static SpeedControllerGroup leftTalonGroup;
 	public static DifferentialDrive driveTrain;
@@ -146,11 +153,13 @@ public class RobotMap
 	public static Command turnRightAutonomousCommand;
 	public static Command timedDriveForwardAutonomousCommand;
 	public static Command rotationAutonomous; 
-	public static Command controlCubeCommand;
+	public static Command controlManipulatorCommand;
 	public static Command controlGripperCommand;
 	public static Command shiftGearCommand;
-	public static Command towerDownCommand;
-	public static Command towerUpCommand;
+	public static Command controlTowerCommand;
+	public static Command getDistanceInInches;
+	
+	public static CommandGroup manipulatorCommandGroup;
 	
 	public static void init()
 	{
@@ -160,11 +169,12 @@ public class RobotMap
 		assistantDriverController = new XboxController(ASSISTANT_DRIVER_CONTROLLER_PORT);
 		
 		gyro = new ADXRS450_Gyro();
+		rangeFinder = new Ultrasonic(RANGEFINDER_PINGCHANNEL, RANGEFINDER_ECHOCHANNEL);
 		
 		compressor = new Compressor();
-		grabberSolenoid = new DoubleSolenoid(GRABBER_SOLENOID_FORWARD_PORT, GRABBER_SOLENOID_BACKWARD_PORT);
-		rotateSolenoid = new DoubleSolenoid(ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT);
-		gearBoxSolenoid = new DoubleSolenoid(GEARBOX_SOLENOID_FORWARD_PORT, GEARBOX_SOLENOID_BACKWARD_PORT);
+		grabberSolenoid = new DoubleSolenoid(GRABBER_SOLENOID_FORWARD_PORT, GRABBER_SOLENOID_BACKWARD_PORT); //GRABBER_SOLENOID_FORWARD_PORT, GRABBER_SOLENOID_BACKWARD_PORT
+		rotateSolenoid = new DoubleSolenoid(ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT); //ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT
+		gearBoxSolenoid = new DoubleSolenoid(GEARBOX_SOLENOID_FORWARD_PORT, GEARBOX_SOLENOID_BACKWARD_PORT); //GEARBOX_SOLENOID_FORWARD_PORT, GEARBOX_SOLENOID_BACKWARD_PORT
 		
 		frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
 		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
@@ -198,10 +208,13 @@ public class RobotMap
 		timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(AUTONOMOUS_DRIVE_FORWARD_TIME);
 		rotationAutonomous = new AutonomousRotateIntCommand();
 		shiftGearCommand = new ShiftGearCommand();
-		controlCubeCommand = new ControlCubeCommand();
+		controlManipulatorCommand = new ControlManipulatorCommand();
 		controlGripperCommand = new ControlGripperCommand();
-		towerDownCommand = new TowerDownCommand();
-		towerUpCommand = new TowerUpCommand();
+		controlTowerCommand = new ControlTowerCommand();
+		getDistanceInInches = new RangeFinderFindDistanceInInchesCommand();
+		
+		manipulatorCommandGroup = new ManipulatorCommandGroup();
+				
 		
 		initialGyro = RobotMap.gyro.getAngle();
 

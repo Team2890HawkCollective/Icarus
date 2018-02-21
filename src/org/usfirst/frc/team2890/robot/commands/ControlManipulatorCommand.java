@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class TowerUpCommand extends Command {
+public class ControlManipulatorCommand extends Command {
 
-    public TowerUpCommand()
+    public ControlManipulatorCommand() 
     {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -17,7 +17,7 @@ public class TowerUpCommand extends Command {
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() 
+    protected void initialize()
     {
     	
     }
@@ -25,7 +25,7 @@ public class TowerUpCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-    	RobotMap.manipulatorSubsystem.towerUp();
+    	RobotMap.manipulatorSubsystem.controlManipulator();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -42,8 +42,6 @@ public class TowerUpCommand extends Command {
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
-    protected void interrupted() 
-    {
-    	
+    protected void interrupted() {
     }
 }

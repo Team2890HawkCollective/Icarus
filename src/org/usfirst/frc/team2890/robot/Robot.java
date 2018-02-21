@@ -97,7 +97,7 @@ public class Robot extends TimedRobot
 		
 		RobotMap.gyro.reset();
 		
-		Scheduler.getInstance().add(RobotMap.rotationAutonomous);
+		Scheduler.getInstance().add(RobotMap.getDistanceInInches );
  	}
 
 	/**
@@ -107,6 +107,7 @@ public class Robot extends TimedRobot
 	public void autonomousPeriodic() 
 	{
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
+		SmartDashboard.putNumber("Rangefinder Inches:", RobotMap.rangeFinder.getRangeInches());
 		
 		Scheduler.getInstance().run();
 	}
@@ -132,18 +133,14 @@ public class Robot extends TimedRobot
 		RobotMap.frontRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		
-		Scheduler.getInstance().add(RobotMap.shiftGearCommand);
-		//Scheduler.getInstance().add(RobotMap.shiftToHighGearCommand);
-		//Scheduler.getInstance().add(RobotMap.shiftToLowGearCommand);
-		//Scheduler.getInstance().add(RobotMap.shiftToHighGearCommand);
+		//Scheduler.getInstance().add(RobotMap.controlCubeCommand);
+		//Scheduler.getInstance().add(RobotMap.controlGripperCommand);
+		Scheduler.getInstance().add(RobotMap.controlManipulatorCommand);
+		//Scheduler.getInstance().add(RobotMap.controlTowerCommand);
+		
 		
 		Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
-		//Scheduler.getInstance().add(RobotMap.cubeDownCommand);
-		//Scheduler.getInstance().add(RobotMap.cubeUpCommand);
-		//Scheduler.getInstance().add(RobotMap.gripperCloseCommand);
-		//Scheduler.getInstance().add(RobotMap.gripperOpenCommand);
-		//Scheduler.getInstance().add(RobotMap.towerDownCommand);
-		//Scheduler.getInstance().add(RobotMap.towerUpCommand);
+		
 		RobotMap.compressor.setClosedLoopControl(true);
 		
 	}
