@@ -47,9 +47,12 @@ public class Robot extends TimedRobot
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		
 		//Have to have .addDefault() or else will not show up.
-		m_chooser.addDefault("Autonomous from the Middle Right: ", RobotMap.autonomousTargetingRightCommandGroup);
-		m_chooser.addObject("Autonomous from the Middle Left: ", RobotMap.autonomousTargetingLeftCommandGroup);
+		m_chooser.addDefault("Autonomous from the Right: ", RobotMap.timedDriveForwardAutonomousCommand);
+		//This Command is middle
+		m_chooser.addObject("Autonomous from the Middle: ", RobotMap.testCommandGroup);
+		//This Command is Left
 		m_chooser.addObject("Autonomous from the Left: ", RobotMap.autonomousLeftCommandGroup);
+		//This Command is Right
 		m_chooser.addObject("Autonomous from the Right: ", RobotMap.autonomousRightCommandGroup);
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
@@ -93,55 +96,85 @@ public class Robot extends TimedRobot
 		 * = new MyAutoCommand(); break; case "Default Auto": default:
 		 * autonomousCommand = new ExampleCommand(); break; }
 		 */
+		SmartDashboard.putString("In R If Statement: ", "");
+		SmartDashboard.putString("In 1st if: ", "");
+		SmartDashboard.putString("In 2nd if: ", "");
+		SmartDashboard.putString("In 3rd if: ", "");
+		SmartDashboard.putString("In L If Statement: ", "");
+		SmartDashboard.putString("In 4th if: ", "");
+		SmartDashboard.putString("In 5th if: ", "");
+		SmartDashboard.putString("In 6rd if: ", "");
+		
 		
 		RobotMap.gyro.reset();
 		
 		RobotMap.autonomousCommandGroupChooser = (CommandGroup) m_chooser.getSelected();
-		
-		
-		/*RobotMap.autonomousCommandGroupChooser.start();
-		
-		
+
 		while((DriverStation.getInstance().getGameSpecificMessage()) == null)
 		{
 			
-		}	 
+		}	
 		
 		RobotMap.gameData = DriverStation.getInstance().getGameSpecificMessage();
 		RobotMap.gameDataLetter = RobotMap.gameData.substring(0, 1);
+		System.out.println(RobotMap.gameDataLetter);
+		
+		SmartDashboard.putString("m_choose", m_chooser.getSelected().getName());
+		SmartDashboard.putString("Game Data Letter", RobotMap.gameDataLetter);
 		
 		if(RobotMap.gameDataLetter.equalsIgnoreCase("R"))
+			RobotMap.isRight = true;
+		else if(RobotMap.gameDataLetter.equalsIgnoreCase("L"))
+			RobotMap.isRight = false;
+		
+		if(RobotMap.isRight)
 		{
-			if(m_chooser.getSelected().getName() == "Autonomous from the Right: ")
+			SmartDashboard.putString("In R If Statement: ", "R");
+			if(m_chooser.getSelected().getName().equals("RRAutonomousRightCommandGroup"))
 			{
-				RobotMap.autonomousCommandGroupChooser.start();
-				
+				SmartDashboard.putString("In 1st if: ", "In");
+				Scheduler.getInstance().add(RobotMap.autonomousRightCommandGroup);
+				return;
 			}
-			else if(m_chooser.getSelected().getName() == "Autonomous from the Left: ")
+			else if(m_chooser.getSelected().getName().equals("LLAutonomousLeftCommandGroup"))
 			{
+				SmartDashboard.putString("In 2nd if: ", "In");
 				Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
+				return;
 			}
-			else if(m_chooser.getSelected().getName() == "Autonomous from the Middle Right: ")
+			//In middle
+			else if(m_chooser.getSelected().getName().equals("TestCommandDontHateMeTaylor"))
 			{
-				RobotMap.autonomousCommandGroupChooser.start();
+				SmartDashboard.putString("In 3rd if: ", "In");
+				//Scheduler.getInstance().add(RobotMap.autonomousTargetingRightCommandGroup);
+				Scheduler.getInstance().add(RobotMap.autonomousTargetingRightCommandGroup);
+				return;
 			}
 		}
-		else if(RobotMap.gameDataLetter.equalsIgnoreCase("L"));
+		else
 		{
-			if(m_chooser.getSelected().getName() == "Autonomous from the Right: ")
+			SmartDashboard.putString("In L If Statement: ", "L");
+			if(m_chooser.getSelected().getName().equals("RRAutonomousRightCommandGroup"))
 			{
+				SmartDashboard.putString("In 4th if: ", "In");
 				Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
+				return;
 			}
-			else if(m_chooser.getSelected().getName() == "Autonomous from the Left: ")
+			else if(m_chooser.getSelected().getName().equals("LLAutonomousLeftCommandGroup"))
 			{
-				RobotMap.autonomousCommandGroupChooser.start();
+				SmartDashboard.putString("In 5th if: ", "In");
+				Scheduler.getInstance().add(RobotMap.autonomousLeftCommandGroup);
+				return;
 			}
-			else if(m_chooser.getSelected().getName() == "Autonomous from the Middle Left: ")
+			//In middle
+			else if(m_chooser.getSelected().getName().equals("TestCommandDontHateMeTaylor"))
 			{
-				RobotMap.autonomousCommandGroupChooser.start();
+				SmartDashboard.putString("In 6th if: ", "In");
+				Scheduler.getInstance().add(RobotMap.autonomousTargetingLeftCommandGroup);
+				return;
 			}
 		}
-		*/
+		
 		
 	}
 
@@ -158,6 +191,7 @@ public class Robot extends TimedRobot
 		
 		// Done this way so we can use the SmartDashboard number
 		
+		/*
 		if(RobotMap.firstTimeThrough)
 		{
 			RobotMap.timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(RobotMap.AUTONOMOUS_DRIVE_FORWARD_TIME);
@@ -168,6 +202,8 @@ public class Robot extends TimedRobot
 			Scheduler.getInstance().add(RobotMap.autonomousTargetingRightCommandGroup);
 			RobotMap.firstTimeThrough = false;
 		}
+		*/
+		
 		
 		Scheduler.getInstance().run();
 	}

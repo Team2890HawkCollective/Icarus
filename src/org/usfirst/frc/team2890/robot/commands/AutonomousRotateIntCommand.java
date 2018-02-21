@@ -15,14 +15,14 @@ import org.usfirst.frc.team2890.robot.*;
  */
 public class AutonomousRotateIntCommand extends Command 
 {
-	//public double rotationAngle;
-	//double degrees
+
+	private double turnDegrees;
 	public AutonomousRotateIntCommand(double turnDegrees) 
 	{
 		// Use requires() here to declare subsystem dependencies
 		//rotationAngle = degrees;
 		requires(RobotMap.driveTrainSubsystem);
-		RobotMap.turnDegrees = turnDegrees;
+		this.turnDegrees = turnDegrees;
 		
 	}
 
@@ -30,7 +30,8 @@ public class AutonomousRotateIntCommand extends Command
 	@Override
 	protected void initialize() {
 		RobotMap.stopRotating = false;
-		RobotMap.goalAngle = RobotMap.gyro.getAngle() + RobotMap.turnDegrees;
+		RobotMap.goalAngle = RobotMap.gyro.getAngle() + turnDegrees;
+		System.out.println("DSBHKGFDBVFDBGNGERGNRJFDVWKSDF34ERHGNVEFMSVBERIFDKJ NGREFGNWEFW");
 		
 	}
 
@@ -38,7 +39,9 @@ public class AutonomousRotateIntCommand extends Command
 	@Override
 	protected void execute() 
 	{
-		RobotMap.driveTrainSubsystem.turnDegrees(RobotMap.goalAngle, RobotMap.turnDegrees);
+		System.out.println("Goal angle: " + RobotMap.goalAngle);
+		System.out.println("Turn Degrees: " + turnDegrees);
+		RobotMap.driveTrainSubsystem.turnDegrees(RobotMap.goalAngle, turnDegrees);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

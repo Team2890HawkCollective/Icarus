@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2890.robot.commands;
 
+import org.usfirst.frc.team2890.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -9,9 +11,9 @@ public class RRAutonomousRightCommandGroup extends CommandGroup {
 
     public RRAutonomousRightCommandGroup() 
     {
-    	addSequential(new AutonomousTimedDriveForward(1));
-    	addSequential(new AutonomousCommandGroupRotate());
-    	addSequential(new AutonomousTimedDriveForward(1));
+    	addSequential(new AutonomousTimedDriveForward(RobotMap.AUTONOMOUS_DRIVE_FORWARD_TIME));
+    	addSequential(new AutonomousRotateIntCommand(RobotMap.rightTurnDegrees));
+    	addSequential(new AutonomousTimedDriveForward(RobotMap.AUTONOMOUS_DRIVE_FORWARD_TIME));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
