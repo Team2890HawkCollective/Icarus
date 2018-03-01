@@ -67,16 +67,17 @@ public class RobotMap
 	public static final double X_AXIS_UPPER_DEADBAND = 0.01;
 	public static final double ROTATION_SENSITIVTY = 0.7; //from 0.65
 	public static final double FORWARDS_BACKWARDS_SENSITIVITY = 1.0; //from 0.8
-	public static final double AUTONOMOUS_FORWARD_SPEED = -0.4; //-.65
-	public static final double AUTONOMOUS_BACKWARD_SPEED = 0.4; //.65
-	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.35; // from 0.65
-	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.35; // from -0.65
+	public static final double AUTONOMOUS_FORWARD_SPEED = -0.5; //-.65
+	public static final double AUTONOMOUS_BACKWARD_SPEED = 0.5; //.65
+	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.45; // from 0.65
+	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.45; // from -0.65
 	public static final double AUTONOMOUS_KILL_SWITCH = 0;
 	
 	public static double centerX;
 	public static double distanceFromTargetUsingTargeting;
 	public static double angleFromTarget;
 	
+	public static final double AUTONOMOUS_MIDDLE_ONE_SECOND_TIMED_DRIVE = 1.0;
 	public static double autonomousMiddleTimeDrive = 1.0; //time in seconds 
 	public static double autonomousLeftOrRightTimeDrive = 3.0;
 	public static double driveStraightTimeDrive = 5.0;
@@ -117,7 +118,7 @@ public class RobotMap
 	public static SensorSubsystem sensorSubsystem;
 	public static OI m_oi;
 	public static ADXRS450_Gyro gyro;
-	public static Compressor compressor;
+	//public static Compressor compressor;
 
 	//===============================================
 	//COMMANDS
@@ -155,7 +156,7 @@ public class RobotMap
 		
 		gyro = new ADXRS450_Gyro();
 		
-		compressor = new Compressor();
+		//compressor = new Compressor();
 		
 		frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
 		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
