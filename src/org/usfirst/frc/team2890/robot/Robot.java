@@ -82,6 +82,7 @@ public class Robot extends TimedRobot
 	public void autonomousInit() 
 	{
 		RobotMap.m_autonomousCommand = m_chooser.getSelected();
+		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -99,6 +100,8 @@ public class Robot extends TimedRobot
 		RobotMap.gyro.reset();
 		
 		Scheduler.getInstance().add(RobotMap.rangedDriveForwardCommand);
+		//Scheduler.getInstance().add(RobotMap.getDistanceInInches);
+		
  	}
 
 	/**
@@ -107,6 +110,9 @@ public class Robot extends TimedRobot
 	@Override
 	public void autonomousPeriodic() 
 	{
+		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
+		System.out.println(RobotMap.rangeFinderDistanceInches);
+		System.out.println(RobotMap.RANGE_TARGET);
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
 		SmartDashboard.putNumber("Rangefinder Inches:", RobotMap.rangeFinderDistanceInches);
 		

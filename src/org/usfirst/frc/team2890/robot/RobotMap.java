@@ -78,12 +78,12 @@ public class RobotMap
 	public static final double X_AXIS_UPPER_DEADBAND = 0.01;
 	public static final double ROTATION_SENSITIVTY = 0.7; //from 0.65
 	public static final double FORWARDS_BACKWARDS_SENSITIVITY = 1.0; //from 0.8
-	public static final double AUTONOMOUS_FORWARD_SPEED = -0.65;
-	public static final double AUTONOMOUS_BACKWARD_SPEED = 0.65;
+	public static final double AUTONOMOUS_FORWARD_SPEED = -0.4;
+	public static final double AUTONOMOUS_BACKWARD_SPEED = 0.4;
 	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.60; // from 0.65
 	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.60; // from -0.65
 	public static final double AUTONOMOUS_KILL_SWITCH = 0;
-	public static final double RANGE_TARGET = 5;
+	public static final double RANGE_TARGET = 12.0;
 	
 	public static double centerX;
 	public static double distanceFromTargetUsingTargeting;
@@ -104,6 +104,7 @@ public class RobotMap
 	
 	public static boolean controlGripperFlag = true;
 	public static boolean controlCubeFlag = true;
+	public static boolean rangeFinderExitFlag = false;
 	
 	//===============================================
 	//TALONS, CONTROLLERS & OTHER OBJECTS
@@ -155,7 +156,7 @@ public class RobotMap
 	public static Command timedDriveForwardAutonomousCommand;
 	public static Command rotationAutonomous; 
 	public static Command controlManipulatorCommand;
-	public static Command getDistanceInInches;
+	public static Command getDistanceInInches; //Testing on SmartDashboard
 	public static Command rangedDriveForwardCommand;
 		
 	public static void init()
@@ -207,7 +208,6 @@ public class RobotMap
 		controlManipulatorCommand = new ControlManipulatorCommand();
 		getDistanceInInches = new RangeFinderFindDistanceInInchesCommand();
 		rangedDriveForwardCommand = new AutonomousRangedDriveForwardCommand();
-				
 		
 		initialGyro = RobotMap.gyro.getAngle();
 
