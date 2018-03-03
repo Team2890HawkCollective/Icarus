@@ -54,7 +54,8 @@ public class RobotMap
 	public static final int REAR_RIGHT_TALON_ID = 4;
 	public static final int FRONT_LEFT_TALON_ID = 3;
 	public static final int REAR_LEFT_TALON_ID = 2;
-	public static final int TEST_TALON_ID = 6;
+	public static final int RIGHT_TALON_TOWER_ID = 6;
+	public static final int LEFT_TALON_TOWER_ID = 5;
 	public static final int DRIVER_CONTROLLER_PORT = 0;
 	public static final int ASSISTANT_DRIVER_CONTROLLER_PORT = 1;
 	public static final int GRABBER_SOLENOID_FORWARD_PORT = 0;
@@ -65,26 +66,32 @@ public class RobotMap
 	public static final int GEARBOX_SOLENOID_BACKWARD_PORT = 5;
 	public static final int RANGEFINDER_PINGCHANNEL = 0;
 	public static final int RANGEFINDER_ECHOCHANNEL = 1;
-	public static final int LEFT_TALON_TOWER_ID = 5;
-	public static final int RIGHT_TALON_TOWER_ID = 6;
 	
 	//===============================================
 	//VARIABLES
 	//===============================================
+	
 	public static final int X_INVERTED = -1;
 	public static final int RAMP_TIMEOUT = 1;
 	public static final double RAMP_TIME = 0.25;
+	public static final double TOWER_UP_VARIABLE = .1;
 	public static final double X_AXIS_LOWER_DEADBAND = -0.01;
 	public static final double X_AXIS_UPPER_DEADBAND = 0.01;
 	public static final double ROTATION_SENSITIVTY = 0.7; //from 0.65
 	public static final double FORWARDS_BACKWARDS_SENSITIVITY = 1.0; //from 0.8
+<<<<<<< HEAD
 	public static final double AUTONOMOUS_FORWARD_SPEED = -0.5; //-.65
 	public static final double AUTONOMOUS_BACKWARD_SPEED = 0.5; //.65
 	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.45; // from 0.65
 	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.45; // from -0.65
+=======
+	public static final double AUTONOMOUS_FORWARD_SPEED = -0.4;
+	public static final double AUTONOMOUS_BACKWARD_SPEED = 0.4;
+	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.60; // from 0.65
+	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.60; // from -0.65
+>>>>>>> manipulatorWithRangeFinder
 	public static final double AUTONOMOUS_KILL_SWITCH = 0;
 	public static final double RANGE_TARGET = 12.0;
-	public static final double TOWER_UP_VARIABLE = .1;
 	
 	public static double centerX;
 	public static double distanceFromTargetUsingTargeting;
@@ -97,24 +104,33 @@ public class RobotMap
 	public static double driveStraightTimeDrive = 5.0;
 	
 	public static double initialGyro;
+<<<<<<< HEAD
 	public static double goalAngle;
 	public static double rightTurnDegrees = 90;
 	public static double leftTurnDegrees = -90;
 	
 	public static String gameData;
 	public static String gameDataLetter;
+=======
+	public static boolean keepThreadRunning = true;
+	public static boolean shiftGearButtonFlag = true;
+>>>>>>> manipulatorWithRangeFinder
 	
+	//===============================================
 	//TESTING VARIABLES
+<<<<<<< HEAD
 	public static boolean flag = true;
 	public static boolean stopRotating = false;
 	public static boolean firstTimeThrough = true;
 	public static boolean isRight = true;
+	//
+=======
+	//===============================================
+	
 	public static boolean controlGripperFlag = true;
 	public static boolean controlCubeFlag = true;
 	public static boolean rangeFinderExitFlag = false;
-	public static boolean keepThreadRunning = true;
-	public static boolean shiftGearButtonFlag = true;
-	//
+>>>>>>> manipulatorWithRangeFinder
 	
 	//===============================================
 	//TALONS, CONTROLLERS & OTHER OBJECTS
@@ -141,10 +157,14 @@ public class RobotMap
 	public static ManipulatorSubsystem manipulatorSubsystem;
 	public static OI m_oi;
 	public static ADXRS450_Gyro gyro;
+<<<<<<< HEAD
+	//public static Compressor compressor;
+=======
 	public static Compressor compressor;
 	public static DoubleSolenoid grabberSolenoid;
 	public static DoubleSolenoid rotateSolenoid;
 	public static DoubleSolenoid gearBoxSolenoid;
+>>>>>>> manipulatorWithRangeFinder
 
 	//===============================================
 	//COMMANDS
@@ -164,10 +184,9 @@ public class RobotMap
 	public static Command turnLeftAutonomousCommand;
 	public static Command turnRightAutonomousCommand;
 	public static Command timedDriveForwardAutonomousCommand;
-	public static Command rotationAutonomous; 
-	public static Command controlManipulatorCommand;
-	public static Command getDistanceInInches; //Testing on SmartDashboard
-	public static Command rangedDriveForwardCommand;
+<<<<<<< HEAD
+	public static Command rotationAutonomous;
+	public static Command commandGroupRotate;
 	
 	public static CommandGroup autonomousTargetingRightCommandGroup;
 	public static CommandGroup autonomousTargetingLeftCommandGroup;
@@ -176,6 +195,13 @@ public class RobotMap
 	public static CommandGroup autonomousCommandGroupChooser;
 	public static CommandGroup testCommandGroup;
 	
+=======
+	public static Command rotationAutonomous; 
+	public static Command controlManipulatorCommand;
+	public static Command getDistanceInInches; //Testing on SmartDashboard
+	public static Command rangedDriveForwardCommand;
+		
+>>>>>>> manipulatorWithRangeFinder
 	public static void init()
 	{
 		m_oi = new OI();
@@ -186,10 +212,14 @@ public class RobotMap
 		gyro = new ADXRS450_Gyro();
 		rangeFinder = new Ultrasonic(RANGEFINDER_PINGCHANNEL, RANGEFINDER_ECHOCHANNEL);
 		
+<<<<<<< HEAD
+		//compressor = new Compressor();
+=======
 		compressor = new Compressor();
 		grabberSolenoid = new DoubleSolenoid(GRABBER_SOLENOID_FORWARD_PORT, GRABBER_SOLENOID_BACKWARD_PORT); //GRABBER_SOLENOID_FORWARD_PORT, GRABBER_SOLENOID_BACKWARD_PORT
 		rotateSolenoid = new DoubleSolenoid(ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT); //ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT
 		gearBoxSolenoid = new DoubleSolenoid(GEARBOX_SOLENOID_FORWARD_PORT, GEARBOX_SOLENOID_BACKWARD_PORT); //GEARBOX_SOLENOID_FORWARD_PORT, GEARBOX_SOLENOID_BACKWARD_PORT
+>>>>>>> manipulatorWithRangeFinder
 		
 		frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
 		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
@@ -220,14 +250,25 @@ public class RobotMap
 		driveBackwardAutonomousCommand = new AutonomousDriveBackwardCommand();
 		turnLeftAutonomousCommand = new AutonomousTurnLeftCommand();
 		turnRightAutonomousCommand = new AutonomousTurnRightCommand();
+<<<<<<< HEAD
+		//timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(driveStraightTimeDrive);
+		//rotationAutonomous = new AutonomousRotateIntCommand(rightTurnDegrees);
+		
+		//autonomousTargetingRightCommandGroup = new AutonomousTargetingRightCommandGroup();
+		//autonomousTargetingLeftCommandGroup = new AutonomousTargetingLeftCommandGroup();
+		//autonomousLeftCommandGroup = new LLAutonomousLeftCommandGroup();
+		//autonomousRightCommandGroup = new RRAutonomousRightCommandGroup();
+		//autonomousCommandGroupChooser = new CommandGroup();
+		testCommandGroup = new TestCommandDontHateMeTaylor();
+=======
+		timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(AUTONOMOUS_DRIVE_FORWARD_TIME);
+		rotationAutonomous = new AutonomousRotateIntCommand();
 		controlManipulatorCommand = new ControlManipulatorCommand();
 		getDistanceInInches = new RangeFinderFindDistanceInInchesCommand();
 		rangedDriveForwardCommand = new AutonomousRangedDriveForwardCommand();
-		testCommandGroup = new TestCommandDontHateMeTaylor();
-
+>>>>>>> manipulatorWithRangeFinder
+		
 		initialGyro = RobotMap.gyro.getAngle();
-
-		System.out.println("In robotInit method");
 	}
 
 	public static void startThread()

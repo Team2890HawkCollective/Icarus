@@ -65,6 +65,7 @@ public class DriveTrainSubsystem extends Subsystem
 		RobotMap.driveTrain.stopMotor();
 	}
 	
+	/*
 	public void autonomousRotateWithCamera()
 	{
 		double turnValue = 0; //PLEASE REPLACE ZERO WITH CAMERA THREAD INPUT!!!
@@ -77,7 +78,7 @@ public class DriveTrainSubsystem extends Subsystem
 			if(turnValue > 0) turnRight();
 			if(turnValue < 0) turnLeft();
 			//if(RobotMap.gyro.getAngle()-turnValue <= 1 || RobotMap.gyro.getAngle()-turnValue >= -1) stopMoving();
-		} */
+		} 
 		
 		if(turnValue > 0) 
 			{
@@ -92,6 +93,7 @@ public class DriveTrainSubsystem extends Subsystem
 				if(currentAngle <= goalAngle+1 || currentAngle >= goalAngle-1) stopMoving();
 			}
 	}
+	*/
 	
 	public void turnDegrees(double goalAngle, double turnDegrees)
 	{
@@ -118,6 +120,8 @@ public class DriveTrainSubsystem extends Subsystem
 		}
 	}
 	
+<<<<<<< HEAD
+=======
 	public void rangedDriveForward()
 	{
 		if(RobotMap.rangeFinder.getRangeInches() >= RobotMap.RANGE_TARGET)
@@ -132,5 +136,6 @@ public class DriveTrainSubsystem extends Subsystem
 			System.out.println("Reached Target Range");
 		}
 	}
+>>>>>>> manipulatorWithRangeFinder
 	
 }
