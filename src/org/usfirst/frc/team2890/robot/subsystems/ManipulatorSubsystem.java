@@ -115,4 +115,11 @@ public class ManipulatorSubsystem extends Subsystem {
     	RobotMap.clawDownFlag = true;
     }
     
+    public void liftUp()
+    {
+    	RobotMap.rightTowerTalon.set(RobotMap.TOWER_UP_VARIABLE);
+		RobotMap.leftTowerTalon.set(RobotMap.TOWER_UP_VARIABLE);
+		RobotMap.liftUpFlag = true;
+    }
+    
 }

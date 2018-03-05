@@ -114,6 +114,8 @@ public class RobotMap
 	public static boolean rangeFinderExitFlag = false;
 	public static boolean keepThreadRunning = true;
 	public static boolean shiftGearButtonFlag = true;
+	public static boolean liftUpFlag = false;
+	
 	public static boolean openedGripperFlag = false;
 	public static boolean closedGripperFlag = false;
 	public static boolean clawDownFlag = false;
