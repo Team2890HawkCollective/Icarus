@@ -25,6 +25,7 @@ public class AutonomousTimedDriveForward extends TimedCommand {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
     {
+    	//RobotMap.manipulatorSubsystem.dropClaw();
     	RobotMap.driveTrainSubsystem.driveForward();
     }
 

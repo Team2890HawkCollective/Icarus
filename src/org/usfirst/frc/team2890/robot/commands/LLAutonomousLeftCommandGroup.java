@@ -12,11 +12,7 @@ public class LLAutonomousLeftCommandGroup extends CommandGroup {
 
     public LLAutonomousLeftCommandGroup() {
     	
-    	//addSequential(new AutonomousTimedDriveForward(SmartDashboard.getNumber("Left OR Right Side Time Drive: ", -19)));
-    	//System.out.println(SmartDashboard.getNumber("Rotate Left Degrees: ", 360));
-    	//addSequential(new AutonomousRotateIntCommand(SmartDashboard.getNumber("Rotate Left Degrees: ", 360)));
-    	//addSequential(new AutonomousTimedDriveForward(SmartDashboard.getNumber("Left OR Right Side Time Drive: ", -19)));
-    	
+    	//addSequential(new ClawDownCommand());
     	addSequential(new AutonomousTimedDriveForward(RobotMap.autonomousLeftOrRightTimeDrive));
     	addSequential(new AutonomousRotateIntCommand(RobotMap.leftTurnDegrees));
     	addSequential(new AutonomousTimedDriveForward(RobotMap.autonomousLeftOrRightTimeDrive));

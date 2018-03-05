@@ -173,6 +173,10 @@ public class RobotMap
 	public static Command controlManipulatorCommand;
 	public static Command getDistanceInInches; //Testing on SmartDashboard
 	public static Command rangedDriveForwardCommand;
+	public static Command liftUpCommand;
+	public static Command clawDownCommand;
+	public static Command closeGripperCommand;
+	public static Command openGripperCommand;
 	
 	public static CommandGroup autonomousTargetingRightCommandGroup;
 	public static CommandGroup autonomousTargetingLeftCommandGroup;
@@ -229,6 +233,10 @@ public class RobotMap
 		getDistanceInInches = new RangeFinderFindDistanceInInchesCommand();
 		rangedDriveForwardCommand = new AutonomousRangedDriveForwardCommand();
 		testCommandGroup = new TestCommandDontHateMeTaylor();
+		liftUpCommand = new LiftUpCommand();
+		clawDownCommand = new ClawDownCommand();
+		closeGripperCommand = new CloseGripperCommand();
+		openGripperCommand = new OpenGripperCommand();
 
 		initialGyro = RobotMap.gyro.getAngle();
 
