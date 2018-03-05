@@ -97,4 +97,22 @@ public class ManipulatorSubsystem extends Subsystem {
     	}
     }
     
+    public void openGripper()
+    {
+    	RobotMap.grabberSolenoid.set(DoubleSolenoid.Value.kReverse);
+    	RobotMap.openedGripperFlag = true;
+    }
+    
+    public void closeGripper()
+    {
+    	RobotMap.grabberSolenoid.set(DoubleSolenoid.Value.kForward);
+    	RobotMap.closedGripperFlag = true;
+    }
+    
+    public void dropClaw()
+    {
+    	RobotMap.rotateSolenoid.set(DoubleSolenoid.Value.kForward);
+    	RobotMap.clawDownFlag = true;
+    }
+    
 }
