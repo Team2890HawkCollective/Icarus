@@ -98,5 +98,3 @@ public class ManipulatorSubsystem extends Subsystem {
     }
     
 }
-	
-	
