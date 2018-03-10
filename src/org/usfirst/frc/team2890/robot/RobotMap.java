@@ -67,6 +67,9 @@ public class RobotMap
 	public static final int RANGEFINDER_ECHOCHANNEL = 1;
 	public static final int LEFT_TALON_TOWER_ID = 5;
 	public static final int RIGHT_TALON_TOWER_ID = 6;
+	public static final int LIMIT_SWITCH_PORT_ID = 1;
+	public static final int UPPER_ELEVATOR_LIMIT_SWITCH_PORT = 0;  //NEED TO BE ASSIGNED
+	public static final int LOWER_ELEVATOR_LIMIT_SWITCH_PORT = 0;
 	
 	//===============================================
 	//VARIABLES
@@ -78,7 +81,7 @@ public class RobotMap
 	public static final double X_AXIS_UPPER_DEADBAND = 0.01;
 	public static final double ROTATION_SENSITIVTY = 0.7; //from 0.65
 	public static final double FORWARDS_BACKWARDS_SENSITIVITY = 1.0; //from 0.8
-	public static final double AUTONOMOUS_FORWARD_SPEED = -0.5; //-.65
+	public static final double AUTONOMOUS_FORWARD_SPEED = -0.6; //-.65
 	public static final double AUTONOMOUS_BACKWARD_SPEED = 0.5; //.65
 	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.45; // from 0.65
 	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.45; // from -0.65
@@ -119,6 +122,7 @@ public class RobotMap
 	public static boolean openedGripperFlag = false;
 	public static boolean closedGripperFlag = false;
 	public static boolean clawDownFlag = false;
+	public static DigitalInput limitSwitch; //check initial state of limit swtich before testing code.
 	//
 	
 	//===============================================
@@ -138,6 +142,8 @@ public class RobotMap
 	public static WPI_TalonSRX leftTowerTalon;
 	public static WPI_TalonSRX rightTowerTalon;
 	public static Ultrasonic rangeFinder;
+	public static DigitalInput upperElevatorLimitSwitch;
+	public static DigitalInput lowerElevatorLimitSwitch;
 	public static SpeedControllerGroup rightTalonGroup;
 	public static SpeedControllerGroup leftTalonGroup;
 	public static DifferentialDrive driveTrain;
@@ -184,6 +190,7 @@ public class RobotMap
 	public static CommandGroup autonomousRightCommandGroup;
 	public static CommandGroup autonomousCommandGroupChooser;
 	public static CommandGroup testCommandGroup;
+	public static CommandGroup megaAutonomousCommandModeGroupRightToLeft;
 	
 	public static void init()
 	{
@@ -210,6 +217,9 @@ public class RobotMap
 		rightTalonGroup = new SpeedControllerGroup(frontRightTalon, rearRightTalon);
 		leftTalonGroup = new SpeedControllerGroup(frontLeftTalon, rearLeftTalon);
 		
+		upperElevatorLimitSwitch = new DigitalInput(UPPER_ELEVATOR_LIMIT_SWITCH_PORT);
+		lowerElevatorLimitSwitch = new DigitalInput(LOWER_ELEVATOR_LIMIT_SWITCH_PORT);
+		
 		//DriveTrainSubsystem.talonRampOn(); // This is for testing, a command should be called instead
 		
 		rightTalonGroup.setInverted(true);
@@ -233,12 +243,15 @@ public class RobotMap
 		getDistanceInInches = new RangeFinderFindDistanceInInchesCommand();
 		rangedDriveForwardCommand = new AutonomousRangedDriveForwardCommand();
 		testCommandGroup = new TestCommandDontHateMeTaylor();
+		megaAutonomousCommandModeGroupRightToLeft = new MegaAutonomousCommandModeGroupRightToLeft();
+		
 		liftUpCommand = new LiftUpCommand();
 		clawDownCommand = new ClawDownCommand();
 		closeGripperCommand = new CloseGripperCommand();
 		openGripperCommand = new OpenGripperCommand();
 
 		initialGyro = RobotMap.gyro.getAngle();
+		//limitSwitch = new DigitalInput(LIMIT_SWITCH_PORT_ID); //before testing limit switch code. check initial state. check port number. 
 
 		System.out.println("In robotInit method");
 	}

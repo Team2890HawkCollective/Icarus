@@ -10,6 +10,7 @@ package org.usfirst.frc.team2890.robot.subsystems;
 import org.usfirst.frc.team2890.robot.RobotMap;
 import org.usfirst.frc.team2890.robot.commands.*;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -39,4 +40,19 @@ public class SensorSubsystem extends Subsystem
 		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
 		//System.out.println(RobotMap.rangeFinder.getRangeInches());
 	}
+	
+	public void isUpperSwitchPressed()
+	{
+		RobotMap.upperElevatorLimitSwitch.get();
+	}
+	
+	public void isLowerSwitchPressed()
+	{
+		RobotMap.lowerElevatorLimitSwitch.get();
+	}
+	
+	
+	
+	
+	
 }

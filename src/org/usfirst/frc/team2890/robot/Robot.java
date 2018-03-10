@@ -120,7 +120,7 @@ public class Robot extends TimedRobot
 		RobotMap.gyro.reset();
 		
 		RobotMap.autonomousCommandGroupChooser = (CommandGroup) m_chooser.getSelected();
-		//Scheduler.getInstance().add(RobotMap.rangedDriveForwardCommand);
+		Scheduler.getInstance().add(RobotMap.megaAutonomousCommandModeGroupRightToLeft);
 
 		while((DriverStation.getInstance().getGameSpecificMessage()) == null)
 		{
@@ -145,7 +145,7 @@ public class Robot extends TimedRobot
 	@Override
 	public void autonomousPeriodic() 
 	{
-		
+		/*
 		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
 		System.out.println(RobotMap.rangeFinderDistanceInches);
 		System.out.println(RobotMap.RANGE_TARGET);
@@ -178,7 +178,7 @@ public class Robot extends TimedRobot
 			scheduleCommands();
 			RobotMap.firstTimeThrough = false;
 		}
-		
+		*/
 		
 		
 		Scheduler.getInstance().run();

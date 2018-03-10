@@ -28,6 +28,11 @@ public class ManipulatorSubsystem extends Subsystem {
     	{
     		RobotMap.rightTowerTalon.set(RobotMap.TOWER_UP_VARIABLE);
     		RobotMap.leftTowerTalon.set(RobotMap.TOWER_UP_VARIABLE);
+    		if(RobotMap.upperElevatorLimitSwitch.get())
+    		{
+    			RobotMap.rightTowerTalon.stopMotor();
+    			RobotMap.leftTowerTalon.stopMotor();
+    		}
     		//.rightTowerTalon.set(-1); //0.1
     		System.out.println("Hello, K.Right is Pressed");
     	}
@@ -36,6 +41,11 @@ public class ManipulatorSubsystem extends Subsystem {
     	{
     		RobotMap.rightTowerTalon.set(-RobotMap.TOWER_UP_VARIABLE);
     		RobotMap.leftTowerTalon.set(-RobotMap.TOWER_UP_VARIABLE);
+    		if(RobotMap.lowerElevatorLimitSwitch.get())
+    		{
+    			RobotMap.rightTowerTalon.stopMotor();
+    			RobotMap.leftTowerTalon.stopMotor();
+    		}
     		//.rightTowerTalon.set(-1); //0.1
     		System.out.println("Hello, K.Right is Pressed");
     	}
