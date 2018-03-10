@@ -21,6 +21,8 @@ public class DriveTrainSubsystem extends Subsystem
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 	//requires.RobotMap.driveTrainSubsystem;
+	public static double maxCurrent= -1;
+	public static double maxVolt = -1;
 
 	public void initDefaultCommand() 
 	{
@@ -41,6 +43,14 @@ public class DriveTrainSubsystem extends Subsystem
 	public void driveForward()
 	{
 		RobotMap.driveTrain.arcadeDrive(RobotMap.AUTONOMOUS_FORWARD_SPEED, 0);
+		double temp = RobotMap.frontLeftTalon.getOutputCurrent();
+		if(temp>maxCurrent)
+			maxCurrent=temp;
+		
+		double temp2 = RobotMap.frontLeftTalon.getMotorOutputVoltage();
+		if(temp2>maxVolt)
+			maxVolt=temp2;
+		
 	}
 	
 	

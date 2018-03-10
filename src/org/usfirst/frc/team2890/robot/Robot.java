@@ -50,6 +50,11 @@ public class Robot extends TimedRobot
 		RobotMap.m_oi = new OI();
 		//driveForwardCommand = new DriveForward();
 		
+		RobotMap.frontRightTalon.enableCurrentLimit(true);
+		RobotMap.frontLeftTalon.enableCurrentLimit(true);
+		RobotMap.rearRightTalon.enableCurrentLimit(true);
+		RobotMap.rearLeftTalon.enableCurrentLimit(true);
+		
 		RobotMap.gyro.reset();
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -120,8 +125,9 @@ public class Robot extends TimedRobot
 		RobotMap.gyro.reset();
 		
 		RobotMap.autonomousCommandGroupChooser = (CommandGroup) m_chooser.getSelected();
-		//Scheduler.getInstance().add(RobotMap.rangedDriveForwardCommand);
+		//Scheduler.getInstance().add(RobotMap);
 
+		
 		while((DriverStation.getInstance().getGameSpecificMessage()) == null)
 		{
 			
@@ -137,6 +143,7 @@ public class Robot extends TimedRobot
 			RobotMap.isRight = true;
 		else if(RobotMap.gameDataLetter.equalsIgnoreCase("L"))
 			RobotMap.isRight = false;
+		
 	}
 
 	/**
@@ -146,10 +153,12 @@ public class Robot extends TimedRobot
 	public void autonomousPeriodic() 
 	{
 		
+		
 		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
 		System.out.println(RobotMap.rangeFinderDistanceInches);
 		System.out.println(RobotMap.RANGE_TARGET);
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
+		
 		
 		RobotMap.autonomousMiddleTimeDrive = SmartDashboard.getNumber("Time Drive Forward For the Middle: ", -1);
 		RobotMap.autonomousLeftOrRightTimeDrive = SmartDashboard.getNumber("Left OR Right Side Time Drive: ", -19);
@@ -158,12 +167,13 @@ public class Robot extends TimedRobot
 		RobotMap.rightTurnDegrees = SmartDashboard.getNumber("Rotate Right Degrees: ", 360);
 		RobotMap.leftTurnDegrees = SmartDashboard.getNumber("Rotate Left Degrees: ", -360);
 		
-		
+		/*
 		System.out.println("Drive time middle: " + RobotMap.autonomousMiddleTimeDrive);
 		System.out.println("Left or Right: " + RobotMap.autonomousLeftOrRightTimeDrive);
 		System.out.println("Drive Straight Speed: " + RobotMap.driveStraightTimeDrive);
 		System.out.println("Right Turn Degrees: " + RobotMap.rightTurnDegrees);
 		System.out.println("Left Turn Degrees: " + RobotMap.leftTurnDegrees);
+		*/
 		
 				
 		if(RobotMap.firstTimeThrough)
@@ -182,6 +192,7 @@ public class Robot extends TimedRobot
 		
 		
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Max Current: ", RobotMap.driveTrainSubsystem.maxCurrent);
 	}
 
 	@Override
@@ -200,10 +211,12 @@ public class Robot extends TimedRobot
 		
 		//Scheduler.getInstance().
 		//RobotMap.talonRampOnCommand.start();
+		/*
 		RobotMap.frontLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.rearLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.frontRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		*/
 		
 		//Scheduler.getInstance().add(RobotMap.controlCubeCommand);
 		//Scheduler.getInstance().add(RobotMap.controlGripperCommand);
@@ -243,6 +256,24 @@ public class Robot extends TimedRobot
 			Scheduler.getInstance().removeAll();
 			Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
 		}
+		
+		double temp =RobotMap.frontLeftTalon.getOutputCurrent();
+		if(temp > DriveTrainSubsystem.maxCurrent)
+			DriveTrainSubsystem.maxCurrent = temp;
+		
+		double temp2 =RobotMap.frontLeftTalon.getMotorOutputVoltage();
+		if(temp2 > DriveTrainSubsystem.maxVolt)
+			DriveTrainSubsystem.maxVolt=temp2;
+		
+		RobotMap.frontLeftTalon.configContinuousCurrentLimit(35, 0);
+		RobotMap.frontRightTalon.configContinuousCurrentLimit(35, 0);
+		RobotMap.rearLeftTalon.configContinuousCurrentLimit(35, 0);
+		RobotMap.rearRightTalon.configContinuousCurrentLimit(35, 0);
+		
+		SmartDashboard.putNumber("Current Limited: ", temp);
+		SmartDashboard.putNumber("Voltage Limited: ", temp2);
+		SmartDashboard.putNumber("Max Current Teleop: ", DriveTrainSubsystem.maxCurrent);
+		SmartDashboard.putNumber("Max Voltage Teleop: ", DriveTrainSubsystem.maxVolt);
 		
 		//RobotMap.leftTowerTalon.set(1);
 		//RobotMap.rightTowerTalon.set(1);

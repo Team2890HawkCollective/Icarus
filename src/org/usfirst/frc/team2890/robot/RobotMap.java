@@ -78,8 +78,8 @@ public class RobotMap
 	public static final double X_AXIS_UPPER_DEADBAND = 0.01;
 	public static final double ROTATION_SENSITIVTY = 0.7; //from 0.65
 	public static final double FORWARDS_BACKWARDS_SENSITIVITY = 1.0; //from 0.8
-	public static final double AUTONOMOUS_FORWARD_SPEED = -0.5; //-.65
-	public static final double AUTONOMOUS_BACKWARD_SPEED = 0.5; //.65
+	public static final double AUTONOMOUS_FORWARD_SPEED = -.5; //-.65
+	public static final double AUTONOMOUS_BACKWARD_SPEED = .5; //.65
 	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.45; // from 0.65
 	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.45; // from -0.65
 	public static final double AUTONOMOUS_KILL_SWITCH = 0;
@@ -94,7 +94,7 @@ public class RobotMap
 	public static final double AUTONOMOUS_MIDDLE_ONE_SECOND_TIMED_DRIVE = 1.0;
 	public static double autonomousMiddleTimeDrive = 1.0; //time in seconds 
 	public static double autonomousLeftOrRightTimeDrive = 3.0;
-	public static double driveStraightTimeDrive = 5.0;
+	public static double driveStraightTimeDrive = 0.25;
 	
 	public static double initialGyro;
 	public static double goalAngle;
@@ -154,6 +154,7 @@ public class RobotMap
 	public static Command talonRampOnCommand;
 	public static Command talonRampOffCommand;
 	public static Command stopMovingCommand;
+	public static Command maxCurrentControlCommand;
 	
 	//===============================================
 	//AUTONOMOUS COMMANDS
@@ -224,6 +225,7 @@ public class RobotMap
 		getDistanceInInches = new RangeFinderFindDistanceInInchesCommand();
 		rangedDriveForwardCommand = new AutonomousRangedDriveForwardCommand();
 		testCommandGroup = new TestCommandDontHateMeTaylor();
+		maxCurrentControlCommand = new MaxCurrentCommand(.25);
 
 		initialGyro = RobotMap.gyro.getAngle();
 
