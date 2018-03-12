@@ -95,6 +95,7 @@ public class ManipulatorSubsystem extends Subsystem {
         		RobotMap.controlGripperFlag = true;
         	}
     	}
+    	
     }
     
 }
