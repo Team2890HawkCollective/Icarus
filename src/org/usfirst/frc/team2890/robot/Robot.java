@@ -236,6 +236,8 @@ public class Robot extends TimedRobot
 		SmartDashboard.putBoolean("A",RobotMap.driverController.getAButton());
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
 		SmartDashboard.putNumber("Gyro Rate:", RobotMap.gyro.getRate());
+		System.out.println("Amps: " + RobotMap.leftTowerTalon.getOutputCurrent());
+		System.out.println("Volts: " + RobotMap.rightTowerTalon.getMotorOutputVoltage());
 		
 		if(RobotMap.driverController.getBButton())
 		{

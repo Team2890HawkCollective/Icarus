@@ -67,6 +67,7 @@ public class RobotMap
 	public static final int RANGEFINDER_ECHOCHANNEL = 1;
 	public static final int LEFT_TALON_TOWER_ID = 5;
 	public static final int RIGHT_TALON_TOWER_ID = 6;
+	public static final int CAMERA_SERVO_ID = 0;
 	
 	//===============================================
 	//VARIABLES
@@ -114,6 +115,7 @@ public class RobotMap
 	public static boolean rangeFinderExitFlag = false;
 	public static boolean keepThreadRunning = true;
 	public static boolean shiftGearButtonFlag = true;
+	public static boolean cameraServoFlag = true;
 	//
 	
 	//===============================================
@@ -145,6 +147,7 @@ public class RobotMap
 	public static DoubleSolenoid grabberSolenoid;
 	public static DoubleSolenoid rotateSolenoid;
 	public static DoubleSolenoid gearBoxSolenoid;
+	public static Servo cameraServo;
 
 	//===============================================
 	//COMMANDS
@@ -197,6 +200,8 @@ public class RobotMap
 		rearLeftTalon = new WPI_TalonSRX(REAR_LEFT_TALON_ID);
 		leftTowerTalon = new WPI_TalonSRX(RIGHT_TALON_TOWER_ID); 
 		rightTowerTalon = new WPI_TalonSRX(LEFT_TALON_TOWER_ID);
+		
+		cameraServo = new Servo(CAMERA_SERVO_ID);
 		
 		rightTalonGroup = new SpeedControllerGroup(frontRightTalon, rearRightTalon);
 		leftTalonGroup = new SpeedControllerGroup(frontLeftTalon, rearLeftTalon);

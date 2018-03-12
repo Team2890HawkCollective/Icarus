@@ -95,7 +95,33 @@ public class ManipulatorSubsystem extends Subsystem {
         		RobotMap.controlGripperFlag = true;
         	}
     	}
+    	//Stop Manipulator
+    	if(RobotMap.assistantDriverController.getBButtonPressed())
+    	{
+    		RobotMap.rightTowerTalon.stopMotor();
+    		RobotMap.leftTowerTalon.stopMotor();
+    		RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kOff);
+			RobotMap.rotateSolenoid.set(DoubleSolenoid.Value.kOff);
+			RobotMap.grabberSolenoid.set(DoubleSolenoid.Value.kOff);
+
+    	}
     	
+    	if(RobotMap.assistantDriverController.getStartButtonPressed())
+    	{
+    		if(RobotMap.cameraServoFlag)
+        	{
+    			RobotMap.cameraServo.setAngle(10);
+        		RobotMap.cameraServoFlag = false;
+        	}
+    		//close gripper
+        	else
+        	{
+        		RobotMap.cameraServo.setAngle(0);
+        		RobotMap.cameraServoFlag = true;
+        	}
+    	}
     }
     
 }
+	
+	
