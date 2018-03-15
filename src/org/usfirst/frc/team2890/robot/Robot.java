@@ -120,7 +120,10 @@ public class Robot extends TimedRobot
 		RobotMap.gyro.reset();
 		
 		RobotMap.autonomousCommandGroupChooser = (CommandGroup) m_chooser.getSelected();
-		//Scheduler.getInstance().add(RobotMap.rangedDriveForwardCommand);
+		Scheduler.getInstance().add(RobotMap.clawDownCommand);
+//		Scheduler.getInstance().add(RobotMap.closeGripperCommand);
+//		Scheduler.getInstance().add(RobotMap.liftUpCommand);
+//		Scheduler.getInstance().add(RobotMap.openGripperCommand);
 
 		while((DriverStation.getInstance().getGameSpecificMessage()) == null)
 		{
@@ -145,40 +148,40 @@ public class Robot extends TimedRobot
 	@Override
 	public void autonomousPeriodic() 
 	{
-		
-		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
-		System.out.println(RobotMap.rangeFinderDistanceInches);
-		System.out.println(RobotMap.RANGE_TARGET);
-		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
-		
-		RobotMap.autonomousMiddleTimeDrive = SmartDashboard.getNumber("Time Drive Forward For the Middle: ", -1);
-		RobotMap.autonomousLeftOrRightTimeDrive = SmartDashboard.getNumber("Left OR Right Side Time Drive: ", -19);
-		RobotMap.driveStraightTimeDrive = SmartDashboard.getNumber("Straight Time Drive Forward: ", -1);
-		
-		RobotMap.rightTurnDegrees = SmartDashboard.getNumber("Rotate Right Degrees: ", 360);
-		RobotMap.leftTurnDegrees = SmartDashboard.getNumber("Rotate Left Degrees: ", -360);
-		
-		
-		System.out.println("Drive time middle: " + RobotMap.autonomousMiddleTimeDrive);
-		System.out.println("Left or Right: " + RobotMap.autonomousLeftOrRightTimeDrive);
-		System.out.println("Drive Straight Speed: " + RobotMap.driveStraightTimeDrive);
-		System.out.println("Right Turn Degrees: " + RobotMap.rightTurnDegrees);
-		System.out.println("Left Turn Degrees: " + RobotMap.leftTurnDegrees);
-		
-				
-		if(RobotMap.firstTimeThrough)
-		{
-			RobotMap.rotationAutonomous = new AutonomousRotateIntCommand(RobotMap.rightTurnDegrees);
-			RobotMap.autonomousTargetingRightCommandGroup = new AutonomousTargetingRightCommandGroup();
-			RobotMap.autonomousTargetingLeftCommandGroup = new AutonomousTargetingLeftCommandGroup();
-			RobotMap.autonomousLeftCommandGroup = new LLAutonomousLeftCommandGroup();
-			RobotMap.autonomousRightCommandGroup = new RRAutonomousRightCommandGroup();
-			RobotMap.autonomousCommandGroupChooser = new CommandGroup();
-			RobotMap.timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(RobotMap.driveStraightTimeDrive);
-			scheduleCommands();
-			RobotMap.firstTimeThrough = false;
-		}
-		
+//		
+//		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
+//		System.out.println(RobotMap.rangeFinderDistanceInches);
+//		System.out.println(RobotMap.RANGE_TARGET);
+//		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
+//		
+//		RobotMap.autonomousMiddleTimeDrive = SmartDashboard.getNumber("Time Drive Forward For the Middle: ", -1);
+//		RobotMap.autonomousLeftOrRightTimeDrive = SmartDashboard.getNumber("Left OR Right Side Time Drive: ", -19);
+//		RobotMap.driveStraightTimeDrive = SmartDashboard.getNumber("Straight Time Drive Forward: ", -1);
+//		
+//		RobotMap.rightTurnDegrees = SmartDashboard.getNumber("Rotate Right Degrees: ", 360);
+//		RobotMap.leftTurnDegrees = SmartDashboard.getNumber("Rotate Left Degrees: ", -360);
+//		
+//		
+//		System.out.println("Drive time middle: " + RobotMap.autonomousMiddleTimeDrive);
+//		System.out.println("Left or Right: " + RobotMap.autonomousLeftOrRightTimeDrive);
+//		System.out.println("Drive Straight Speed: " + RobotMap.driveStraightTimeDrive);
+//		System.out.println("Right Turn Degrees: " + RobotMap.rightTurnDegrees);
+//		System.out.println("Left Turn Degrees: " + RobotMap.leftTurnDegrees);
+//		
+//				
+//		if(RobotMap.firstTimeThrough)
+//		{
+//			RobotMap.rotationAutonomous = new AutonomousRotateIntCommand(RobotMap.rightTurnDegrees);
+//			RobotMap.autonomousTargetingRightCommandGroup = new AutonomousTargetingRightCommandGroup();
+//			RobotMap.autonomousTargetingLeftCommandGroup = new AutonomousTargetingLeftCommandGroup();
+//			RobotMap.autonomousLeftCommandGroup = new LLAutonomousLeftCommandGroup();
+//			RobotMap.autonomousRightCommandGroup = new RRAutonomousRightCommandGroup();
+//			RobotMap.autonomousCommandGroupChooser = new CommandGroup();
+//			RobotMap.timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(RobotMap.driveStraightTimeDrive);
+//			scheduleCommands();
+//			RobotMap.firstTimeThrough = false;
+//		}
+	
 		
 		
 		Scheduler.getInstance().run();
