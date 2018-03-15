@@ -38,6 +38,7 @@ public class Robot extends TimedRobot
 	@Override
 	public void robotInit() 
 	{
+		SmartDashboard.putNumber("Go to Switch(0) or Mega Autonomous Mode(1): ", 0);
 		SmartDashboard.putNumber("Time Drive Forward For the Middle: ", 1.0);
 		//For when we're on the opposite side of the field that our target is on.
 		SmartDashboard.putNumber("Straight Time Drive Forward: ", 5.0);
@@ -129,14 +130,22 @@ public class Robot extends TimedRobot
 		
 		RobotMap.gameData = DriverStation.getInstance().getGameSpecificMessage();
 		RobotMap.gameDataLetter = RobotMap.gameData.substring(0, 1);
+		RobotMap.secondGameDataLetter = RobotMap.gameData.substring(1, 2);
 		System.out.println(RobotMap.gameDataLetter);
 		
 		SmartDashboard.putString("Game Data Letter", RobotMap.gameDataLetter);
 		
+		//Used for the first game data letter
 		if(RobotMap.gameDataLetter.equalsIgnoreCase("R"))
 			RobotMap.isRight = true;
 		else if(RobotMap.gameDataLetter.equalsIgnoreCase("L"))
 			RobotMap.isRight = false;
+		
+		//Used for the second game data letter (Mega Autonomous Mode)
+		if(RobotMap.secondGameDataLetter.equalsIgnoreCase("R"))
+			RobotMap.megaAutonomousRight = true;
+		else if(RobotMap.secondGameDataLetter.equalsIgnoreCase("L"))
+			RobotMap.megaAutonomousRight = false;
 	}
 
 	/**
@@ -144,12 +153,13 @@ public class Robot extends TimedRobot
 	 */
 	@Override
 	public void autonomousPeriodic() 
-	{
-		/*
+	{	
 		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
 		System.out.println(RobotMap.rangeFinderDistanceInches);
 		System.out.println(RobotMap.RANGE_TARGET);
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
+		
+		RobotMap.autonomousModeNumber = SmartDashboard.getNumber("Go to Switch(0) or Mega Autonomous Mode(1): ", 0);
 		
 		RobotMap.autonomousMiddleTimeDrive = SmartDashboard.getNumber("Time Drive Forward For the Middle: ", -1);
 		RobotMap.autonomousLeftOrRightTimeDrive = SmartDashboard.getNumber("Left OR Right Side Time Drive: ", -19);
@@ -175,10 +185,14 @@ public class Robot extends TimedRobot
 			RobotMap.autonomousRightCommandGroup = new RRAutonomousRightCommandGroup();
 			RobotMap.autonomousCommandGroupChooser = new CommandGroup();
 			RobotMap.timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(RobotMap.driveStraightTimeDrive);
+			RobotMap.megaAutonomousCommandModeGroupRightToLeft = new MegaAutonomousCommandModeGroupRightToLeft();
+			RobotMap.megaAutonomousCommandModeGroupLeftToRight = new MegaAutonomousCommandModeGroupLeftToRight();
+			RobotMap.megaAutonomousCommandModeGroupRightToRight = new MegaAutonomousCommandModeGroupRightToRight();
+			RobotMap.megaAutonomousCommandModeGroupLeftToLeft = new MegaAutonomousCommandModeGroupLeftToLeft();
 			scheduleCommands();
 			RobotMap.firstTimeThrough = false;
 		}
-		*/
+		
 		
 		
 		Scheduler.getInstance().run();
@@ -283,50 +297,109 @@ public class Robot extends TimedRobot
 	
 	public void scheduleCommands()
 	{
-		if(RobotMap.isRight)
+		if(RobotMap.isRight) //If the switch is on the right
 		{
-			SmartDashboard.putString("In R If Statement: ", "R");
-			if(m_chooser.getSelected().getName().equals("RRAutonomousRightCommandGroup"))
+			if(RobotMap.autonomousModeNumber == 0) //0 is if we are NOT doing Mega Autonomous
 			{
-				SmartDashboard.putString("In 1st if: ", "In");
-				Scheduler.getInstance().add(RobotMap.autonomousRightCommandGroup);
-				return;
+				if(m_chooser.getSelected().getName().equals("RRAutonomousRightCommandGroup"))
+				{
+					Scheduler.getInstance().add(RobotMap.autonomousRightCommandGroup);
+					return;
+				}
+				else if(m_chooser.getSelected().getName().equals("LLAutonomousLeftCommandGroup"))
+				{
+					Scheduler.getInstance().add(RobotMap.megaAutonomousCommandModeGroupLeftToRight); //Might need to switch these two 
+																									 //commands if there's a chance we run into another bot
+					//Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
+					return;
+				}
+				//In middle
+				else if(m_chooser.getSelected().getName().equals("TestCommandDontHateMeTaylor"))
+				{
+					Scheduler.getInstance().add(RobotMap.autonomousTargetingRightCommandGroup);
+					return;
+				}
 			}
-			else if(m_chooser.getSelected().getName().equals("LLAutonomousLeftCommandGroup"))
+			else if(RobotMap.autonomousModeNumber == 1) //1 equals us doing Mega Autonomous Mode
 			{
-				SmartDashboard.putString("In 2nd if: ", "In");
-				Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
-				return;
-			}
-			//In middle
-			else if(m_chooser.getSelected().getName().equals("TestCommandDontHateMeTaylor"))
-			{
-				SmartDashboard.putString("In 3rd if: ", "In");
-				Scheduler.getInstance().add(RobotMap.autonomousTargetingRightCommandGroup);
-				return;
+				if(RobotMap.megaAutonomousRight) //If the scale is on the right
+				{
+					if(m_chooser.getSelected().getName().equals("RRAutonomousRightCommandGroup"))
+					{
+						Scheduler.getInstance().add(RobotMap.megaAutonomousCommandModeGroupRightToRight);
+						return;
+					}
+					else if(m_chooser.getSelected().getName().equals("LLAutonomousLeftCommandGroup"))
+					{
+						Scheduler.getInstance().add(RobotMap.megaAutonomousCommandModeGroupLeftToRight);
+						return;
+					}
+				}
+				else //If the scale is on the left
+					if(m_chooser.getSelected().getName().equals("RRAutonomousRightCommandGroup"))
+					{
+						Scheduler.getInstance().add(RobotMap.megaAutonomousCommandModeGroupRightToLeft);
+						return;
+					}
+					else if(m_chooser.getSelected().getName().equals("LLAutonomousLeftCommandGroup"))
+					{
+						Scheduler.getInstance().add(RobotMap.megaAutonomousCommandModeGroupLeftToLeft);
+						return;
+					}
+					
 			}
 		}
-		else
+		else //If the scale is on the left
 		{
-			SmartDashboard.putString("In L If Statement: ", "L");
-			if(m_chooser.getSelected().getName().equals("RRAutonomousRightCommandGroup"))
+			if(RobotMap.autonomousModeNumber == 0) //0 equals NOT doing Mega Autonomous
 			{
-				SmartDashboard.putString("In 4th if: ", "In");
-				Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
-				return;
+				if(m_chooser.getSelected().getName().equals("RRAutonomousRightCommandGroup"))
+				{
+					Scheduler.getInstance().add(RobotMap.megaAutonomousCommandModeGroupRightToLeft); //Might need to switch these two 
+					 																				 //commands if there's a chance we run into another bot
+					//Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
+					return;
+				}
+				else if(m_chooser.getSelected().getName().equals("LLAutonomousLeftCommandGroup"))
+				{
+					Scheduler.getInstance().add(RobotMap.autonomousLeftCommandGroup);
+					return;
+				}
+				//In middle
+				else if(m_chooser.getSelected().getName().equals("TestCommandDontHateMeTaylor"))
+				{
+					Scheduler.getInstance().add(RobotMap.autonomousTargetingLeftCommandGroup);
+					return;
+				}
 			}
-			else if(m_chooser.getSelected().getName().equals("LLAutonomousLeftCommandGroup"))
+			else if(RobotMap.autonomousModeNumber == 1) //Doing Mega Autonomous Mode
 			{
-				SmartDashboard.putString("In 5th if: ", "In");
-				Scheduler.getInstance().add(RobotMap.autonomousLeftCommandGroup);
-				return;
-			}
-			//In middle
-			else if(m_chooser.getSelected().getName().equals("TestCommandDontHateMeTaylor"))
-			{
-				SmartDashboard.putString("In 6th if: ", "In");
-				Scheduler.getInstance().add(RobotMap.autonomousTargetingLeftCommandGroup);
-				return;
+				if(!RobotMap.megaAutonomousRight) //If the scale is on the left
+				{
+					if(m_chooser.getSelected().getName().equals("RRAutonomousRightCommandGroup"))
+					{
+						//Scheduler.getInstance().add(RobotMap.megaAutonomousCommandModeGroupRightToRight);
+						Scheduler.getInstance().add(RobotMap.megaAutonomousCommandModeGroupRightToLeft);
+						return;
+					}
+					else if(m_chooser.getSelected().getName().equals("LLAutonomousLeftCommandGroup"))
+					{
+						Scheduler.getInstance().add(RobotMap.megaAutonomousCommandModeGroupLeftToLeft);
+						//Scheduler.getInstance().add(RobotMap.megaAutonomousCommandModeGroupLeftToRight);
+						return;
+					}
+				}
+				else //If the scale is on the right
+					if(m_chooser.getSelected().getName().equals("RRAutonomousRightCommandGroup"))
+					{
+						Scheduler.getInstance().add(RobotMap.megaAutonomousCommandModeGroupRightToRight);
+						return;
+					}
+					else if(m_chooser.getSelected().getName().equals("LLAutonomousLeftCommandGroup"))
+					{
+						Scheduler.getInstance().add(RobotMap.megaAutonomousCommandModeGroupLeftToRight);
+						return;
+					}
 			}
 		}
 	}

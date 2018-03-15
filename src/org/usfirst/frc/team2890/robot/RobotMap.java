@@ -59,10 +59,12 @@ public class RobotMap
 	public static final int ASSISTANT_DRIVER_CONTROLLER_PORT = 1;
 	public static final int GRABBER_SOLENOID_FORWARD_PORT = 0;
 	public static final int GRABBER_SOLENOID_BACKWARD_PORT = 1;
-	public static final int ROTATE_SOLENOID_FORWARD_PORT = 2;
-	public static final int ROTATE_SOLENOID_BACKWARD_PORT = 3;
+	public static final int ELBOW_SOLENOID_FORWARD_PORT = 2;
+	public static final int ELBOW_SOLENOID_BACKWARD_PORT = 3;
 	public static final int GEARBOX_SOLENOID_FORWARD_PORT = 4;
 	public static final int GEARBOX_SOLENOID_BACKWARD_PORT = 5;
+	public static final int RATCHET_ENGAGE_CHANNEL_PORT = 6;
+	public static final int RATCHET_DISENGAGE_CHANNEL_PORT = 7;
 	public static final int RANGEFINDER_PINGCHANNEL = 0;
 	public static final int RANGEFINDER_ECHOCHANNEL = 1;
 	public static final int LEFT_TALON_TOWER_ID = 5;
@@ -103,15 +105,18 @@ public class RobotMap
 	public static double goalAngle;
 	public static double rightTurnDegrees = 90;
 	public static double leftTurnDegrees = -90;
+	public static double autonomousModeNumber = 0;
 	
 	public static String gameData;
 	public static String gameDataLetter;
+	public static String secondGameDataLetter;
 	
 	//TESTING VARIABLES
 	public static boolean flag = true;
 	public static boolean stopRotating = false;
 	public static boolean firstTimeThrough = true;
 	public static boolean isRight = true;
+	public static boolean megaAutonomousRight = false;
 	public static boolean controlGripperFlag = true;
 	public static boolean controlCubeFlag = true;
 	public static boolean rangeFinderExitFlag = false;
@@ -154,8 +159,9 @@ public class RobotMap
 	public static ADXRS450_Gyro gyro;
 	public static Compressor compressor;
 	public static DoubleSolenoid grabberSolenoid;
-	public static DoubleSolenoid rotateSolenoid;
+	public static DoubleSolenoid elbowSolenoid;
 	public static DoubleSolenoid gearBoxSolenoid;
+	public static DoubleSolenoid ratchetSolenoid;
 
 	//===============================================
 	//COMMANDS
@@ -191,6 +197,9 @@ public class RobotMap
 	public static CommandGroup autonomousCommandGroupChooser;
 	public static CommandGroup testCommandGroup;
 	public static CommandGroup megaAutonomousCommandModeGroupRightToLeft;
+	public static CommandGroup megaAutonomousCommandModeGroupLeftToRight;
+	public static CommandGroup megaAutonomousCommandModeGroupRightToRight;
+	public static CommandGroup megaAutonomousCommandModeGroupLeftToLeft;
 	
 	public static void init()
 	{
@@ -204,7 +213,8 @@ public class RobotMap
 		
 		compressor = new Compressor();
 		grabberSolenoid = new DoubleSolenoid(GRABBER_SOLENOID_FORWARD_PORT, GRABBER_SOLENOID_BACKWARD_PORT); //GRABBER_SOLENOID_FORWARD_PORT, GRABBER_SOLENOID_BACKWARD_PORT
-		rotateSolenoid = new DoubleSolenoid(ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT); //ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT
+		elbowSolenoid = new DoubleSolenoid(ELBOW_SOLENOID_FORWARD_PORT, ELBOW_SOLENOID_BACKWARD_PORT); //ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT
+		ratchetSolenoid = new DoubleSolenoid(RATCHET_ENGAGE_CHANNEL_PORT, RATCHET_DISENGAGE_CHANNEL_PORT);
 		gearBoxSolenoid = new DoubleSolenoid(GEARBOX_SOLENOID_FORWARD_PORT, GEARBOX_SOLENOID_BACKWARD_PORT); //GEARBOX_SOLENOID_FORWARD_PORT, GEARBOX_SOLENOID_BACKWARD_PORT
 		
 		frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
@@ -217,8 +227,8 @@ public class RobotMap
 		rightTalonGroup = new SpeedControllerGroup(frontRightTalon, rearRightTalon);
 		leftTalonGroup = new SpeedControllerGroup(frontLeftTalon, rearLeftTalon);
 		
-		upperElevatorLimitSwitch = new DigitalInput(UPPER_ELEVATOR_LIMIT_SWITCH_PORT);
-		lowerElevatorLimitSwitch = new DigitalInput(LOWER_ELEVATOR_LIMIT_SWITCH_PORT);
+		//upperElevatorLimitSwitch = new DigitalInput(UPPER_ELEVATOR_LIMIT_SWITCH_PORT);
+		//lowerElevatorLimitSwitch = new DigitalInput(LOWER_ELEVATOR_LIMIT_SWITCH_PORT);
 		
 		//DriveTrainSubsystem.talonRampOn(); // This is for testing, a command should be called instead
 		
@@ -243,7 +253,6 @@ public class RobotMap
 		getDistanceInInches = new RangeFinderFindDistanceInInchesCommand();
 		rangedDriveForwardCommand = new AutonomousRangedDriveForwardCommand();
 		testCommandGroup = new TestCommandDontHateMeTaylor();
-		megaAutonomousCommandModeGroupRightToLeft = new MegaAutonomousCommandModeGroupRightToLeft();
 		
 		liftUpCommand = new LiftUpCommand();
 		clawDownCommand = new ClawDownCommand();
