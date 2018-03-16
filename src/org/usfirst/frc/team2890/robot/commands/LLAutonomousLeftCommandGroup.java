@@ -16,6 +16,7 @@ public class LLAutonomousLeftCommandGroup extends CommandGroup {
     	addSequential(new AutonomousTimedDriveForward(RobotMap.autonomousLeftOrRightTimeDrive));
     	addSequential(new AutonomousRotateIntCommand(RobotMap.leftTurnDegrees));
     	addSequential(new AutonomousTimedDriveForward(RobotMap.autonomousLeftOrRightTimeDrive));
+    	addSequential(new AutonomousRangedDriveForwardCommand());
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());

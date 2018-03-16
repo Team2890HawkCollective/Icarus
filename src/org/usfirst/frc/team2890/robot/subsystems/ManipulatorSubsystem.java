@@ -68,13 +68,13 @@ public class ManipulatorSubsystem extends Subsystem {
     		//cube up
     		if(RobotMap.controlCubeFlag)
         	{
-    			RobotMap.rotateSolenoid.set(DoubleSolenoid.Value.kReverse);
+    			RobotMap.elbowSolenoid.set(DoubleSolenoid.Value.kReverse);
         		RobotMap.controlCubeFlag = false;
         	}
     		//cube down
         	else
         	{
-        		RobotMap.rotateSolenoid.set(DoubleSolenoid.Value.kForward);
+        		RobotMap.elbowSolenoid.set(DoubleSolenoid.Value.kForward);
         		RobotMap.controlCubeFlag = true;
         	}
     	}
@@ -111,7 +111,7 @@ public class ManipulatorSubsystem extends Subsystem {
     
     public void dropClaw()
     {
-    	RobotMap.rotateSolenoid.set(DoubleSolenoid.Value.kForward);
+    	RobotMap.elbowSolenoid.set(DoubleSolenoid.Value.kForward);
     	RobotMap.clawDownFlag = true;
     }
     
