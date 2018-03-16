@@ -69,6 +69,8 @@ public class RobotMap
 	public static final int RANGEFINDER_ECHOCHANNEL = 1;
 	public static final int LEFT_TALON_TOWER_ID = 5;
 	public static final int RIGHT_TALON_TOWER_ID = 6;
+	public static final int LOWER_LIMIT_SWITCH_PORT = 8;
+	public static final int UPPER_LIMIT_SWITCH_PORT = 9;
 	
 	//===============================================
 	//VARIABLES
@@ -141,6 +143,8 @@ public class RobotMap
 	public static WPI_TalonSRX leftTowerTalon;
 	public static WPI_TalonSRX rightTowerTalon;
 	public static Ultrasonic rangeFinder;
+	public static DigitalInput upperElevatorLimitSwitch;
+	public static DigitalInput lowerElevatorLimitSwitch;
 	public static SpeedControllerGroup rightTalonGroup;
 	public static SpeedControllerGroup leftTalonGroup;
 	public static DifferentialDrive driveTrain;
@@ -204,6 +208,9 @@ public class RobotMap
 		elbowSolenoid = new DoubleSolenoid(ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT); //ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT
 		gearBoxSolenoid = new DoubleSolenoid(GEARBOX_SOLENOID_FORWARD_PORT, GEARBOX_SOLENOID_BACKWARD_PORT); //GEARBOX_SOLENOID_FORWARD_PORT, GEARBOX_SOLENOID_BACKWARD_PORT
 		ratchetSolenoid = new DoubleSolenoid(RATCHET_ENGAGE_CHANNEL_PORT, RATCHET_DISENGAGE_CHANNEL_PORT);
+		
+		upperElevatorLimitSwitch = new DigitalInput(UPPER_LIMIT_SWITCH_PORT);
+		lowerElevatorLimitSwitch = new DigitalInput(LOWER_LIMIT_SWITCH_PORT);
 				
 		frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
 		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
