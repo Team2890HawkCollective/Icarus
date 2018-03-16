@@ -95,6 +95,20 @@ public class ManipulatorSubsystem extends Subsystem {
         		RobotMap.controlGripperFlag = true;
         	}
     	}
+    	
+    	if(RobotMap.assistantDriverController.getStartButtonPressed())
+    	{
+    		if(RobotMap.controlRatchetFlag)
+    		{
+    			RobotMap.ratchetSolenoid.set(DoubleSolenoid.Value.kForward);
+    			RobotMap.controlRatchetFlag = false;
+    		}
+    		else
+    		{
+    			RobotMap.ratchetSolenoid.set(DoubleSolenoid.Value.kReverse);
+    			RobotMap.controlRatchetFlag = true;
+    		}
+    	}
     }
     
     public void openGripper()

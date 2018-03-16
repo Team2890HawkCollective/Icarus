@@ -63,6 +63,8 @@ public class RobotMap
 	public static final int ROTATE_SOLENOID_BACKWARD_PORT = 3;
 	public static final int GEARBOX_SOLENOID_FORWARD_PORT = 4;
 	public static final int GEARBOX_SOLENOID_BACKWARD_PORT = 5;
+	public static final int RATCHET_ENGAGE_CHANNEL_PORT = 6;
+	public static final int RATCHET_DISENGAGE_CHANNEL_PORT = 7;
 	public static final int RANGEFINDER_PINGCHANNEL = 0;
 	public static final int RANGEFINDER_ECHOCHANNEL = 1;
 	public static final int LEFT_TALON_TOWER_ID = 5;
@@ -111,6 +113,7 @@ public class RobotMap
 	public static boolean isRight = true;
 	public static boolean controlGripperFlag = true;
 	public static boolean controlCubeFlag = true;
+	public static boolean controlRatchetFlag = true;
 	public static boolean rangeFinderExitFlag = false;
 	public static boolean keepThreadRunning = true;
 	public static boolean shiftGearButtonFlag = true;
@@ -200,7 +203,8 @@ public class RobotMap
 		grabberSolenoid = new DoubleSolenoid(GRABBER_SOLENOID_FORWARD_PORT, GRABBER_SOLENOID_BACKWARD_PORT); //GRABBER_SOLENOID_FORWARD_PORT, GRABBER_SOLENOID_BACKWARD_PORT
 		elbowSolenoid = new DoubleSolenoid(ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT); //ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT
 		gearBoxSolenoid = new DoubleSolenoid(GEARBOX_SOLENOID_FORWARD_PORT, GEARBOX_SOLENOID_BACKWARD_PORT); //GEARBOX_SOLENOID_FORWARD_PORT, GEARBOX_SOLENOID_BACKWARD_PORT
-		
+		ratchetSolenoid = new DoubleSolenoid(RATCHET_ENGAGE_CHANNEL_PORT, RATCHET_DISENGAGE_CHANNEL_PORT);
+				
 		frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
 		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
 		frontLeftTalon = new WPI_TalonSRX(FRONT_LEFT_TALON_ID);
