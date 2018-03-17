@@ -22,28 +22,67 @@ public class ManipulatorSubsystem extends Subsystem {
     
     public void controlManipulator()
     {
+    	RobotMap.upperLimitSwitch = RobotMap.sensorSubsystem.isUpperLimitSwitchPressed();
+    	RobotMap.lowerLimitSwitch = RobotMap.sensorSubsystem.isLowerLimitSwitchPressed();
     	//controlTower method
+    	//Tower Down
+    	if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft) > RobotMap.TRIGGER_SENSITIVIY && RobotMap.lowerLimitSwitch)
+    	{
+    		RobotMap.rightTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
+    		RobotMap.leftTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
+    		System.out.println("left Trigger: " + RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
+    	}
     	//Tower up
-    	if (RobotMap.assistantDriverController.getBumper(Hand.kLeft))
+    	else if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) > RobotMap.TRIGGER_SENSITIVIY && !RobotMap.upperLimitSwitch)
     	{
-    		RobotMap.rightTowerTalon.set(RobotMap.TOWER_UP_VARIABLE);
-    		RobotMap.leftTowerTalon.set(RobotMap.TOWER_UP_VARIABLE);
-    		//.rightTowerTalon.set(-1); //0.1
-    		System.out.println("Hello, K.Right is Pressed");
+    		RobotMap.rightTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) * RobotMap.TOWER_UP_DIRECTION);
+    		RobotMap.leftTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) * RobotMap.TOWER_UP_DIRECTION);
+    		System.out.println("right Trigger: " + RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight));
     	}
-    	//Tower down
-    	else if (RobotMap.assistantDriverController.getBumper(Hand.kRight))
-    	{
-    		RobotMap.rightTowerTalon.set(-RobotMap.TOWER_UP_VARIABLE);
-    		RobotMap.leftTowerTalon.set(-RobotMap.TOWER_UP_VARIABLE);
-    		//.rightTowerTalon.set(-1); //0.1
-    		System.out.println("Hello, K.Right is Pressed");
-    	}
+    	//Stop tower
     	else
     	{
     		RobotMap.rightTowerTalon.stopMotor();
     		RobotMap.leftTowerTalon.stopMotor();
     	}
+    	//Tower Down
+    	/*if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft) > RobotMap.TRIGGER_SENSITIVIY)
+    	{   
+    		if(RobotMap.lowerLimitSwitch)
+    		{
+        		RobotMap.rightTowerTalon.stopMotor();
+        		RobotMap.leftTowerTalon.stopMotor();
+    		}
+    		else if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft) > RobotMap.TRIGGER_SENSITIVIY)
+    		{
+    			RobotMap.rightTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
+        		RobotMap.leftTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
+        	}
+    		else
+        	{
+        		RobotMap.rightTowerTalon.stopMotor();
+        		RobotMap.leftTowerTalon.stopMotor();
+        	}
+    	}
+    	//Tower up
+    	else if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) > RobotMap.TRIGGER_SENSITIVIY)
+    	{
+    		if(RobotMap.upperLimitSwitch)
+    		{
+    			RobotMap.rightTowerTalon.stopMotor();
+        		RobotMap.leftTowerTalon.stopMotor();
+    		}
+    		else if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) > RobotMap.TRIGGER_SENSITIVIY)
+    		{
+    			RobotMap.rightTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) * RobotMap.TOWER_UP_DIRECTION);
+        		RobotMap.leftTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) * RobotMap.TOWER_UP_DIRECTION);
+    		}
+    		else
+        	{
+        		RobotMap.rightTowerTalon.stopMotor();
+        		RobotMap.leftTowerTalon.stopMotor();
+        	}
+    	}*/
     	
     	//shiftGear method
     	if(RobotMap.assistantDriverController.getAButtonPressed())
@@ -131,9 +170,17 @@ public class ManipulatorSubsystem extends Subsystem {
     
     public void liftUp()
     {
-    	RobotMap.rightTowerTalon.set(RobotMap.TOWER_UP_VARIABLE);
-		RobotMap.leftTowerTalon.set(RobotMap.TOWER_UP_VARIABLE);
-		RobotMap.liftUpFlag = true;
+		if(RobotMap.upperLimitSwitch)
+		{
+    		RobotMap.rightTowerTalon.stopMotor();
+    		RobotMap.leftTowerTalon.stopMotor();
+		}
+		else
+		{
+	    	RobotMap.rightTowerTalon.set(RobotMap.TOWER_UP_VARIABLE * RobotMap.TOWER_UP_DIRECTION);
+			RobotMap.leftTowerTalon.set(RobotMap.TOWER_UP_VARIABLE * RobotMap.TOWER_UP_DIRECTION);
+			RobotMap.liftUpFlag = true;
+		}
     }
     
 }

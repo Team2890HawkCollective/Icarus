@@ -69,8 +69,8 @@ public class RobotMap
 	public static final int RANGEFINDER_ECHOCHANNEL = 1;
 	public static final int LEFT_TALON_TOWER_ID = 5;
 	public static final int RIGHT_TALON_TOWER_ID = 6;
-	public static final int LOWER_LIMIT_SWITCH_PORT = 8;
-	public static final int UPPER_LIMIT_SWITCH_PORT = 9;
+	public static final int LOWER_LIMIT_SWITCH_PORT = 9;
+	public static final int UPPER_LIMIT_SWITCH_PORT = 8;
 	
 	//===============================================
 	//VARIABLES
@@ -88,7 +88,10 @@ public class RobotMap
 	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.45; // from -0.65
 	public static final double AUTONOMOUS_KILL_SWITCH = 0;
 	public static final double RANGE_TARGET = 12.0;
-	public static final double TOWER_UP_VARIABLE = .1;
+	public static final double TOWER_UP_VARIABLE = .5;
+	public static final double TOWER_DOWN_VARIABLE = .5;
+	public static final double TRIGGER_SENSITIVIY = .1; //At this point, the tower will start moving.
+	public static final int TOWER_UP_DIRECTION = -1; 
 	
 	public static double centerX;
 	public static double distanceFromTargetUsingTargeting;
@@ -120,6 +123,8 @@ public class RobotMap
 	public static boolean keepThreadRunning = true;
 	public static boolean shiftGearButtonFlag = true;
 	public static boolean liftUpFlag = false;
+	public static boolean upperLimitSwitch = false;
+	public static boolean lowerLimitSwitch = false;
 	
 	public static boolean openedGripperFlag = false;
 	public static boolean closedGripperFlag = false;

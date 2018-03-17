@@ -231,6 +231,8 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("Center X: ", RobotMap.centerX);
 		SmartDashboard.putNumber("Distance From Target: ", RobotMap.distanceFromTargetUsingTargeting);
 		SmartDashboard.putNumber("Angle: ", RobotMap.angleFromTarget);
+		SmartDashboard.putBoolean("Upper Limit Switch: ", RobotMap.sensorSubsystem.isUpperLimitSwitchPressed());
+		SmartDashboard.putBoolean("Lower Limit Switch: ", RobotMap.sensorSubsystem.isLowerLimitSwitchPressed());
 		
 		//test to tell if we are able to send data using the buttons by displaying it on SmartDashboard
 		SmartDashboard.putBoolean("Y",RobotMap.driverController.getYButton());
