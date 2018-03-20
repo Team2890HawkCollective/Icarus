@@ -225,7 +225,7 @@ public class RobotMap
 		
 		upperElevatorLimitSwitch = new DigitalInput(UPPER_LIMIT_SWITCH_PORT);
 		lowerElevatorLimitSwitch = new DigitalInput(LOWER_LIMIT_SWITCH_PORT);
-				
+		
 		frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
 		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
 		frontLeftTalon = new WPI_TalonSRX(FRONT_LEFT_TALON_ID);
