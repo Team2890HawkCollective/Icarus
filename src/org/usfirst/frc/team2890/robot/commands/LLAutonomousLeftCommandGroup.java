@@ -12,11 +12,12 @@ public class LLAutonomousLeftCommandGroup extends CommandGroup {
 
     public LLAutonomousLeftCommandGroup() {
     	
-    	//addSequential(new ClawDownCommand());
+    	//addSequential(new LiftUpCommand(RobotMap.LIFT_TIMED_RAISE));
     	addSequential(new AutonomousTimedDriveForward(RobotMap.autonomousLeftOrRightTimeDrive));
-    	addSequential(new AutonomousRotateIntCommand(RobotMap.leftTurnDegrees));
-    	addSequential(new AutonomousTimedDriveForward(RobotMap.autonomousLeftOrRightTimeDrive));
-    	addSequential(new AutonomousRangedDriveForwardCommand());
+    	addSequential(new AutonomousRotateIntCommand(RobotMap.rightTurnDegrees));
+    	addSequential(new AutonomousTimedDriveForward(2.0));
+    	addSequential(new ClawDownCommand());
+    	addSequential(new OpenGripperCommand(1.0));
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());

@@ -1,16 +1,14 @@
 package org.usfirst.frc.team2890.robot.commands;
 
-import org.usfirst.frc.team2890.robot.RobotMap;
-
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 
 /**
  *
  */
-public class OpenGripperCommand extends TimedCommand {
+public class AutonomousDelayCommand extends TimedCommand {
 
-    public OpenGripperCommand(double timeout) {
+    public AutonomousDelayCommand(double timeout) {
     	super(timeout);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -22,16 +20,8 @@ public class OpenGripperCommand extends TimedCommand {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	RobotMap.manipulatorSubsystem.openGripper();
-    	System.out.println("In Gripper Command");
     }
-
-    // Make this return true when this Command no longer needs to run execute()
     
-//    protected boolean isFinished() {
-//        return RobotMap.openedGripperFlag;
-//    }
-
     // Called once after isFinished returns true
     protected void end() {
     }

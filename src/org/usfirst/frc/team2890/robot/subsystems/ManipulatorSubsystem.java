@@ -33,7 +33,7 @@ public class ManipulatorSubsystem extends Subsystem {
     		System.out.println("left Trigger: " + RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
     	}
     	//Tower up
-    	else if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) > RobotMap.TRIGGER_SENSITIVIY && !RobotMap.upperLimitSwitch)
+    	else if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) > RobotMap.TRIGGER_SENSITIVIY && RobotMap.upperLimitSwitch)
     	{
     		RobotMap.rightTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) * RobotMap.TOWER_UP_DIRECTION);
     		RobotMap.leftTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) * RobotMap.TOWER_UP_DIRECTION);
@@ -91,12 +91,16 @@ public class ManipulatorSubsystem extends Subsystem {
         	{
         		RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kForward);
         		System.out.println("shifting to low gear");
+        		RobotMap.highGear = false;
+        		RobotMap.lowGear = true;
         		RobotMap.shiftGearButtonFlag = false;
         	}
         	else
         	{
         		RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kReverse);
         		System.out.println("shifting to high gearr");
+        		RobotMap.lowGear = false;
+        		RobotMap.highGear = true;
         		RobotMap.shiftGearButtonFlag = true;
         	}
     	}
@@ -108,12 +112,14 @@ public class ManipulatorSubsystem extends Subsystem {
     		if(RobotMap.controlCubeFlag)
         	{
     			RobotMap.elbowSolenoid.set(DoubleSolenoid.Value.kReverse);
+    			RobotMap.elbowIsDown = true;
         		RobotMap.controlCubeFlag = false;
         	}
     		//cube down
         	else
         	{
         		RobotMap.elbowSolenoid.set(DoubleSolenoid.Value.kForward);
+        		RobotMap.elbowIsDown = false;
         		RobotMap.controlCubeFlag = true;
         	}
     	}
@@ -141,10 +147,12 @@ public class ManipulatorSubsystem extends Subsystem {
     		{
     			RobotMap.ratchetSolenoid.set(DoubleSolenoid.Value.kForward);
     			RobotMap.controlRatchetFlag = false;
+    			RobotMap.ratchetEngaged = false;
     		}
     		else
     		{
     			RobotMap.ratchetSolenoid.set(DoubleSolenoid.Value.kReverse);
+    			RobotMap.ratchetEngaged = true;
     			RobotMap.controlRatchetFlag = true;
     		}
     	}
@@ -152,13 +160,13 @@ public class ManipulatorSubsystem extends Subsystem {
     
     public void openGripper()
     {
-    	RobotMap.grabberSolenoid.set(DoubleSolenoid.Value.kReverse);
+    	RobotMap.grabberSolenoid.set(DoubleSolenoid.Value.kForward);
     	RobotMap.openedGripperFlag = true;
     }
     
     public void closeGripper()
     {
-    	RobotMap.grabberSolenoid.set(DoubleSolenoid.Value.kForward);
+    	RobotMap.grabberSolenoid.set(DoubleSolenoid.Value.kReverse);
     	RobotMap.closedGripperFlag = true;
     }
     
@@ -182,5 +190,6 @@ public class ManipulatorSubsystem extends Subsystem {
 			RobotMap.liftUpFlag = true;
 		}
     }
+    
     
 }
