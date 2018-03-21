@@ -2,6 +2,7 @@ package org.usfirst.frc.team2890.robot.subsystems;
 
 import org.usfirst.frc.team2890.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -156,6 +157,22 @@ public class ManipulatorSubsystem extends Subsystem {
     			RobotMap.controlRatchetFlag = true;
     		}
     	}
+    	
+    	if(RobotMap.driverController.getAButtonPressed())
+    	{
+    		if(RobotMap.turnSecondCameraOn)
+    		{
+    			RobotMap.secondCamera.setResolution(640, 480);
+    			RobotMap.secondCamera.setFPS(30);
+    			RobotMap.turnSecondCameraOn = false;
+    		}
+    		else
+    		{
+    			RobotMap.secondCamera.setResolution(1, 1);
+    			RobotMap.secondCamera.setFPS(1);
+    			RobotMap.turnSecondCameraOn = true;
+    		}
+    	}
     }
     
     public void openGripper()
@@ -190,6 +207,5 @@ public class ManipulatorSubsystem extends Subsystem {
 			RobotMap.liftUpFlag = true;
 		}
     }
-    
     
 }

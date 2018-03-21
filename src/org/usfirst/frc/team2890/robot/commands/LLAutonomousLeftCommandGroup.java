@@ -12,7 +12,6 @@ public class LLAutonomousLeftCommandGroup extends CommandGroup {
 
     public LLAutonomousLeftCommandGroup() {
     	
-    	//addSequential(new LiftUpCommand(RobotMap.LIFT_TIMED_RAISE));
     	addSequential(new AutonomousTimedDriveForward(RobotMap.autonomousLeftOrRightTimeDrive));
     	addSequential(new AutonomousRotateIntCommand(RobotMap.rightTurnDegrees));
     	addSequential(new AutonomousTimedDriveForward(2.0));

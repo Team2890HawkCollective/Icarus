@@ -10,5 +10,13 @@
 	<classpathentry exported="true" kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/2890/Downloads/json-simple-1.1.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/jackson-annotations-2.9.0.pr3.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/jackson-annotations-2.9.4.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/jackson-core-2.9.0.pr3.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/jackson-core-2.9.4.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/jackson-databind-2.9.0.pr3.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/jackson-databind-2.9.4.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/json-simple-1.1.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

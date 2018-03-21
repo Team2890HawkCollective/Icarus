@@ -19,6 +19,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -137,6 +138,7 @@ public class RobotMap
 	public static boolean highGear = false;
 	public static boolean lowGear = false;
 	public static boolean elbowIsDown = false;
+	public static boolean turnSecondCameraOn = true;
 	//
 	
 	//===============================================
@@ -171,6 +173,9 @@ public class RobotMap
 	public static DoubleSolenoid elbowSolenoid;
 	public static DoubleSolenoid gearBoxSolenoid;
 	public static DoubleSolenoid ratchetSolenoid;
+	
+	public static UsbCamera camera;
+	public static UsbCamera secondCamera;
 
 	//===============================================
 	//COMMANDS
@@ -286,10 +291,14 @@ public class RobotMap
 		{
 			System.out.println("In vision thread");
 			// Get the UsbCamera from CameraServer
-			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+			camera = CameraServer.getInstance().startAutomaticCapture();
+			secondCamera = CameraServer.getInstance().startAutomaticCapture();
 			// Set the resolution
 			camera.setResolution(640, 480);
-
+			camera.setFPS(30);
+			secondCamera.setResolution(1, 1);
+			secondCamera.setFPS(1);
+			
 			// Get a CvSink. This will capture Mats from the camera
 			CvSink cvSink = CameraServer.getInstance().getVideo();
 			// Setup a CvSource. This will send images back to the Dashboard
