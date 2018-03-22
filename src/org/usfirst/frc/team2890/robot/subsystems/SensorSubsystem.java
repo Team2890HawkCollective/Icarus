@@ -39,4 +39,14 @@ public class SensorSubsystem extends Subsystem
 		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
 		//System.out.println(RobotMap.rangeFinder.getRangeInches());
 	}
+	
+	public Boolean isLowerLimitSwitchPressed()
+	{
+		 return RobotMap.lowerElevatorLimitSwitch.get();
+	}
+	
+	public Boolean isUpperLimitSwitchPressed()
+	{
+		 return RobotMap.upperElevatorLimitSwitch.get();
+	}
 }

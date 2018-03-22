@@ -13,10 +13,15 @@ public class AutonomousTargetingRightCommandGroup extends CommandGroup
     public AutonomousTargetingRightCommandGroup() 
     {
     	
+    	addSequential(new AutonomousDelayCommand(2.0));
     	addSequential(new AutonomousTimedDriveForward(RobotMap.AUTONOMOUS_MIDDLE_ONE_SECOND_TIMED_DRIVE));
     	addSequential(new AutonomousRotateIntCommand(RobotMap.rightTurnDegrees));
-    	addSequential(new AutonomousTimedDriveForward(RobotMap.autonomousMiddleTimeDrive));
+    	addSequential(new AutonomousTimedDriveForward(RobotMap.rightAutonomousMiddleTimeDrive));
     	addSequential(new AutonomousRotateIntCommand(RobotMap.leftTurnDegrees));
+    	addSequential(new AutonomousTimedDriveForward(2.0));
+    	addSequential(new ClawDownCommand());
+    	//addSequential(new LiftUpCommand(RobotMap.autonomousSwitchLiftTime));
+    	addSequential(new OpenGripperCommand(1.0));
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());

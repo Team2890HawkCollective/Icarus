@@ -63,11 +63,14 @@ public class RobotMap
 	public static final int ROTATE_SOLENOID_BACKWARD_PORT = 3;
 	public static final int GEARBOX_SOLENOID_FORWARD_PORT = 4;
 	public static final int GEARBOX_SOLENOID_BACKWARD_PORT = 5;
+	public static final int RATCHET_ENGAGE_CHANNEL_PORT = 6;
+	public static final int RATCHET_DISENGAGE_CHANNEL_PORT = 7;
 	public static final int RANGEFINDER_PINGCHANNEL = 0;
 	public static final int RANGEFINDER_ECHOCHANNEL = 1;
 	public static final int LEFT_TALON_TOWER_ID = 5;
 	public static final int RIGHT_TALON_TOWER_ID = 6;
-	public static final int CAMERA_SERVO_ID = 0;
+	public static final int LOWER_LIMIT_SWITCH_PORT = 8;
+	public static final int UPPER_LIMIT_SWITCH_PORT = 9;
 	
 	//===============================================
 	//VARIABLES
@@ -79,13 +82,17 @@ public class RobotMap
 	public static final double X_AXIS_UPPER_DEADBAND = 0.01;
 	public static final double ROTATION_SENSITIVTY = 0.7; //from 0.65
 	public static final double FORWARDS_BACKWARDS_SENSITIVITY = 1.0; //from 0.8
-	public static final double AUTONOMOUS_FORWARD_SPEED = -0.5; //-.65
-	public static final double AUTONOMOUS_BACKWARD_SPEED = 0.5; //.65
-	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.45; // from 0.65
-	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.45; // from -0.65
+	public static final double AUTONOMOUS_FORWARD_SPEED = -0.65; //-.65
+	public static final double AUTONOMOUS_BACKWARD_SPEED = 0.65; //.65
+	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.5; // from 0.65
+	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.5; // from -0.65
 	public static final double AUTONOMOUS_KILL_SWITCH = 0;
 	public static final double RANGE_TARGET = 12.0;
-	public static final double TOWER_UP_VARIABLE = .1;
+	public static final double TOWER_UP_VARIABLE = 1.0;
+	public static final double TOWER_DOWN_VARIABLE = 1.0;
+	public static final double TRIGGER_SENSITIVIY = .15; //At this point, the tower will start moving.
+	public static final int TOWER_UP_DIRECTION = -1; 
+	public static final double LIFT_TIMED_RAISE = 3.0;
 	
 	public static double centerX;
 	public static double distanceFromTargetUsingTargeting;
@@ -93,9 +100,12 @@ public class RobotMap
 	public static double rangeFinderDistanceInches;
 	
 	public static final double AUTONOMOUS_MIDDLE_ONE_SECOND_TIMED_DRIVE = 1.0;
-	public static double autonomousMiddleTimeDrive = 1.0; //time in seconds 
+	public static double rightAutonomousMiddleTimeDrive = 1.0;
+	public static double leftAutonomousMiddleTimeDrive = 1.0;//time in seconds 
 	public static double autonomousLeftOrRightTimeDrive = 3.0;
 	public static double driveStraightTimeDrive = 5.0;
+	public static double autonomousSwitchLiftTime = 2.5;
+	public static double autonomousScaleLiftTime = 6.0;
 	
 	public static double initialGyro;
 	public static double goalAngle;
@@ -112,10 +122,22 @@ public class RobotMap
 	public static boolean isRight = true;
 	public static boolean controlGripperFlag = true;
 	public static boolean controlCubeFlag = true;
+	public static boolean controlRatchetFlag = true;
 	public static boolean rangeFinderExitFlag = false;
 	public static boolean keepThreadRunning = true;
 	public static boolean shiftGearButtonFlag = true;
-	public static boolean cameraServoFlag = true;
+	public static boolean liftUpFlag = false;
+	public static boolean upperLimitSwitch = false;
+	public static boolean lowerLimitSwitch = false;
+	
+	public static boolean openedGripperFlag = false;
+	public static boolean closedGripperFlag = false;
+	public static boolean clawDownFlag = false;
+	public static boolean ratchetEngaged = false;
+	public static boolean highGear = false;
+	public static boolean lowGear = false;
+	public static boolean elbowIsDown = false;
+	public static boolean turnSecondCameraOn = true;
 	//
 	
 	//===============================================
@@ -135,6 +157,8 @@ public class RobotMap
 	public static WPI_TalonSRX leftTowerTalon;
 	public static WPI_TalonSRX rightTowerTalon;
 	public static Ultrasonic rangeFinder;
+	public static DigitalInput upperElevatorLimitSwitch;
+	public static DigitalInput lowerElevatorLimitSwitch;
 	public static SpeedControllerGroup rightTalonGroup;
 	public static SpeedControllerGroup leftTalonGroup;
 	public static DifferentialDrive driveTrain;
@@ -145,9 +169,12 @@ public class RobotMap
 	public static ADXRS450_Gyro gyro;
 	public static Compressor compressor;
 	public static DoubleSolenoid grabberSolenoid;
-	public static DoubleSolenoid rotateSolenoid;
+	public static DoubleSolenoid elbowSolenoid;
 	public static DoubleSolenoid gearBoxSolenoid;
-	public static Servo cameraServo;
+	public static DoubleSolenoid ratchetSolenoid;
+	
+	public static UsbCamera camera;
+	public static UsbCamera secondCamera;
 
 	//===============================================
 	//COMMANDS
@@ -157,6 +184,7 @@ public class RobotMap
 	public static Command talonRampOnCommand;
 	public static Command talonRampOffCommand;
 	public static Command stopMovingCommand;
+	public static Command autonomousDelayCommand;
 	
 	//===============================================
 	//AUTONOMOUS COMMANDS
@@ -171,6 +199,10 @@ public class RobotMap
 	public static Command controlManipulatorCommand;
 	public static Command getDistanceInInches; //Testing on SmartDashboard
 	public static Command rangedDriveForwardCommand;
+	public static Command liftUpCommand;
+	public static Command clawDownCommand;
+	public static Command closeGripperCommand;
+	public static Command openGripperCommand;
 	
 	public static CommandGroup autonomousTargetingRightCommandGroup;
 	public static CommandGroup autonomousTargetingLeftCommandGroup;
@@ -191,8 +223,12 @@ public class RobotMap
 		
 		compressor = new Compressor();
 		grabberSolenoid = new DoubleSolenoid(GRABBER_SOLENOID_FORWARD_PORT, GRABBER_SOLENOID_BACKWARD_PORT); //GRABBER_SOLENOID_FORWARD_PORT, GRABBER_SOLENOID_BACKWARD_PORT
-		rotateSolenoid = new DoubleSolenoid(ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT); //ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT
+		elbowSolenoid = new DoubleSolenoid(ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT); //ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT
 		gearBoxSolenoid = new DoubleSolenoid(GEARBOX_SOLENOID_FORWARD_PORT, GEARBOX_SOLENOID_BACKWARD_PORT); //GEARBOX_SOLENOID_FORWARD_PORT, GEARBOX_SOLENOID_BACKWARD_PORT
+		ratchetSolenoid = new DoubleSolenoid(RATCHET_ENGAGE_CHANNEL_PORT, RATCHET_DISENGAGE_CHANNEL_PORT);
+		
+		upperElevatorLimitSwitch = new DigitalInput(UPPER_LIMIT_SWITCH_PORT);
+		lowerElevatorLimitSwitch = new DigitalInput(LOWER_LIMIT_SWITCH_PORT);
 		
 		frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
 		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
@@ -200,8 +236,6 @@ public class RobotMap
 		rearLeftTalon = new WPI_TalonSRX(REAR_LEFT_TALON_ID);
 		leftTowerTalon = new WPI_TalonSRX(RIGHT_TALON_TOWER_ID); 
 		rightTowerTalon = new WPI_TalonSRX(LEFT_TALON_TOWER_ID);
-		
-		cameraServo = new Servo(CAMERA_SERVO_ID);
 		
 		rightTalonGroup = new SpeedControllerGroup(frontRightTalon, rearRightTalon);
 		leftTalonGroup = new SpeedControllerGroup(frontLeftTalon, rearLeftTalon);
@@ -229,6 +263,11 @@ public class RobotMap
 		getDistanceInInches = new RangeFinderFindDistanceInInchesCommand();
 		rangedDriveForwardCommand = new AutonomousRangedDriveForwardCommand();
 		testCommandGroup = new TestCommandDontHateMeTaylor();
+		liftUpCommand = new LiftUpCommand(LIFT_TIMED_RAISE);
+		clawDownCommand = new ClawDownCommand();
+		closeGripperCommand = new CloseGripperCommand();
+		openGripperCommand = new OpenGripperCommand(1.0);
+		autonomousDelayCommand = new AutonomousDelayCommand(2.0);
 
 		initialGyro = RobotMap.gyro.getAngle();
 
@@ -251,10 +290,14 @@ public class RobotMap
 		{
 			System.out.println("In vision thread");
 			// Get the UsbCamera from CameraServer
-			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+			camera = CameraServer.getInstance().startAutomaticCapture();
+			secondCamera = CameraServer.getInstance().startAutomaticCapture();
 			// Set the resolution
 			camera.setResolution(640, 480);
-
+			camera.setFPS(30);
+			secondCamera.setResolution(1, 1);
+			secondCamera.setFPS(1);
+			
 			// Get a CvSink. This will capture Mats from the camera
 			CvSink cvSink = CameraServer.getInstance().getVideo();
 			// Setup a CvSource. This will send images back to the Dashboard

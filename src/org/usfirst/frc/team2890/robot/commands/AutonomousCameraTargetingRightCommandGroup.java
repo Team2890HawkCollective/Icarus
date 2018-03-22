@@ -11,9 +11,9 @@ public class AutonomousCameraTargetingRightCommandGroup extends CommandGroup {
 
     public AutonomousCameraTargetingRightCommandGroup() {
     	
-    	addSequential(new AutonomousTimedDriveForward(RobotMap.autonomousMiddleTimeDrive));
+    	//addSequential(new AutonomousTimedDriveForward(RobotMap.autonomousMiddleTimeDrive));
     	addSequential(new AutonomousRotateIntCommand(RobotMap.rightTurnDegrees));
-    	addSequential(new AutonomousTimedDriveForward(RobotMap.autonomousMiddleTimeDrive));
+    	//addSequential(new AutonomousTimedDriveForward(RobotMap.autonomousMiddleTimeDrive));
     	addSequential(new AutonomousRotateIntCommand(RobotMap.leftTurnDegrees));
     	addSequential(new AngleDegreesFromCamera(RobotMap.angleFromTarget));
     	
