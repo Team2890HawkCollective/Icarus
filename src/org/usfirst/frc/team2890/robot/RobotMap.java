@@ -91,6 +91,10 @@ public class RobotMap
 	public static double angleFromTarget;
 	public static double rangeFinderDistanceInches;
 	
+	public static double yVal;
+	public static double largest;
+	public static double timerTime;
+	
 	public static final double AUTONOMOUS_MIDDLE_ONE_SECOND_TIMED_DRIVE = 1.0;
 	public static double autonomousMiddleTimeDrive = 1.0; //time in seconds 
 	public static double autonomousLeftOrRightTimeDrive = 3.0;
@@ -104,6 +108,9 @@ public class RobotMap
 	public static String gameData;
 	public static String gameDataLetter;
 	
+	public static Accelerometer accel = new BuiltInAccelerometer();
+	public static Timer time = new Timer();
+	
 	//TESTING VARIABLES
 	public static boolean flag = true;
 	public static boolean stopRotating = false;
@@ -114,6 +121,7 @@ public class RobotMap
 	public static boolean rangeFinderExitFlag = false;
 	public static boolean keepThreadRunning = true;
 	public static boolean shiftGearButtonFlag = true;
+	public static boolean accelerationTimerFlag = true;
 	//
 	
 	//===============================================

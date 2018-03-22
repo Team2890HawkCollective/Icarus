@@ -7,7 +7,11 @@
 	<classpathentry exported="true" kind="var" path="cscore" sourcepath="cscore.sources"/>
 	<classpathentry exported="true" kind="var" path="wpiutil" sourcepath="wpiutil.sources"/>
 	<classpathentry exported="true" kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/2890/wpilib/java/current/lib/jackson-annotations-2.9.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/2890/wpilib/java/current/lib/jackson-core-2.9.4.jar"/>
 	<classpathentry exported="true" kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/2890/wpilib/java/current/lib/jackson-databind-2.9.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/2890/wpilib/java/current/lib/json-simple-1.1.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

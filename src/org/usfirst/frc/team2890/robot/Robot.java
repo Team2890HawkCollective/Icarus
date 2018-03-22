@@ -9,15 +9,20 @@ package org.usfirst.frc.team2890.robot;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.*;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team2890.robot.commands.*;
 
+import org.usfirst.frc.team2890.robot.commands.*;
 import org.usfirst.frc.team2890.robot.subsystems.*;
+
+import org.usfirst.frc.team319.paths.*;
+import org.usfirst.frc.team319.models.*;
+import org.usfirst.frc.team319.robot.commands.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -67,6 +72,8 @@ public class Robot extends TimedRobot
 				m_chooser.addObject("Autonomous from the Left: ", new LLAutonomousLeftCommandGroup());
 				//This Command is Right
 				m_chooser.addObject("Autonomous from the Right: ", new RRAutonomousRightCommandGroup());
+				//This Command is "fancy"
+				m_chooser.addObject("Fancy Autonomous", new FollowTrajectory(new Baseline()));
 				SmartDashboard.putData("Auto mode", m_chooser);
 		
 		//RobotMap.gyro.calibrate();
@@ -124,7 +131,7 @@ public class Robot extends TimedRobot
 		
 		RobotMap.gyro.reset();
 		
-		RobotMap.autonomousCommandGroupChooser = (CommandGroup) m_chooser.getSelected();
+		//RobotMap.autonomousCommandGroupChooser = (CommandGroup) m_chooser.getSelected();
 		//Scheduler.getInstance().add(RobotMap);
 
 		
@@ -140,10 +147,15 @@ public class Robot extends TimedRobot
 		SmartDashboard.putString("Game Data Letter", RobotMap.gameDataLetter);
 		
 		if(RobotMap.gameDataLetter.equalsIgnoreCase("R"))
+		{
 			RobotMap.isRight = true;
+		}
 		else if(RobotMap.gameDataLetter.equalsIgnoreCase("L"))
+		{
 			RobotMap.isRight = false;
+		}
 		
+		Scheduler.getInstance().add(RobotMap.m_autonomousCommand);
 	}
 
 	/**
@@ -155,8 +167,8 @@ public class Robot extends TimedRobot
 		
 		
 		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
-		System.out.println(RobotMap.rangeFinderDistanceInches);
-		System.out.println(RobotMap.RANGE_TARGET);
+		//System.out.println(RobotMap.rangeFinderDistanceInches);
+		//System.out.println(RobotMap.RANGE_TARGET);
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
 		
 		
@@ -227,6 +239,11 @@ public class Robot extends TimedRobot
 		Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
 		RobotMap.compressor.setClosedLoopControl(true);
 		
+		RobotMap.largest = 0.0;
+		RobotMap.timerTime = 0.0;
+		RobotMap.time.reset();
+		RobotMap.accelerationTimerFlag = true;
+		
 	}
 
 	/**
@@ -291,6 +308,28 @@ public class Robot extends TimedRobot
     	}
 		else if (RobotMap.driverController.getXButton())
 			RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kOff);*/
+		
+		
+		
+		
+		RobotMap.yVal = RobotMap.accel.getY();
+		if (RobotMap.driverController.getY(Hand.kLeft) < -0.1 && RobotMap.accelerationTimerFlag)
+		{
+			RobotMap.time.start();
+			RobotMap.accelerationTimerFlag = false;
+			RobotMap.timerTime = 0.0;
+			System.out.println("Yes!----------------------------------------------------------");
+		}
+		if (RobotMap.yVal > RobotMap.largest)
+		{
+			RobotMap.largest = RobotMap.yVal;
+			RobotMap.timerTime = RobotMap.time.get();
+		}
+		System.out.println("Acceleration: " + RobotMap.accel.getY());
+		System.out.println("Max Acceleration: " + RobotMap.largest);
+		System.out.println("Timer (Real)Time: " + RobotMap.time.get());
+		System.out.println("Timer Time: " + RobotMap.timerTime);
+		//System.out.println(RobotMap.accelerationTimerFlag);
 	
 	}
 
@@ -304,12 +343,34 @@ public class Robot extends TimedRobot
 		{ 
 			//RobotMap.compressor.setClosedLoopControl(true);
 			RobotMap.flag = false;
+			Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
 		}
 		//if(RobotMap.driverController.getBButton())
 		//{
 			//RobotMap.testTalon.set(1);
 		//}
 		//RobotMap.compressor.setClosedLoopControl(true);
+		
+		Scheduler.getInstance().run();
+		
+		RobotMap.yVal = RobotMap.accel.getY();
+		if (RobotMap.driverController.getY(Hand.kLeft) > 0.1 && RobotMap.accelerationTimerFlag)
+		{
+			RobotMap.time.start();
+			RobotMap.accelerationTimerFlag = false;
+			RobotMap.timerTime = 0.0;
+		}
+		if (RobotMap.yVal > RobotMap.largest)
+		{
+			RobotMap.largest = RobotMap.yVal;
+			RobotMap.time.start();
+			RobotMap.timerTime = RobotMap.time.get();
+		}
+		System.out.println("Acceleration: " + RobotMap.accel.getY());
+		System.out.println("Max Acceleration: " + RobotMap.largest);
+		System.out.println("Timer (Real)Time: " + RobotMap.time.get());
+		System.out.println("Timer Time: " + RobotMap.timerTime);
+		//RobotMap.frontLeftTalon.configMotionAcceleration(1, 1);
 	}
 	
 	public void scheduleCommands()
