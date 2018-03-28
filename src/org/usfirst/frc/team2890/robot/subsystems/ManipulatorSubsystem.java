@@ -27,7 +27,7 @@ public class ManipulatorSubsystem extends Subsystem {
     	RobotMap.lowerLimitSwitch = RobotMap.sensorSubsystem.isLowerLimitSwitchPressed();
     	//controlTower method
     	//Tower Down
-    	if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft) > RobotMap.TRIGGER_SENSITIVIY && RobotMap.lowerLimitSwitch)
+    	if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft) > RobotMap.TRIGGER_SENSITIVIY && !RobotMap.lowerLimitSwitch)
     	{
     		RobotMap.rightTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
     		RobotMap.leftTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));

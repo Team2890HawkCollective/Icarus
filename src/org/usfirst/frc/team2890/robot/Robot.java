@@ -19,6 +19,9 @@ import org.usfirst.frc.team2890.robot.commands.*;
 
 import org.usfirst.frc.team2890.robot.subsystems.*;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -154,7 +157,7 @@ public class Robot extends TimedRobot
 	@Override
 	public void autonomousPeriodic() 
 	{
-		/*
+		
 		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
 		System.out.println(RobotMap.rangeFinderDistanceInches);
 		System.out.println(RobotMap.RANGE_TARGET);
@@ -181,7 +184,7 @@ public class Robot extends TimedRobot
 			RobotMap.firstTimeThrough = false;
 		}
 	
-		*/
+		
 		
 		Scheduler.getInstance().run();
 	}
@@ -230,8 +233,8 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("Center X: ", RobotMap.centerX);
 		SmartDashboard.putNumber("Distance From Target: ", RobotMap.distanceFromTargetUsingTargeting);
 		SmartDashboard.putNumber("Angle: ", RobotMap.angleFromTarget);
-		SmartDashboard.putBoolean("Upper Limit Switch: ", RobotMap.sensorSubsystem.isUpperLimitSwitchPressed());
-		SmartDashboard.putBoolean("Lower Limit Switch: ", RobotMap.sensorSubsystem.isLowerLimitSwitchPressed());
+		SmartDashboard.putBoolean("Upper Limit Switch (false if pressed): ", RobotMap.sensorSubsystem.isUpperLimitSwitchPressed());
+		SmartDashboard.putBoolean("Lower Limit Switch (true if pressed): ", RobotMap.sensorSubsystem.isLowerLimitSwitchPressed());
 		
 		SmartDashboard.putBoolean("Ratchet Engaged(true) or Disengaged(false): ", RobotMap.ratchetEngaged);
 		SmartDashboard.putBoolean("High Gear(true): ", RobotMap.highGear);
@@ -290,6 +293,8 @@ public class Robot extends TimedRobot
 			//RobotMap.testTalon.set(1);
 		//}
 		//RobotMap.compressor.setClosedLoopControl(true);
+		RobotMap.frontLeftTalon.set(1);
+		RobotMap.leftTowerTalon.set(1);
 	}
 	
 	public void scheduleCommands()
@@ -301,6 +306,7 @@ public class Robot extends TimedRobot
 			{
 				SmartDashboard.putString("In 1st if: ", "In");
 				System.out.println("1st: ");
+				//Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
 				Scheduler.getInstance().add(RobotMap.autonomousRightCommandGroup);
 				return;
 			}
@@ -334,6 +340,7 @@ public class Robot extends TimedRobot
 			{
 				System.out.println("5th ");
 				SmartDashboard.putString("In 5th if: ", "In");
+				//Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
 				Scheduler.getInstance().add(RobotMap.autonomousLeftCommandGroup);
 				return;
 			}

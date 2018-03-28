@@ -15,6 +15,7 @@ import org.usfirst.frc.team2890.robot.commands.*;
 import org.usfirst.frc.team2890.robot.subsystems.*;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.*;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
@@ -92,7 +93,7 @@ public class RobotMap
 	public static final double TOWER_DOWN_VARIABLE = 1.0;
 	public static final double TRIGGER_SENSITIVIY = .15; //At this point, the tower will start moving.
 	public static final int TOWER_UP_DIRECTION = -1; 
-	public static final double LIFT_TIMED_RAISE = 3.0;
+	public static final double LIFT_TIMED_RAISE = 1.0;
 	
 	public static double centerX;
 	public static double distanceFromTargetUsingTargeting;
@@ -293,10 +294,10 @@ public class RobotMap
 			camera = CameraServer.getInstance().startAutomaticCapture();
 			secondCamera = CameraServer.getInstance().startAutomaticCapture();
 			// Set the resolution
-			camera.setResolution(640, 480);
+			camera.setResolution(1, 1);
 			camera.setFPS(30);
 			secondCamera.setResolution(1, 1);
-			secondCamera.setFPS(1);
+			secondCamera.setFPS(30);
 			
 			// Get a CvSink. This will capture Mats from the camera
 			CvSink cvSink = CameraServer.getInstance().getVideo();
