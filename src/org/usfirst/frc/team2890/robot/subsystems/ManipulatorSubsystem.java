@@ -25,16 +25,20 @@ public class ManipulatorSubsystem extends Subsystem {
     {
     	RobotMap.upperLimitSwitch = RobotMap.sensorSubsystem.isUpperLimitSwitchPressed();
     	RobotMap.lowerLimitSwitch = RobotMap.sensorSubsystem.isLowerLimitSwitchPressed();
+    	RobotMap.secondaryLowerLimitSwitch = RobotMap.sensorSubsystem.isSecondaryLowerLimitSwitchPressed();
+    	
     	//controlTower method
     	//Tower Down
     	if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft) > RobotMap.TRIGGER_SENSITIVIY && !RobotMap.lowerLimitSwitch)
+    		//!RobotMap.lowerLimitSwitch
     	{
-    		RobotMap.rightTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
-    		RobotMap.leftTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
+    		RobotMap.rightTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft) * RobotMap.towerLoweringSensitivity);
+    		RobotMap.leftTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft) * RobotMap.towerLoweringSensitivity);
     		System.out.println("left Trigger: " + RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
     	}
     	//Tower up
     	else if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) > RobotMap.TRIGGER_SENSITIVIY && RobotMap.upperLimitSwitch)
+    	//RobotMap.upperLimitSwitch
     	{
     		RobotMap.rightTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) * RobotMap.TOWER_UP_DIRECTION);
     		RobotMap.leftTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) * RobotMap.TOWER_UP_DIRECTION);
@@ -43,8 +47,17 @@ public class ManipulatorSubsystem extends Subsystem {
     	//Stop tower
     	else
     	{
-    		RobotMap.rightTowerTalon.stopMotor();
-    		RobotMap.leftTowerTalon.stopMotor();
+    		RobotMap.rightTowerTalon.set(0);
+    		RobotMap.leftTowerTalon.set(0);
+    	}
+    	
+    	if (!RobotMap.secondaryLowerLimitSwitch)
+    	{
+    		RobotMap.towerLoweringSensitivity = 0.5;
+    	}
+    	else
+    	{
+    		RobotMap.towerLoweringSensitivity = 1.0;
     	}
     	//Tower Down
     	/*if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft) > RobotMap.TRIGGER_SENSITIVIY)
@@ -84,6 +97,20 @@ public class ManipulatorSubsystem extends Subsystem {
         		RobotMap.leftTowerTalon.stopMotor();
         	}
     	}*/
+    	
+    	if (RobotMap.driverController.getAButtonPressed())
+    	{
+    		if (!RobotMap.forwardsBackwardsSensitivityFlag)
+    		{	
+    			RobotMap.forwardsBackwardsSensitivity = 0.5;
+    			RobotMap.forwardsBackwardsSensitivityFlag = true;
+    		}
+    		else
+    		{
+    			RobotMap.forwardsBackwardsSensitivity = 1.0;
+    			RobotMap.forwardsBackwardsSensitivityFlag = false;
+    		}
+    	}
     	
     	//shiftGear method
     	if(RobotMap.assistantDriverController.getAButtonPressed())

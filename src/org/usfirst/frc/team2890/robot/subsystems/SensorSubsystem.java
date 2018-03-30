@@ -49,4 +49,9 @@ public class SensorSubsystem extends Subsystem
 	{
 		 return RobotMap.upperElevatorLimitSwitch.get();
 	}
+	
+	public Boolean isSecondaryLowerLimitSwitchPressed()
+	{
+		return RobotMap.secondaryLowerElevatorLimitSwitch.get();
+	}
 }

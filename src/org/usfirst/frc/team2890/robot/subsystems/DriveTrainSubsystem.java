@@ -29,13 +29,13 @@ public class DriveTrainSubsystem extends Subsystem
 	
 	public void xboxArcadeDrive()
 	{
-		RobotMap.driveTrain.arcadeDrive(RobotMap.driverController.getY(Hand.kLeft) * RobotMap.FORWARDS_BACKWARDS_SENSITIVITY, 
+		RobotMap.driveTrain.arcadeDrive(RobotMap.driverController.getY(Hand.kLeft) * RobotMap.forwardsBackwardsSensitivity, 
 				RobotMap.driverController.getX(Hand.kRight) * RobotMap.X_INVERTED * RobotMap.ROTATION_SENSITIVTY);
 	}
 	
 	public void tankDrive()
 	{
-		RobotMap.driveTrain.tankDrive(RobotMap.driverController.getY(Hand.kLeft), RobotMap.driverController.getY(Hand.kRight));
+		RobotMap.driveTrain.tankDrive((RobotMap.driverController.getY(Hand.kLeft) * RobotMap.forwardsBackwardsSensitivity), (RobotMap.driverController.getY(Hand.kRight) * RobotMap.forwardsBackwardsSensitivity));
 	}
 	
 	public void driveForward()

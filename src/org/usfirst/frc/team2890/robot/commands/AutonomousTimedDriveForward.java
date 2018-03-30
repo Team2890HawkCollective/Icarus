@@ -14,6 +14,7 @@ public class AutonomousTimedDriveForward extends TimedCommand {
         super(timeout);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        requires(RobotMap.driveTrainSubsystem);
     }
 
     // Called just before this Command runs the first time
@@ -27,6 +28,7 @@ public class AutonomousTimedDriveForward extends TimedCommand {
     {
     	//RobotMap.manipulatorSubsystem.dropClaw();
     	RobotMap.driveTrainSubsystem.driveForward();
+    	System.out.println("Trying to drive");
     }
 
     // Called once after timeout

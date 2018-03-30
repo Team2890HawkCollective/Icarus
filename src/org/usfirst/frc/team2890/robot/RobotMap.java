@@ -52,7 +52,7 @@ public class RobotMap
 	//PORT IDS
 	//===============================================
 	public static final int FRONT_RIGHT_TALON_ID = 1;
-	public static final int REAR_RIGHT_TALON_ID = 4;
+	public static final int REAR_RIGHT_TALON_ID = 6; //chnage t
 	public static final int FRONT_LEFT_TALON_ID = 3;
 	public static final int REAR_LEFT_TALON_ID = 2;
 	public static final int TEST_TALON_ID = 6;
@@ -69,7 +69,8 @@ public class RobotMap
 	public static final int RANGEFINDER_PINGCHANNEL = 0;
 	public static final int RANGEFINDER_ECHOCHANNEL = 1;
 	public static final int LEFT_TALON_TOWER_ID = 5;
-	public static final int RIGHT_TALON_TOWER_ID = 6;
+	public static final int RIGHT_TALON_TOWER_ID = 4;
+	public static final int SECONDARY_LOWER_LIMIT_SWITCH_PORT = 7;
 	public static final int LOWER_LIMIT_SWITCH_PORT = 8;
 	public static final int UPPER_LIMIT_SWITCH_PORT = 9;
 	
@@ -82,7 +83,6 @@ public class RobotMap
 	public static final double X_AXIS_LOWER_DEADBAND = -0.01;
 	public static final double X_AXIS_UPPER_DEADBAND = 0.01;
 	public static final double ROTATION_SENSITIVTY = 0.7; //from 0.65
-	public static final double FORWARDS_BACKWARDS_SENSITIVITY = 1.0; //from 0.8
 	public static final double AUTONOMOUS_FORWARD_SPEED = -0.65; //-.65
 	public static final double AUTONOMOUS_BACKWARD_SPEED = 0.65; //.65
 	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.5; // from 0.65
@@ -107,6 +107,9 @@ public class RobotMap
 	public static double driveStraightTimeDrive = 5.0;
 	public static double autonomousSwitchLiftTime = 2.5;
 	public static double autonomousScaleLiftTime = 6.0;
+	public static double forwardsBackwardsSensitivity = 1.0; //from 0.8
+	
+	public static double towerLoweringSensitivity = 1.0;
 	
 	public static double initialGyro;
 	public static double goalAngle;
@@ -130,9 +133,11 @@ public class RobotMap
 	public static boolean liftUpFlag = false;
 	public static boolean upperLimitSwitch = false;
 	public static boolean lowerLimitSwitch = false;
+	public static boolean secondaryLowerLimitSwitch = false; // Slows down speed during the last inches of lowering the tower
 	
 	public static boolean openedGripperFlag = false;
 	public static boolean closedGripperFlag = false;
+	public static boolean forwardsBackwardsSensitivityFlag = false;
 	public static boolean clawDownFlag = false;
 	public static boolean ratchetEngaged = false;
 	public static boolean highGear = false;
@@ -160,6 +165,7 @@ public class RobotMap
 	public static Ultrasonic rangeFinder;
 	public static DigitalInput upperElevatorLimitSwitch;
 	public static DigitalInput lowerElevatorLimitSwitch;
+	public static DigitalInput secondaryLowerElevatorLimitSwitch;
 	public static SpeedControllerGroup rightTalonGroup;
 	public static SpeedControllerGroup leftTalonGroup;
 	public static DifferentialDrive driveTrain;
@@ -211,6 +217,7 @@ public class RobotMap
 	public static CommandGroup autonomousRightCommandGroup;
 	public static CommandGroup autonomousCommandGroupChooser;
 	public static CommandGroup testCommandGroup;
+	public static CommandGroup autonomousForwardCommandGroup;
 	
 	public static void init()
 	{
@@ -230,6 +237,7 @@ public class RobotMap
 		
 		upperElevatorLimitSwitch = new DigitalInput(UPPER_LIMIT_SWITCH_PORT);
 		lowerElevatorLimitSwitch = new DigitalInput(LOWER_LIMIT_SWITCH_PORT);
+		secondaryLowerElevatorLimitSwitch = new DigitalInput(SECONDARY_LOWER_LIMIT_SWITCH_PORT);
 		
 		frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
 		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
@@ -268,7 +276,7 @@ public class RobotMap
 		clawDownCommand = new ClawDownCommand();
 		closeGripperCommand = new CloseGripperCommand();
 		openGripperCommand = new OpenGripperCommand(1.0);
-		autonomousDelayCommand = new AutonomousDelayCommand(2.0);
+		autonomousDelayCommand = new AutonomousDelayCommand(1.0);
 
 		initialGyro = RobotMap.gyro.getAngle();
 

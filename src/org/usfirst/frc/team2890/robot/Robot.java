@@ -51,6 +51,8 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("Rotate Left Degrees: ", -90);
 		//SmartDashboard.putNumber("Switch Lift Time: ", 2.5);
 		//SmartDashboard.putNumber("Scale lift time: ", 6.0);
+		SmartDashboard.putBoolean("Lower Limit Switch KIERSTEN UPDATED: ", false);
+		SmartDashboard.putBoolean("Secondary Lower Limit Switch KIERSTEM: ", false);
 		
 		RobotMap.init();
 		RobotMap.m_oi = new OI();
@@ -68,6 +70,11 @@ public class Robot extends TimedRobot
 				m_chooser.addObject("Autonomous from the Left: ", new LLAutonomousLeftCommandGroup());
 				//This Command is Right
 				m_chooser.addObject("Autonomous from the Right: ", new RRAutonomousRightCommandGroup());
+				
+				//Sorry Sam, but weight changed so we lost a working autonomous middle -Faith //
+				m_chooser.addObject("Autonomous Straight: ", new AutonomousTimedDriveForward(RobotMap.driveStraightTimeDrive));
+				//  new AutonomousForwardCommandGroup()
+				// new AutonomousTimedDriveForward(RobotMap.driveStraightTimeDrive)
 				SmartDashboard.putData("Auto mode", m_chooser);
 		
 		//RobotMap.gyro.calibrate();
@@ -130,7 +137,8 @@ public class Robot extends TimedRobot
 		RobotMap.autonomousCommandGroupChooser = (CommandGroup) m_chooser.getSelected();
 		//Scheduler.getInstance().add(RobotMap.clawDownCommand);
 //	Scheduler.getInstance().add(RobotMap.closeGripperCommand);
-		Scheduler.getInstance().add(RobotMap.liftUpCommand);
+		//Scheduler.getInstance().add(RobotMap.liftUpCommand);
+		Scheduler.getInstance().add(RobotMap.autonomousDelayCommand);
 		//Scheduler.getInstance().add(RobotMap.openGripperCommand);
 	//	Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
 
@@ -159,8 +167,8 @@ public class Robot extends TimedRobot
 	{
 		
 		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
-		System.out.println(RobotMap.rangeFinderDistanceInches);
-		System.out.println(RobotMap.RANGE_TARGET);
+		//System.out.println(RobotMap.rangeFinderDistanceInches);
+		//zSystem.out.println(RobotMap.RANGE_TARGET);
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
 		
 		RobotMap.rightAutonomousMiddleTimeDrive = SmartDashboard.getNumber("Time Drive Forward For the Middle (RIGHT SIDE): ", -1);
@@ -178,6 +186,7 @@ public class Robot extends TimedRobot
 			RobotMap.autonomousTargetingLeftCommandGroup = new AutonomousTargetingLeftCommandGroup();
 			RobotMap.autonomousLeftCommandGroup = new LLAutonomousLeftCommandGroup();
 			RobotMap.autonomousRightCommandGroup = new RRAutonomousRightCommandGroup();
+			RobotMap.autonomousForwardCommandGroup = new AutonomousForwardCommandGroup();
 			RobotMap.autonomousCommandGroupChooser = new CommandGroup();
 			RobotMap.timedDriveForwardAutonomousCommand = new AutonomousTimedDriveForward(RobotMap.driveStraightTimeDrive);
 			scheduleCommands();
@@ -240,6 +249,9 @@ public class Robot extends TimedRobot
 		SmartDashboard.putBoolean("High Gear(true): ", RobotMap.highGear);
 		SmartDashboard.putBoolean("Low Gear(true): ", RobotMap.lowGear);
 		SmartDashboard.putBoolean("Elbow is down(true): ", RobotMap.elbowIsDown);
+		SmartDashboard.putBoolean("Lower Limit Switch KIERSTEN UPDATED: ", RobotMap.sensorSubsystem.isLowerLimitSwitchPressed());
+		SmartDashboard.putBoolean("Secondary Lower Limit Switch KIERSTEN: ", RobotMap.sensorSubsystem.isSecondaryLowerLimitSwitchPressed());
+		
 		
 		//test to tell if we are able to send data using the buttons by displaying it on SmartDashboard
 		SmartDashboard.putBoolean("Y",RobotMap.driverController.getYButton());

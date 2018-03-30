@@ -12,7 +12,7 @@ public class AutonomousTargetingLeftCommandGroup extends CommandGroup {
     public AutonomousTargetingLeftCommandGroup() {
     	
 
-    	addSequential(new LiftUpCommand(RobotMap.LIFT_TIMED_RAISE));
+    	//addSequential(new LiftUpCommand(RobotMap.LIFT_TIMED_RAISE));
     	//addSequential(new AutonomousDelayCommand(1.0));
     	addSequential(new AutonomousTimedDriveForward(RobotMap.AUTONOMOUS_MIDDLE_ONE_SECOND_TIMED_DRIVE));
     	addSequential(new AutonomousRotateIntCommand(RobotMap.leftTurnDegrees));
