@@ -76,6 +76,7 @@ public class RobotMap
 	public static final int X_INVERTED = -1;
 	public static final int RAMP_TIMEOUT = 1;
 	public static final double RAMP_TIME = 0.25;
+	public static final double RAMP_OFF_TIME = 0.0;
 	public static final double X_AXIS_LOWER_DEADBAND = -0.01;
 	public static final double X_AXIS_UPPER_DEADBAND = 0.01;
 	public static final double ROTATION_SENSITIVTY = 0.7; //from 0.65
@@ -285,8 +286,10 @@ public class RobotMap
 		liftUpCommand = new LiftUpCommand(LIFT_TIMED_RAISE);
 		clawDownCommand = new ClawDownCommand();
 		closeGripperCommand = new CloseGripperCommand();
-		openGripperCommand = new OpenGripperCommand(1.0);
+		openGripperCommand = new OpenGripperCommand();
 		autonomousDelayCommand = new AutonomousDelayCommand(2.0);
+		
+		driveTrainSubsystem.xboxArcadeDrive();
 		
 		//Misc
 		m_oi = new OI();
