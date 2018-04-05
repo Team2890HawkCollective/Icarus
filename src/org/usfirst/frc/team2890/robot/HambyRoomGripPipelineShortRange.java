@@ -135,8 +135,7 @@ public class HambyRoomGripPipelineShortRange implements VisionPipeline
 	 * @param lum The min and max luminance
 	 * @param output The image in which to store the output.
 	 */
-	private void hslThreshold(Mat input, double[] hue, double[] sat, double[] lum,
-		Mat out) 
+	private void hslThreshold(Mat input, double[] hue, double[] sat, double[] lum, Mat out) 
 	{
 		Imgproc.cvtColor(input, out, Imgproc.COLOR_BGR2HLS);
 		Core.inRange(out, new Scalar(hue[0], lum[0], sat[0]),
@@ -209,20 +208,33 @@ public class HambyRoomGripPipelineShortRange implements VisionPipeline
 			{
 				continue;
 			}
-			if (Imgproc.arcLength(new MatOfPoint2f(contour.toArray()), true) < minPerimeter) continue;
+			if (Imgproc.arcLength(new MatOfPoint2f(contour.toArray()), true) < minPerimeter) 
+			{
+				continue;
+			}
 			Imgproc.convexHull(contour, hull);
 			MatOfPoint mopHull = new MatOfPoint();
 			mopHull.create((int) hull.size().height, 1, CvType.CV_32SC2);
-			for (int j = 0; j < hull.size().height; j++) {
+			for (int j = 0; j < hull.size().height; j++) 
+			{
 				int index = (int)hull.get(j, 0)[0];
 				double[] point = new double[] { contour.get(index, 0)[0], contour.get(index, 0)[1]};
 				mopHull.put(j, 0, point);
 			}
 			final double solid = 100 * area / Imgproc.contourArea(mopHull);
-			if (solid < solidity[0] || solid > solidity[1]) continue;
-			if (contour.rows() < minVertexCount || contour.rows() > maxVertexCount)	continue;
+			if (solid < solidity[0] || solid > solidity[1]) 
+			{
+				continue;
+			}
+			if (contour.rows() < minVertexCount || contour.rows() > maxVertexCount)	
+			{
+				continue;
+			}
 			final double ratio = bb.width / (double)bb.height;
-			if (ratio < minRatio || ratio > maxRatio) continue;
+			if (ratio < minRatio || ratio > maxRatio) 
+			{
+				continue;
+			}
 			output.add(contour);
 		}
 	}
