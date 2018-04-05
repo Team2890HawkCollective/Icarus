@@ -14,7 +14,8 @@ import org.opencv.imgproc.*;
 *
 * @author GRIP
 */
-public class HambyRoomGripPipelineShortRange implements VisionPipeline {
+public class HambyRoomGripPipelineShortRange implements VisionPipeline 
+{
 
 	//Outputs
 	private Mat cvResizeOutput = new Mat();
@@ -22,14 +23,17 @@ public class HambyRoomGripPipelineShortRange implements VisionPipeline {
 	private ArrayList<MatOfPoint> findContoursOutput = new ArrayList<MatOfPoint>();
 	public ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<MatOfPoint>();
 
-	static {
+	static 
+	{
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
 
 	/**
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 */
-	@Override	public void process(Mat source0) {
+	@Override	
+	public void process(Mat source0) 
+	{
 		// Step CV_resize0:
 		Mat cvResizeSrc = source0;
 		Size cvResizeDsize = new Size(0, 0);
@@ -71,7 +75,8 @@ public class HambyRoomGripPipelineShortRange implements VisionPipeline {
 	 * This method is a generated getter for the output of a CV_resize.
 	 * @return Mat output from CV_resize.
 	 */
-	public Mat cvResizeOutput() {
+	public Mat cvResizeOutput() 
+	{
 		return cvResizeOutput;
 	}
 
@@ -79,7 +84,8 @@ public class HambyRoomGripPipelineShortRange implements VisionPipeline {
 	 * This method is a generated getter for the output of a HSL_Threshold.
 	 * @return Mat output from HSL_Threshold.
 	 */
-	public Mat hslThresholdOutput() {
+	public Mat hslThresholdOutput() 
+	{
 		return hslThresholdOutput;
 	}
 
@@ -87,7 +93,8 @@ public class HambyRoomGripPipelineShortRange implements VisionPipeline {
 	 * This method is a generated getter for the output of a Find_Contours.
 	 * @return ArrayList<MatOfPoint> output from Find_Contours.
 	 */
-	public ArrayList<MatOfPoint> findContoursOutput() {
+	public ArrayList<MatOfPoint> findContoursOutput() 
+	{
 		return findContoursOutput;
 	}
 
@@ -95,7 +102,8 @@ public class HambyRoomGripPipelineShortRange implements VisionPipeline {
 	 * This method is a generated getter for the output of a Filter_Contours.
 	 * @return ArrayList<MatOfPoint> output from Filter_Contours.
 	 */
-	public ArrayList<MatOfPoint> filterContoursOutput() {
+	public ArrayList<MatOfPoint> filterContoursOutput() 
+	{
 		return filterContoursOutput;
 	}
 
@@ -109,9 +117,10 @@ public class HambyRoomGripPipelineShortRange implements VisionPipeline {
 	 * @param interpolation type of interpolation to use.
 	 * @param dst output image.
 	 */
-	private void cvResize(Mat src, Size dSize, double fx, double fy, int interpolation,
-		Mat dst) {
-		if (dSize==null) {
+	private void cvResize(Mat src, Size dSize, double fx, double fy, int interpolation, Mat dst) 
+	{
+		if (dSize==null) 
+		{
 			dSize = new Size(0,0);
 		}
 		Imgproc.resize(src, dst, dSize, fx, fy, interpolation);
@@ -127,7 +136,8 @@ public class HambyRoomGripPipelineShortRange implements VisionPipeline {
 	 * @param output The image in which to store the output.
 	 */
 	private void hslThreshold(Mat input, double[] hue, double[] sat, double[] lum,
-		Mat out) {
+		Mat out) 
+	{
 		Imgproc.cvtColor(input, out, Imgproc.COLOR_BGR2HLS);
 		Core.inRange(out, new Scalar(hue[0], lum[0], sat[0]),
 			new Scalar(hue[1], lum[1], sat[1]), out);
@@ -140,15 +150,17 @@ public class HambyRoomGripPipelineShortRange implements VisionPipeline {
 	 * @param maskSize the size of the mask.
 	 * @param output The image in which to store the output.
 	 */
-	private void findContours(Mat input, boolean externalOnly,
-		List<MatOfPoint> contours) {
+	private void findContours(Mat input, boolean externalOnly, List<MatOfPoint> contours) 
+	{
 		Mat hierarchy = new Mat();
 		contours.clear();
 		int mode;
-		if (externalOnly) {
+		if (externalOnly) 
+		{
 			mode = Imgproc.RETR_EXTERNAL;
 		}
-		else {
+		else 
+		{
 			mode = Imgproc.RETR_LIST;
 		}
 		int method = Imgproc.CHAIN_APPROX_SIMPLE;
@@ -175,17 +187,28 @@ public class HambyRoomGripPipelineShortRange implements VisionPipeline {
 	private void filterContours(List<MatOfPoint> inputContours, double minArea,
 		double minPerimeter, double minWidth, double maxWidth, double minHeight, double
 		maxHeight, double[] solidity, double maxVertexCount, double minVertexCount, double
-		minRatio, double maxRatio, List<MatOfPoint> output) {
+		minRatio, double maxRatio, List<MatOfPoint> output) 
+	{
 		final MatOfInt hull = new MatOfInt();
 		output.clear();
 		//operation
-		for (int i = 0; i < inputContours.size(); i++) {
+		for (int i = 0; i < inputContours.size(); i++) 
+		{
 			final MatOfPoint contour = inputContours.get(i);
 			final Rect bb = Imgproc.boundingRect(contour);
-			if (bb.width < minWidth || bb.width > maxWidth) continue;
-			if (bb.height < minHeight || bb.height > maxHeight) continue;
+			if (bb.width < minWidth || bb.width > maxWidth) 
+			{
+				continue;
+			}
+			if (bb.height < minHeight || bb.height > maxHeight) 
+			{
+				continue;
+			}
 			final double area = Imgproc.contourArea(contour);
-			if (area < minArea) continue;
+			if (area < minArea) 
+			{
+				continue;
+			}
 			if (Imgproc.arcLength(new MatOfPoint2f(contour.toArray()), true) < minPerimeter) continue;
 			Imgproc.convexHull(contour, hull);
 			MatOfPoint mopHull = new MatOfPoint();
