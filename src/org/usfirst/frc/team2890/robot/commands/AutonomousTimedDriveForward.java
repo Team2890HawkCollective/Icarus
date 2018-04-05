@@ -5,9 +5,10 @@ import org.usfirst.frc.team2890.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 
 /**
- *
+ * Drives the bot forwards for a set amount of time
  */
-public class AutonomousTimedDriveForward extends TimedCommand {
+public class AutonomousTimedDriveForward extends TimedCommand 
+{
 
     public AutonomousTimedDriveForward(double timeout) 
     {
@@ -16,27 +17,33 @@ public class AutonomousTimedDriveForward extends TimedCommand {
         // eg. requires(chassis);
     }
 
-    // Called just before this Command runs the first time
+    /**
+     * Called just before this Command runs the first time
+     */
     protected void initialize() 
     {
     	
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Called repeatedly when this Command is scheduled to run
+     */
     protected void execute() 
     {
-    	//RobotMap.manipulatorSubsystem.dropClaw();
     	RobotMap.driveTrainSubsystem.driveForward();
     }
 
-    // Called once after timeout
+    /**
+     * Called once after timeout
+     */
     protected void end() 
     {
     	
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * Called when another command which requires one or more of the same subsystems is scheduled to run
+     */
     protected void interrupted() 
     {
     	
