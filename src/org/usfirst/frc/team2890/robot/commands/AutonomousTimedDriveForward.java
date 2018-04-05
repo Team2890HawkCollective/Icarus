@@ -15,6 +15,7 @@ public class AutonomousTimedDriveForward extends TimedCommand
         super(timeout);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        requires(RobotMap.driveTrainSubsystem);
     }
 
     /**

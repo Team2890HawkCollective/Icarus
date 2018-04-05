@@ -15,7 +15,7 @@ public class RRAutonomousRightCommandGroup extends CommandGroup {
     	addSequential(new AutonomousRotateIntCommand(RobotMap.leftTurnDegrees));
     	addSequential(new AutonomousTimedDriveForward(2.0));
     	addSequential(new ClawDownCommand());
-    	addSequential(new OpenGripperCommand(1.0));
+    	addSequential(new OpenGripperCommand());
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());

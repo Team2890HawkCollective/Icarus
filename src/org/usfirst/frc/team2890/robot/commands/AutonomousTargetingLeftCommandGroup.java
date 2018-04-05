@@ -19,6 +19,6 @@ public class AutonomousTargetingLeftCommandGroup extends CommandGroup
     	addSequential(new AutonomousRotateIntCommand(RobotMap.rightTurnDegrees));
     	addSequential(new AutonomousTimedDriveForward(2.0));
     	addSequential(new ClawDownCommand());
-    	addSequential(new OpenGripperCommand(1.0));
+    	addSequential(new OpenGripperCommand());
     }
 }
