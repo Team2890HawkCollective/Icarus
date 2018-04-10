@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="var" path="wpilib" sourcepath="wpilib.sources"/>
-	<classpathentry exported="true" kind="var" path="networktables" sourcepath="ntcore.sources"/>
-	<classpathentry exported="true" kind="var" path="opencv" sourcepath="opencv.sources"/>
-	<classpathentry exported="true" kind="var" path="cscore" sourcepath="cscore.sources"/>
-	<classpathentry exported="true" kind="var" path="wpiutil" sourcepath="wpiutil.sources"/>
-	<classpathentry exported="true" kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
-	<classpathentry exported="true" kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/2890/Downloads/json-simple-1.1.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/jackson-annotations-2.9.0.pr3.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/jackson-annotations-2.9.4.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/jackson-core-2.9.0.pr3.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/jackson-core-2.9.4.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/jackson-databind-2.9.0.pr3.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/jackson-databind-2.9.4.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/json-simple-1.1.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Test"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
