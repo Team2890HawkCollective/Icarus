@@ -7,23 +7,17 @@
 
 package org.usfirst.frc.team2890.robot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.*;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team2890.robot.commands.*;
 
-import org.usfirst.frc.team2890.robot.subsystems.*;
+import org.usfirst.frc.team2890.robot.commands.*;
 
 import org.usfirst.frc.team319.paths.*;
 import org.usfirst.frc.team319.robot.commands.*;
-
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -35,7 +29,6 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 public class Robot extends TimedRobot 
 {
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
-	//Command driveForwardCommand;
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -46,34 +39,30 @@ public class Robot extends TimedRobot
 	{
 		SmartDashboard.putNumber("Time Drive Forward For the Middle (RIGHT SIDE): ", 1.0);
 		SmartDashboard.putNumber("Time Drive Forward For the Middle (LEFT SIDE): ", 1.0);
+		
 		//For when we're on the opposite side of the field that our target is on.
 		SmartDashboard.putNumber("Straight Time Drive Forward: ", 5.0);
 		SmartDashboard.putNumber("Left OR Right Side Time Drive: ", 3.0);
 		
 		SmartDashboard.putNumber("Rotate Right Degrees: ", 90);
 		SmartDashboard.putNumber("Rotate Left Degrees: ", -90);
-		//SmartDashboard.putNumber("Switch Lift Time: ", 2.5);
-		//SmartDashboard.putNumber("Scale lift time: ", 6.0);
 		
 		RobotMap.init();
 		RobotMap.m_oi = new OI();
-		//driveForwardCommand = new DriveForward();
-		
-		RobotMap.gyro.reset();
-		
-		// chooser.addObject("My Auto", new MyAutoCommand());
 		
 		//Have to have .addDefault() or else will not show up.
-				m_chooser.addDefault("Autonomous from the Right: ", new AutonomousTimedDriveForward(RobotMap.driveStraightTimeDrive));
-				//This Command is middle
-				m_chooser.addObject("Autonomous from the Middle: ", new TestCommandDontHateMeTaylor());
-				//This Command is Left
-				m_chooser.addObject("Autonomous from the Left: ", new LLAutonomousLeftCommandGroup());
-				//This Command is Right
-				m_chooser.addObject("Autonomous from the Right: ", new RRAutonomousRightCommandGroup());
-				SmartDashboard.putData("Auto mode", m_chooser);
+		m_chooser.addDefault("Autonomous from the Right: ", new AutonomousTimedDriveForward(RobotMap.driveStraightTimeDrive));
 		
-		//RobotMap.gyro.calibrate();
+		//This Command is middle
+		m_chooser.addObject("Autonomous from the Middle: ", new TestCommandDontHateMeTaylor());
+		
+		//This Command is Left
+		m_chooser.addObject("Autonomous from the Left: ", new LLAutonomousLeftCommandGroup());
+		
+		//This Command is Right
+		m_chooser.addObject("Autonomous from the Right: ", new RRAutonomousRightCommandGroup());
+		
+		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
 	/**
@@ -86,7 +75,10 @@ public class Robot extends TimedRobot
 	{
 		RobotMap.firstTimeThrough = true;
 	}
-
+	
+	/**
+	 * This function is called periodically while the robot is disabled
+	 */
 	@Override
 	public void disabledPeriodic() 
 	{
@@ -108,9 +100,8 @@ public class Robot extends TimedRobot
 	public void autonomousInit() 
 	{
 		RobotMap.m_autonomousCommand = m_chooser.getSelected();
-		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
 		
-		//RobotMap.liftUpCommand = new LiftUpCommand(3.5);
+		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
 		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -127,16 +118,10 @@ public class Robot extends TimedRobot
 		SmartDashboard.putString("In 5th if: ", "");
 		SmartDashboard.putString("In 6rd if: ", "");
 		
-		
 		RobotMap.gyro.reset();
 		
 		RobotMap.autonomousCommandGroupChooser = (CommandGroup) m_chooser.getSelected();
-		//Scheduler.getInstance().add(RobotMap.clawDownCommand);
-//	Scheduler.getInstance().add(RobotMap.closeGripperCommand);
-		Scheduler.getInstance().add(RobotMap.liftUpCommand);
-		//Scheduler.getInstance().add(RobotMap.openGripperCommand);
-	//	Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
-
+		
 		while((DriverStation.getInstance().getGameSpecificMessage()) == null)
 		{
 			
@@ -149,9 +134,13 @@ public class Robot extends TimedRobot
 		SmartDashboard.putString("Game Data Letter", RobotMap.gameDataLetter);
 		
 		if(RobotMap.gameDataLetter.equalsIgnoreCase("R"))
+		{
 			RobotMap.isRight = true;
+		}
 		else if(RobotMap.gameDataLetter.equalsIgnoreCase("L"))
+		{
 			RobotMap.isRight = false;
+		}
 	}
 
 	/**
@@ -186,12 +175,13 @@ public class Robot extends TimedRobot
 			scheduleCommands();
 			RobotMap.firstTimeThrough = false;
 		}
-	
-		
 		
 		Scheduler.getInstance().run();
 	}
-
+	
+	/**
+	 * This function is called once when the robot is enabled in teleop mode.
+	 */
 	@Override
 	public void teleopInit() 
 	{
@@ -205,23 +195,16 @@ public class Robot extends TimedRobot
 		}
 		
 		RobotMap.startThread();
-		
-		//Scheduler.getInstance().
-		//RobotMap.talonRampOnCommand.start();
+
 		RobotMap.frontLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.rearLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.frontRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
-		
-		//Scheduler.getInstance().add(RobotMap.controlCubeCommand);
-		//Scheduler.getInstance().add(RobotMap.controlGripperCommand);
+
 		Scheduler.getInstance().add(RobotMap.controlManipulatorCommand);
-		//Scheduler.getInstance().add(RobotMap.controlTowerCommand);
-		
-		
 		Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
-		RobotMap.compressor.setClosedLoopControl(true);
 		
+		RobotMap.compressor.setClosedLoopControl(true);
 	}
 
 	/**
@@ -236,9 +219,9 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("Center X: ", RobotMap.centerX);
 		SmartDashboard.putNumber("Distance From Target: ", RobotMap.distanceFromTargetUsingTargeting);
 		SmartDashboard.putNumber("Angle: ", RobotMap.angleFromTarget);
+		
 		SmartDashboard.putBoolean("Upper Limit Switch (false if pressed): ", RobotMap.sensorSubsystem.isUpperLimitSwitchPressed());
 		SmartDashboard.putBoolean("Lower Limit Switch (true if pressed): ", RobotMap.sensorSubsystem.isLowerLimitSwitchPressed());
-		
 		SmartDashboard.putBoolean("Ratchet Engaged(true) or Disengaged(false): ", RobotMap.ratchetEngaged);
 		SmartDashboard.putBoolean("High Gear(true): ", RobotMap.highGear);
 		SmartDashboard.putBoolean("Low Gear(true): ", RobotMap.lowGear);
@@ -249,35 +232,12 @@ public class Robot extends TimedRobot
 		SmartDashboard.putBoolean("X",RobotMap.driverController.getXButton());
 		SmartDashboard.putBoolean("B",RobotMap.driverController.getBButton());
 		SmartDashboard.putBoolean("A",RobotMap.driverController.getAButton());
+		
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
 		SmartDashboard.putNumber("Gyro Rate:", RobotMap.gyro.getRate());
+		
 		System.out.println("Amps: " + RobotMap.leftTowerTalon.getOutputCurrent());
 		System.out.println("Volts: " + RobotMap.rightTowerTalon.getMotorOutputVoltage());
-		
-		if(RobotMap.driverController.getBButton())
-		{
-			RobotMap.driveTrainSubsystem.stopMoving();
-			Scheduler.getInstance().removeAll();
-			Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
-		}
-		
-		//RobotMap.leftTowerTalon.set(1);
-		//RobotMap.rightTowerTalon.set(1);
-		
-		/*if(RobotMap.driverController.getAButton())
-    	{
-    		RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kForward);
-    		System.out.println("shifting to low gear");
-    			
-    	}
-		else if(RobotMap.driverController.getBButton())
-    	{
-    		RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kReverse);
-    		System.out.println("shifting to high gearr");
-    	}
-		else if (RobotMap.driverController.getXButton())
-			RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kOff);*/
-	
 	}
 
 	/**
@@ -286,20 +246,13 @@ public class Robot extends TimedRobot
 	@Override
 	public void testPeriodic() 
 	{
-		if(RobotMap.flag)
-		{ 
-			//RobotMap.compressor.setClosedLoopControl(true);
-			RobotMap.flag = false;
-		}
-		//if(RobotMap.driverController.getBButton())
-		//{
-			//RobotMap.testTalon.set(1);
-		//}
-		//RobotMap.compressor.setClosedLoopControl(true);
-		RobotMap.frontLeftTalon.set(1);
-		RobotMap.leftTowerTalon.set(1);
+		
 	}
 	
+	/**
+	 * Calls the commands when the buttons are pressed in the smartdashboard<br>
+	 * Commands MUST be added here in order to work in autonomous
+	 */
 	public void scheduleCommands()
 	{
 		if(RobotMap.isRight)
@@ -368,12 +321,12 @@ public class Robot extends TimedRobot
             }
         }
 	}
-@Override
+	
+	@Override
 	public boolean isDisabled() 
 	{
 		// TODO Auto-generated method stub
 		 RobotMap.keepThreadRunning = false;
 		return super.isDisabled();
 	}
-
 }
