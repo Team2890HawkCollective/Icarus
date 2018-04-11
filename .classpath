@@ -1,35 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="var" path="wpilib" sourcepath="wpilib.sources"/>
-	<classpathentry exported="true" kind="var" path="networktables" sourcepath="ntcore.sources"/>
-	<classpathentry exported="true" kind="var" path="opencv" sourcepath="opencv.sources"/>
-	<classpathentry exported="true" kind="var" path="cscore" sourcepath="cscore.sources"/>
-	<classpathentry exported="true" kind="var" path="wpiutil" sourcepath="wpiutil.sources"/>
-	<classpathentry exported="true" kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
-	<classpathentry exported="true" kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/jackson-annotations-2.9.0.pr3.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/jackson-annotations-2.9.4.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/jackson-core-2.9.0.pr3.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/jackson-core-2.9.4.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/jackson-databind-2.9.0.pr3.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/jackson-databind-2.9.4.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/json-simple-1.1.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/rocki/eclipse-workspace/Icarus/build/jars/cscore.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/rocki/eclipse-workspace/Icarus/build/jars/CTRE_Phoenix.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/rocki/eclipse-workspace/Icarus/build/jars/jackson-annotations-2.9.0.pr3.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/rocki/eclipse-workspace/Icarus/build/jars/jackson-annotations-2.9.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/rocki/eclipse-workspace/Icarus/build/jars/jackson-core-2.9.0.pr3.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/rocki/eclipse-workspace/Icarus/build/jars/jackson-core-2.9.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/rocki/eclipse-workspace/Icarus/build/jars/jackson-databind-2.9.0.pr3.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/rocki/eclipse-workspace/Icarus/build/jars/jackson-databind-2.9.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/rocki/eclipse-workspace/Icarus/build/jars/json-simple-1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/rocki/eclipse-workspace/Icarus/build/jars/navx_frc.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/rocki/eclipse-workspace/Icarus/build/jars/ntcore.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/rocki/eclipse-workspace/Icarus/build/jars/opencv.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/rocki/eclipse-workspace/Icarus/build/jars/WPILib.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/rocki/eclipse-workspace/Icarus/build/jars/wpiutil.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Dependencies"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
