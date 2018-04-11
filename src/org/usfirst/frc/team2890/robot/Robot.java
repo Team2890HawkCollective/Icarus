@@ -19,6 +19,9 @@ import org.usfirst.frc.team2890.robot.commands.*;
 
 import org.usfirst.frc.team2890.robot.subsystems.*;
 
+import org.usfirst.frc.team319.paths.*;
+import org.usfirst.frc.team319.robot.commands.*;
+
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 
@@ -300,59 +303,70 @@ public class Robot extends TimedRobot
 	public void scheduleCommands()
 	{
 		if(RobotMap.isRight)
-		{
-			SmartDashboard.putString("In R If Statement: ", "R");
-			if(m_chooser.getSelected().getName().equals("RRAutonomousRightCommandGroup"))
-			{
-				SmartDashboard.putString("In 1st if: ", "In");
-				System.out.println("1st: ");
-				//Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
-				Scheduler.getInstance().add(RobotMap.autonomousRightCommandGroup);
-				return;
-			}
-			else if(m_chooser.getSelected().getName().equals("LLAutonomousLeftCommandGroup"))
-			{
-				System.out.println("2nd: ");
-				SmartDashboard.putString("In 2nd if: ", "In");
-				Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
-				return;
-			}
-			//In middle
-			else if(m_chooser.getSelected().getName().equals("TestCommandDontHateMeTaylor"))
-			{
-				System.out.println("3rd: ");
-				SmartDashboard.putString("In 3rd if: ", "In");
-				Scheduler.getInstance().add(RobotMap.autonomousTargetingRightCommandGroup);
-				return;
-			}
-		}
+        {
+            SmartDashboard.putString("In R If Statement: ", "R");
+            if(m_chooser.getSelected().getName().equals("RRAutonomousRightCommandGroup"))
+            {
+                SmartDashboard.putString("In 1st if: ", "In");
+                System.out.println("1st: ");
+                
+                Scheduler.getInstance().add(new FollowTrajectory(new SameSideSwitch(RobotMap.isRight)));
+                
+                return;
+            }
+            else if(m_chooser.getSelected().getName().equals("LLAutonomousLeftCommandGroup"))
+            {
+                System.out.println("2nd: ");
+                SmartDashboard.putString("In 2nd if: ", "In");
+                
+                Scheduler.getInstance().add(new FollowTrajectory(new OppositeSideSwitch(RobotMap.isRight)));
+                
+                return;
+            }
+            //In middle
+            else if(m_chooser.getSelected().getName().equals("TestCommandDontHateMeTaylor"))
+            {
+                System.out.println("3rd: ");
+                SmartDashboard.putString("In 3rd if: ", "In");
+                
+                Scheduler.getInstance().add(new FollowTrajectory(new CenterSwitch(RobotMap.isRight)));
+                
+                return;
+            }
+        }
 		else
-		{
-			SmartDashboard.putString("In L If Statement: ", "L");
-			if(m_chooser.getSelected().getName().equals("RRAutonomousRightCommandGroup"))
-			{
-				System.out.println("4th: ");
-				SmartDashboard.putString("In 4th if: ", "In");
-				Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
-				return;
-			}
-			else if(m_chooser.getSelected().getName().equals("LLAutonomousLeftCommandGroup"))
-			{
-				System.out.println("5th ");
-				SmartDashboard.putString("In 5th if: ", "In");
-				//Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
-				Scheduler.getInstance().add(RobotMap.autonomousLeftCommandGroup);
-				return;
-			}
-			//In middle
-			else if(m_chooser.getSelected().getName().equals("TestCommandDontHateMeTaylor"))
-			{
-				System.out.println("6th: ");
-				SmartDashboard.putString("In 6th if: ", "In");
-				Scheduler.getInstance().add(RobotMap.autonomousTargetingLeftCommandGroup);
-				return;
-			}
-		}
+        {
+            SmartDashboard.putString("In L If Statement: ", "L");
+            
+            if(m_chooser.getSelected().getName().equals("RRAutonomousRightCommandGroup"))
+            {
+                System.out.println("4th: ");
+                SmartDashboard.putString("In 4th if: ", "In");
+                
+                Scheduler.getInstance().add(new FollowTrajectory(new OppositeSideSwitch(RobotMap.isRight)));
+                
+                return;
+            }
+            else if(m_chooser.getSelected().getName().equals("LLAutonomousLeftCommandGroup"))
+            {
+                System.out.println("5th ");
+                SmartDashboard.putString("In 5th if: ", "In");
+                
+                Scheduler.getInstance().add(new FollowTrajectory(new SameSideSwitch(RobotMap.isRight)));
+                
+                return;
+            }
+            //In middle
+            else if(m_chooser.getSelected().getName().equals("TestCommandDontHateMeTaylor"))
+            {
+                System.out.println("6th: ");
+                SmartDashboard.putString("In 6th if: ", "In");
+                
+                Scheduler.getInstance().add(new FollowTrajectory(new CenterSwitch(RobotMap.isRight)));
+                
+                return;
+            }
+        }
 	}
 @Override
 	public boolean isDisabled() 
