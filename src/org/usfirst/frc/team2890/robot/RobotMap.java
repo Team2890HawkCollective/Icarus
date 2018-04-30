@@ -15,6 +15,7 @@ import org.usfirst.frc.team2890.robot.commands.*;
 import org.usfirst.frc.team2890.robot.subsystems.*;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.kauailabs.navx.frc.*;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
@@ -172,6 +173,7 @@ public class RobotMap
 	public static DigitalInput upperElevatorLimitSwitch;
 	public static DigitalInput lowerElevatorLimitSwitch;
 	public static ADXRS450_Gyro gyro;
+	public static AHRS navx;
 	
 	//Subsystems
 	public static DifferentialDrive driveTrain;
@@ -243,6 +245,7 @@ public class RobotMap
 		
 		//Sensors
 		gyro = new ADXRS450_Gyro();
+		navx = new AHRS(SPI.Port.kMXP); // MXP is the large center array of pins the navx connects to
 		rangeFinder = new Ultrasonic(RANGEFINDER_PINGCHANNEL, RANGEFINDER_ECHOCHANNEL);
 		upperElevatorLimitSwitch = new DigitalInput(UPPER_LIMIT_SWITCH_PORT);
 		lowerElevatorLimitSwitch = new DigitalInput(LOWER_LIMIT_SWITCH_PORT);
