@@ -214,11 +214,14 @@ public class Robot extends TimedRobot
 	public void teleopPeriodic() 
 	{
 		Scheduler.getInstance().run();
+		double[] gyroRaw = {(double) RobotMap.navx.getRawGyroX(), (double) RobotMap.navx.getRawGyroY(), (double) RobotMap.navx.getRawGyroZ()};
 
+		/*
 		SmartDashboard.putNumber("Rectangle", RobotMap.hambyRoomGripPipelineShortRange.filterContoursOutput.size());
 		SmartDashboard.putNumber("Center X: ", RobotMap.centerX);
 		SmartDashboard.putNumber("Distance From Target: ", RobotMap.distanceFromTargetUsingTargeting);
 		SmartDashboard.putNumber("Angle: ", RobotMap.angleFromTarget);
+		
 		
 		SmartDashboard.putBoolean("Upper Limit Switch (false if pressed): ", RobotMap.sensorSubsystem.isUpperLimitSwitchPressed());
 		SmartDashboard.putBoolean("Lower Limit Switch (true if pressed): ", RobotMap.sensorSubsystem.isLowerLimitSwitchPressed());
@@ -235,6 +238,9 @@ public class Robot extends TimedRobot
 		
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
 		SmartDashboard.putNumber("Gyro Rate:", RobotMap.gyro.getRate());
+		*/
+		SmartDashboard.putNumber("Gyro: ", RobotMap.navx.getAngle());
+		SmartDashboard.putNumberArray("Raw Gyro: ", gyroRaw);
 		
 		System.out.println("Amps: " + RobotMap.leftTowerTalon.getOutputCurrent());
 		System.out.println("Volts: " + RobotMap.rightTowerTalon.getMotorOutputVoltage());
