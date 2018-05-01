@@ -43,21 +43,21 @@ public class ManipulatorSubsystem extends Subsystem
     	if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft) > RobotMap.TRIGGER_SENSITIVIY && !RobotMap.lowerLimitSwitch)
     	{
     		RobotMap.rightTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
-    		RobotMap.leftTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
+    		//RobotMap.leftTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
     		System.out.println("left Trigger: " + RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
     	}
     	//Tower up
     	else if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) > RobotMap.TRIGGER_SENSITIVIY && RobotMap.upperLimitSwitch)
     	{
     		RobotMap.rightTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) * RobotMap.TOWER_UP_DIRECTION);
-    		RobotMap.leftTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) * RobotMap.TOWER_UP_DIRECTION);
+    		//RobotMap.leftTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) * RobotMap.TOWER_UP_DIRECTION);
     		System.out.println("right Trigger: " + RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight));
     	}
     	//Stop tower
     	else
     	{
     		RobotMap.rightTowerTalon.stopMotor();
-    		RobotMap.leftTowerTalon.stopMotor();
+    		//RobotMap.leftTowerTalon.stopMotor();
     	}
     	
     	//shiftGear method
@@ -185,12 +185,12 @@ public class ManipulatorSubsystem extends Subsystem
 		if(RobotMap.upperLimitSwitch)
 		{
     		RobotMap.rightTowerTalon.stopMotor();
-    		RobotMap.leftTowerTalon.stopMotor();
+    		//RobotMap.leftTowerTalon.stopMotor();
 		}
 		else
 		{
 	    	RobotMap.rightTowerTalon.set(RobotMap.TOWER_UP_VARIABLE * RobotMap.TOWER_UP_DIRECTION);
-			RobotMap.leftTowerTalon.set(RobotMap.TOWER_UP_VARIABLE * RobotMap.TOWER_UP_DIRECTION);
+			//RobotMap.leftTowerTalon.set(RobotMap.TOWER_UP_VARIABLE * RobotMap.TOWER_UP_DIRECTION);
 			RobotMap.liftUpFlag = true;
 		}
     }

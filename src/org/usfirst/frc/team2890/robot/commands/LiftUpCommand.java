@@ -32,7 +32,7 @@ public class LiftUpCommand extends TimedCommand
     protected void execute() 
     {
     	RobotMap.rightTowerTalon.set(RobotMap.TOWER_UP_VARIABLE * RobotMap.TOWER_UP_DIRECTION);
-		RobotMap.leftTowerTalon.set(RobotMap.TOWER_UP_VARIABLE * RobotMap.TOWER_UP_DIRECTION);
+		//RobotMap.leftTowerTalon.set(RobotMap.TOWER_UP_VARIABLE * RobotMap.TOWER_UP_DIRECTION);
 		
 		System.out.println("In Lift Tower Command. ");
     }
@@ -43,7 +43,7 @@ public class LiftUpCommand extends TimedCommand
     protected void end() 
     {
     	RobotMap.rightTowerTalon.stopMotor();
-    	RobotMap.leftTowerTalon.stopMotor();
+    	//RobotMap.leftTowerTalon.stopMotor();
     }
 
     /**

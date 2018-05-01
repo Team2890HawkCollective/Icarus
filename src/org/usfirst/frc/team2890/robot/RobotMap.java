@@ -67,7 +67,7 @@ public class RobotMap
 	public static final int RANGEFINDER_PINGCHANNEL = 0;
 	public static final int RANGEFINDER_ECHOCHANNEL = 1;
 	public static final int LEFT_TALON_TOWER_ID = 5;
-	public static final int RIGHT_TALON_TOWER_ID = 6;
+	//public static final int RIGHT_TALON_TOWER_ID = 6;
 	public static final int LOWER_LIMIT_SWITCH_PORT = 8;
 	public static final int UPPER_LIMIT_SWITCH_PORT = 9;
 	
@@ -163,7 +163,7 @@ public class RobotMap
 	public static WPI_TalonSRX rearRightTalon;
 	public static WPI_TalonSRX frontLeftTalon;
 	public static WPI_TalonSRX rearLeftTalon;
-	public static WPI_TalonSRX leftTowerTalon;
+	//public static WPI_TalonSRX leftTowerTalon;
 	public static WPI_TalonSRX rightTowerTalon;
 	public static SpeedControllerGroup rightTalonGroup;
 	public static SpeedControllerGroup leftTalonGroup;
@@ -262,7 +262,7 @@ public class RobotMap
 		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
 		frontLeftTalon = new WPI_TalonSRX(FRONT_LEFT_TALON_ID);
 		rearLeftTalon = new WPI_TalonSRX(REAR_LEFT_TALON_ID);
-		leftTowerTalon = new WPI_TalonSRX(RIGHT_TALON_TOWER_ID); 
+		//leftTowerTalon = new WPI_TalonSRX(RIGHT_TALON_TOWER_ID); 
 		rightTowerTalon = new WPI_TalonSRX(LEFT_TALON_TOWER_ID);
 		
 		rightTalonGroup = new SpeedControllerGroup(frontRightTalon, rearRightTalon);
@@ -292,7 +292,7 @@ public class RobotMap
 		openGripperCommand = new OpenGripperCommand();
 		autonomousDelayCommand = new AutonomousDelayCommand(2.0);
 		
-		driveTrainSubsystem.xboxArcadeDrive();
+		//driveTrainSubsystem.xboxArcadeDrive();
 		
 		//Misc
 		m_oi = new OI();

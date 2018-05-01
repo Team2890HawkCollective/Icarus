@@ -214,7 +214,6 @@ public class Robot extends TimedRobot
 	public void teleopPeriodic() 
 	{
 		Scheduler.getInstance().run();
-		double[] gyroRaw = {(double) RobotMap.navx.getRawGyroX(), (double) RobotMap.navx.getRawGyroY(), (double) RobotMap.navx.getRawGyroZ()};
 
 		/*
 		SmartDashboard.putNumber("Rectangle", RobotMap.hambyRoomGripPipelineShortRange.filterContoursOutput.size());
@@ -239,11 +238,21 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
 		SmartDashboard.putNumber("Gyro Rate:", RobotMap.gyro.getRate());
 		*/
+		SmartDashboard.putNumber("Gyro X", RobotMap.navx.getRawGyroX());
+		SmartDashboard.putNumber("Gyro Y", RobotMap.navx.getRawGyroY());
+		SmartDashboard.putNumber("Gyro Z", RobotMap.navx.getRawGyroZ());
 		SmartDashboard.putNumber("Gyro: ", RobotMap.navx.getAngle());
-		SmartDashboard.putNumberArray("Raw Gyro: ", gyroRaw);
+		SmartDashboard.putNumber("Acceleration X", RobotMap.navx.getRawAccelX());
+		SmartDashboard.putNumber("Acceleration Y", RobotMap.navx.getRawAccelY());
+		SmartDashboard.putNumber("Acceleration Z", RobotMap.navx.getRawAccelZ());
+		SmartDashboard.putNumber("Acceleration Full Scale Range G", RobotMap.navx.getAccelFullScaleRangeG());
+		SmartDashboard.putNumber("Pitch", RobotMap.navx.getPitch());
+		SmartDashboard.putNumber("Roll", RobotMap.navx.getRoll());
+		SmartDashboard.putNumber("Yaw", RobotMap.navx.getYaw());
+		SmartDashboard.putNumber("Compass", RobotMap.navx.getCompassHeading());
 		
-		System.out.println("Amps: " + RobotMap.leftTowerTalon.getOutputCurrent());
-		System.out.println("Volts: " + RobotMap.rightTowerTalon.getMotorOutputVoltage());
+		//System.out.println("Amps: " + RobotMap.leftTowerTalon.getOutputCurrent());
+		//System.out.println("Volts: " + RobotMap.rightTowerTalon.getMotorOutputVoltage());
 	}
 
 	/**
@@ -252,7 +261,7 @@ public class Robot extends TimedRobot
 	@Override
 	public void testPeriodic() 
 	{
-		
+		RobotMap.leftTalonGroup.set(0);
 	}
 	
 	/**
