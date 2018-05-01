@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team2890.robot.subsystems;
 
+import java.util.function.DoubleSupplier;
+
 import org.usfirst.frc.team2890.robot.RobotMap;
 import org.usfirst.frc.team2890.robot.commands.*;
 
@@ -15,7 +17,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */
-public class SensorSubsystem extends Subsystem 
+public class SensorSubsystem extends Subsystem
 {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
@@ -31,7 +33,7 @@ public class SensorSubsystem extends Subsystem
 	public void gyroSetting()
 	{
 		RobotMap.gyro.reset();
-		RobotMap.gyro.calibrate();
+		//RobotMap.gyro.calibrate();
 	}
 	
 	public void getRangeInInches()

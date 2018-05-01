@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team2890.robot;
 
+import java.util.function.DoubleConsumer;
+import java.util.function.DoubleSupplier;
+
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
@@ -15,20 +18,24 @@ import org.usfirst.frc.team2890.robot.commands.*;
 import org.usfirst.frc.team2890.robot.subsystems.*;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.kauailabs.navx.frc.AHRS;
 import com.ctre.phoenix.motorcontrol.*;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTableType;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.*;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -151,6 +158,7 @@ public class RobotMap
 	
 	public static XboxController driverController;
 	public static XboxController assistantDriverController;
+	public static PowerDistributionPanel powerDP;
 	public static WPI_TalonSRX frontRightTalon;
 	public static WPI_TalonSRX rearRightTalon;
 	public static WPI_TalonSRX frontLeftTalon;
@@ -166,8 +174,10 @@ public class RobotMap
 	public static DriveTrainSubsystem driveTrainSubsystem;
 	public static SensorSubsystem sensorSubsystem;
 	public static ManipulatorSubsystem manipulatorSubsystem;
+	public static ElectricalSubsystem electricalSubsystem;
 	public static OI m_oi;
-	public static ADXRS450_Gyro gyro;
+	//public static ADXRS450_Gyro gyro;
+	public static AHRS gyro;
 	public static Compressor compressor;
 	public static DoubleSolenoid grabberSolenoid;
 	public static DoubleSolenoid elbowSolenoid;
@@ -219,8 +229,11 @@ public class RobotMap
 		driverController = new XboxController(DRIVER_CONTROLLER_PORT);
 		assistantDriverController = new XboxController(ASSISTANT_DRIVER_CONTROLLER_PORT);
 		
-		gyro = new ADXRS450_Gyro();
+		//gyro = new ADXRS450_Gyro();
+		gyro = new AHRS(SerialPort.Port.kUSB);
 		rangeFinder = new Ultrasonic(RANGEFINDER_PINGCHANNEL, RANGEFINDER_ECHOCHANNEL);
+		
+		powerDP = new PowerDistributionPanel(62);
 		
 		compressor = new Compressor();
 		grabberSolenoid = new DoubleSolenoid(GRABBER_SOLENOID_FORWARD_PORT, GRABBER_SOLENOID_BACKWARD_PORT); //GRABBER_SOLENOID_FORWARD_PORT, GRABBER_SOLENOID_BACKWARD_PORT
@@ -251,6 +264,7 @@ public class RobotMap
 		driveTrainSubsystem = new DriveTrainSubsystem();
 		sensorSubsystem = new SensorSubsystem();
 		manipulatorSubsystem = new ManipulatorSubsystem();
+		electricalSubsystem = new ElectricalSubsystem();
 
 		xboxDriveCommand = new XboxDriveCommand();
 		talonRampOnCommand = new TalonRampOnCommand();
@@ -273,6 +287,26 @@ public class RobotMap
 		initialGyro = RobotMap.gyro.getAngle();
 
 		System.out.println("In robotInit method");
+		
+		//Setting subsystems
+		
+		gyro.setSubsystem("SensorSubsystem");
+		rangeFinder.setSubsystem("SensorSubsystem");
+		
+		compressor.setSubsystem("ManipulatorSubsystem");
+		grabberSolenoid.setName("ManipulatorSubsystem", "grabberSolenoid");
+		elbowSolenoid.setName("ManipulatorSubsystem", "elbowSolenoid");
+		gearBoxSolenoid.setName("ManipulatorSubsystem", "gearBoxSolenoid");
+		ratchetSolenoid.setName("ManipulatorSubsystem", "ratchetSolenoid");
+		upperElevatorLimitSwitch.setName("ManipulatorSubsystem", "upperElevatorLimitSwitch");
+		lowerElevatorLimitSwitch.setName("ManipulatorSubsystem", "lowerElevatorLimitSwitch");
+		
+		driveTrain.setSubsystem("DriveTrainSubsystem");
+		powerDP.setSubsystem("ElectricalSubsystem");
+		
+		//Setting encoders
+		frontLeftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+		rearRightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
 	}
 
 	public static void startThread()

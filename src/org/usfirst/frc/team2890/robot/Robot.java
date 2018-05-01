@@ -9,6 +9,7 @@ package org.usfirst.frc.team2890.robot;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.*;
@@ -71,6 +72,9 @@ public class Robot extends TimedRobot
 				SmartDashboard.putData("Auto mode", m_chooser);
 		
 		//RobotMap.gyro.calibrate();
+				
+		RobotMap.frontLeftTalon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.rearRightTalon.setSelectedSensorPosition(0, 0, 0);
 	}
 
 	/**
@@ -205,10 +209,15 @@ public class Robot extends TimedRobot
 		
 		//Scheduler.getInstance().
 		//RobotMap.talonRampOnCommand.start();
-		RobotMap.frontLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		/*RobotMap.frontLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.rearLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.frontRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
-		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);*/
+		
+		RobotMap.frontLeftTalon.configClosedloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.rearLeftTalon.configClosedloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.frontRightTalon.configClosedloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.rearRightTalon.configClosedloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		
 		//Scheduler.getInstance().add(RobotMap.controlCubeCommand);
 		//Scheduler.getInstance().add(RobotMap.controlGripperCommand);
@@ -229,7 +238,7 @@ public class Robot extends TimedRobot
 	{
 		Scheduler.getInstance().run();
 
-		SmartDashboard.putNumber("Rectangle", RobotMap.hambyRoomGripPipelineShortRange.filterContoursOutput.size());
+		/*SmartDashboard.putNumber("Rectangle", RobotMap.hambyRoomGripPipelineShortRange.filterContoursOutput.size());
 		SmartDashboard.putNumber("Center X: ", RobotMap.centerX);
 		SmartDashboard.putNumber("Distance From Target: ", RobotMap.distanceFromTargetUsingTargeting);
 		SmartDashboard.putNumber("Angle: ", RobotMap.angleFromTarget);
@@ -249,7 +258,7 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
 		SmartDashboard.putNumber("Gyro Rate:", RobotMap.gyro.getRate());
 		System.out.println("Amps: " + RobotMap.leftTowerTalon.getOutputCurrent());
-		System.out.println("Volts: " + RobotMap.rightTowerTalon.getMotorOutputVoltage());
+		System.out.println("Volts: " + RobotMap.rightTowerTalon.getMotorOutputVoltage());*/
 		
 		if(RobotMap.driverController.getBButton())
 		{
@@ -274,6 +283,12 @@ public class Robot extends TimedRobot
     	}
 		else if (RobotMap.driverController.getXButton())
 			RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kOff);*/
+		
+		SmartDashboard.putData("Gyro", RobotMap.gyro);
+		SmartDashboard.putNumber("Left Side Encoder Position", RobotMap.frontLeftTalon.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Left Side Encoder Velocity", RobotMap.frontLeftTalon.getSelectedSensorVelocity(0));
+		SmartDashboard.putNumber("Right Side Encoder Position", RobotMap.rearRightTalon.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Right Side Encoder Velocity", RobotMap.rearRightTalon.getSelectedSensorVelocity(0));
 	
 	}
 
@@ -283,6 +298,7 @@ public class Robot extends TimedRobot
 	@Override
 	public void testPeriodic() 
 	{
+		/*
 		if(RobotMap.flag)
 		{ 
 			//RobotMap.compressor.setClosedLoopControl(true);
@@ -295,6 +311,7 @@ public class Robot extends TimedRobot
 		//RobotMap.compressor.setClosedLoopControl(true);
 		RobotMap.frontLeftTalon.set(1);
 		RobotMap.leftTowerTalon.set(1);
+		*/
 	}
 	
 	public void scheduleCommands()
