@@ -172,8 +172,8 @@ public class RobotMap
 	public static Ultrasonic rangeFinder;
 	public static DigitalInput upperElevatorLimitSwitch;
 	public static DigitalInput lowerElevatorLimitSwitch;
-	public static ADXRS450_Gyro gyro;
-	public static AHRS navx;
+	//public static ADXRS450_Gyro gyro;
+	public static AHRS gyro;
 	
 	//Subsystems
 	public static DifferentialDrive driveTrain;
@@ -244,8 +244,9 @@ public class RobotMap
 		assistantDriverController = new XboxController(ASSISTANT_DRIVER_CONTROLLER_PORT);
 		
 		//Sensors
-		gyro = new ADXRS450_Gyro();
-		navx = new AHRS(SPI.Port.kMXP); // MXP is the large center array of pins the navx connects to
+		//gyro = new ADXRS450_Gyro();
+		gyro = new AHRS(SerialPort.Port.kUSB); // MXP is the large center array of pins the navx connects to
+		gyro.setSubsystem("SensorSubsystem");
 		rangeFinder = new Ultrasonic(RANGEFINDER_PINGCHANNEL, RANGEFINDER_ECHOCHANNEL);
 		upperElevatorLimitSwitch = new DigitalInput(UPPER_LIMIT_SWITCH_PORT);
 		lowerElevatorLimitSwitch = new DigitalInput(LOWER_LIMIT_SWITCH_PORT);

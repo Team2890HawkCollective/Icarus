@@ -40,7 +40,6 @@ public class SensorSubsystem extends Subsystem
 	public void gyroSetting()
 	{
 		RobotMap.gyro.reset();
-		RobotMap.gyro.calibrate();
 	}
 	
 	/**
