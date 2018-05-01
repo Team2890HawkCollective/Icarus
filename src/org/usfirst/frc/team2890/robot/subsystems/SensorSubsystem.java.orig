@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team2890.robot.subsystems;
 
+import java.util.function.DoubleSupplier;
+
 import org.usfirst.frc.team2890.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -14,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * @deprecated
  * Grabs values for all sensors<br>
- * Sensors include: RangeFimder, gyro, and 2 limit switches. <i>3 limit switches are present on the robot however only 2 have methods present here</i>
+ * Sensors include: RangeFimder, gyro, and and 2 limit switched. <i>3 limit switches are present on the robot however only 2 have methods present here</i>
  */
 public class SensorSubsystem extends Subsystem
 {
@@ -40,6 +42,10 @@ public class SensorSubsystem extends Subsystem
 	public void gyroSetting()
 	{
 		RobotMap.gyro.reset();
+<<<<<<< HEAD
+=======
+		//RobotMap.gyro.calibrate();
+>>>>>>> ShuffleBoardTesting
 	}
 	
 	/**

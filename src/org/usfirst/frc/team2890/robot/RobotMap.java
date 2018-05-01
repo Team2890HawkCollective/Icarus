@@ -16,6 +16,7 @@ import org.usfirst.frc.team2890.robot.subsystems.*;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.*;
+import com.ctre.phoenix.motorcontrol.*;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
@@ -24,9 +25,10 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.*;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.interfaces.*;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -103,6 +105,7 @@ public class RobotMap
 	public static double angleFromTarget;
 	public static double rangeFinderDistanceInches;
 	
+	public static final double AUTONOMOUS_MIDDLE_ONE_SECOND_TIMED_DRIVE = 1.0;
 	public static double rightAutonomousMiddleTimeDrive = 1.0;
 	public static double leftAutonomousMiddleTimeDrive = 1.0;//time in seconds 
 	public static double autonomousLeftOrRightTimeDrive = 3.0;
@@ -157,7 +160,8 @@ public class RobotMap
 	//Controllers
 	public static XboxController driverController;
 	public static XboxController assistantDriverController;
-	
+	public static PowerDistributionPanel powerDP;
+
 	//Talons
 	public static WPI_TalonSRX frontRightTalon;
 	public static WPI_TalonSRX rearRightTalon;
@@ -172,7 +176,6 @@ public class RobotMap
 	public static Ultrasonic rangeFinder;
 	public static DigitalInput upperElevatorLimitSwitch;
 	public static DigitalInput lowerElevatorLimitSwitch;
-	//public static ADXRS450_Gyro gyro;
 	public static AHRS gyro;
 	
 	//Subsystems
@@ -180,6 +183,7 @@ public class RobotMap
 	public static DriveTrainSubsystem driveTrainSubsystem;
 	public static SensorSubsystem sensorSubsystem;
 	public static ManipulatorSubsystem manipulatorSubsystem;
+	public static ElectricalSubsystem electricalSubsystem;
 	
 	//Pneumatics
 	public static Compressor compressor;
@@ -244,9 +248,7 @@ public class RobotMap
 		assistantDriverController = new XboxController(ASSISTANT_DRIVER_CONTROLLER_PORT);
 		
 		//Sensors
-		//gyro = new ADXRS450_Gyro();
-		gyro = new AHRS(SerialPort.Port.kUSB); // MXP is the large center array of pins the navx connects to
-		gyro.setSubsystem("SensorSubsystem");
+		gyro = new AHRS(SerialPort.Port.kUSB);
 		rangeFinder = new Ultrasonic(RANGEFINDER_PINGCHANNEL, RANGEFINDER_ECHOCHANNEL);
 		upperElevatorLimitSwitch = new DigitalInput(UPPER_LIMIT_SWITCH_PORT);
 		lowerElevatorLimitSwitch = new DigitalInput(LOWER_LIMIT_SWITCH_PORT);
@@ -273,6 +275,7 @@ public class RobotMap
 		driveTrainSubsystem = new DriveTrainSubsystem();
 		sensorSubsystem = new SensorSubsystem();
 		manipulatorSubsystem = new ManipulatorSubsystem();
+		electricalSubsystem = new ElectricalSubsystem();
 
 		//Commands
 		xboxDriveCommand = new XboxDriveCommand();
@@ -293,10 +296,9 @@ public class RobotMap
 		openGripperCommand = new OpenGripperCommand();
 		autonomousDelayCommand = new AutonomousDelayCommand(2.0);
 		
-		//driveTrainSubsystem.xboxArcadeDrive();
-		
 		//Misc
 		m_oi = new OI();
+		powerDP = new PowerDistributionPanel(62);
 		
 		driveTrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
 		
@@ -306,6 +308,26 @@ public class RobotMap
 		leftTalonGroup.setInverted(true);
 
 		System.out.println("In robotInit method");
+
+		//Setting subsystems
+		gyro.setSubsystem("SensorSubsystem");
+		rangeFinder.setSubsystem("SensorSubsystem");
+		
+		compressor.setSubsystem("ManipulatorSubsystem");
+		grabberSolenoid.setName("ManipulatorSubsystem", "grabberSolenoid");
+		elbowSolenoid.setName("ManipulatorSubsystem", "elbowSolenoid");
+		gearBoxSolenoid.setName("ManipulatorSubsystem", "gearBoxSolenoid");
+		ratchetSolenoid.setName("ManipulatorSubsystem", "ratchetSolenoid");
+		upperElevatorLimitSwitch.setName("ManipulatorSubsystem", "upperElevatorLimitSwitch");
+		lowerElevatorLimitSwitch.setName("ManipulatorSubsystem", "lowerElevatorLimitSwitch");
+		
+		driveTrain.setSubsystem("DriveTrainSubsystem");
+
+		powerDP.setSubsystem("ElectricalSubsystem");
+		
+		//Setting encoders
+		frontLeftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+		rearRightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
 	}
 
 	public static void startThread()

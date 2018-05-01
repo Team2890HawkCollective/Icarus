@@ -63,6 +63,9 @@ public class Robot extends TimedRobot
 		m_chooser.addObject("Autonomous from the Right: ", new RRAutonomousRightCommandGroup());
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
+
+		RobotMap.frontLeftTalon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.rearRightTalon.setSelectedSensorPosition(0, 0, 0);
 	}
 
 	/**
@@ -196,10 +199,15 @@ public class Robot extends TimedRobot
 		
 		RobotMap.startThread();
 
-		RobotMap.frontLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		/*RobotMap.frontLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.rearLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.frontRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
-		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);*/
+		
+		RobotMap.frontLeftTalon.configClosedloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.rearLeftTalon.configClosedloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.frontRightTalon.configClosedloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.rearRightTalon.configClosedloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 
 		Scheduler.getInstance().add(RobotMap.controlManipulatorCommand);
 		Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
@@ -215,8 +223,7 @@ public class Robot extends TimedRobot
 	{
 		Scheduler.getInstance().run();
 
-		
-		SmartDashboard.putNumber("Rectangle", RobotMap.hambyRoomGripPipelineShortRange.filterContoursOutput.size());
+		/*SmartDashboard.putNumber("Rectangle", RobotMap.hambyRoomGripPipelineShortRange.filterContoursOutput.size());
 		SmartDashboard.putNumber("Center X: ", RobotMap.centerX);
 		SmartDashboard.putNumber("Distance From Target: ", RobotMap.distanceFromTargetUsingTargeting);
 		SmartDashboard.putNumber("Angle: ", RobotMap.angleFromTarget);
@@ -224,6 +231,7 @@ public class Robot extends TimedRobot
 		
 		SmartDashboard.putBoolean("Upper Limit Switch (false if pressed): ", RobotMap.sensorSubsystem.isUpperLimitSwitchPressed());
 		SmartDashboard.putBoolean("Lower Limit Switch (true if pressed): ", RobotMap.sensorSubsystem.isLowerLimitSwitchPressed());
+		
 		SmartDashboard.putBoolean("Ratchet Engaged(true) or Disengaged(false): ", RobotMap.ratchetEngaged);
 		SmartDashboard.putBoolean("High Gear(true): ", RobotMap.highGear);
 		SmartDashboard.putBoolean("Low Gear(true): ", RobotMap.lowGear);
@@ -237,23 +245,15 @@ public class Robot extends TimedRobot
 		
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
 		SmartDashboard.putNumber("Gyro Rate:", RobotMap.gyro.getRate());
+		System.out.println("Amps: " + RobotMap.leftTowerTalon.getOutputCurrent());
+		System.out.println("Volts: " + RobotMap.rightTowerTalon.getMotorOutputVoltage());*/
 		
-		SmartDashboard.putNumber("Gyro X", RobotMap.gyro.getRawGyroX());
-		SmartDashboard.putNumber("Gyro Y", RobotMap.gyro.getRawGyroY());
-		SmartDashboard.putNumber("Gyro Z", RobotMap.gyro.getRawGyroZ());
-		SmartDashboard.putNumber("Gyro: ", RobotMap.gyro.getAngle());
-		SmartDashboard.putNumber("Acceleration X", RobotMap.gyro.getRawAccelX());
-		SmartDashboard.putNumber("Acceleration Y", RobotMap.gyro.getRawAccelY());
-		SmartDashboard.putNumber("Acceleration Z", RobotMap.gyro.getRawAccelZ());
-		SmartDashboard.putNumber("Acceleration Full Scale Range G", RobotMap.gyro.getAccelFullScaleRangeG());
-		SmartDashboard.putNumber("Pitch", RobotMap.gyro.getPitch());
-		SmartDashboard.putNumber("Roll", RobotMap.gyro.getRoll());
-		SmartDashboard.putNumber("Yaw", RobotMap.gyro.getYaw());
-		SmartDashboard.putNumber("Compass", RobotMap.gyro.getCompassHeading());
-		
-		
-		//System.out.println("Amps: " + RobotMap.leftTowerTalon.getOutputCurrent());
-		System.out.println("Volts: " + RobotMap.rightTowerTalon.getMotorOutputVoltage());
+		SmartDashboard.putData("Gyro", RobotMap.gyro);
+		SmartDashboard.putNumber("Left Side Encoder Position", RobotMap.frontLeftTalon.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Left Side Encoder Velocity", RobotMap.frontLeftTalon.getSelectedSensorVelocity(0));
+		SmartDashboard.putNumber("Right Side Encoder Position", RobotMap.rearRightTalon.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Right Side Encoder Velocity", RobotMap.rearRightTalon.getSelectedSensorVelocity(0));
+	
 	}
 
 	/**
@@ -345,4 +345,5 @@ public class Robot extends TimedRobot
 		 RobotMap.keepThreadRunning = false;
 		return super.isDisabled();
 	}
+
 }
