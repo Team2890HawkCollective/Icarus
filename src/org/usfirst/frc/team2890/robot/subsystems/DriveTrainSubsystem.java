@@ -41,7 +41,7 @@ public class DriveTrainSubsystem extends Subsystem
 	public void xboxArcadeDrive()
 	{
 		RobotMap.driveTrain.arcadeDrive(RobotMap.driverController.getY(Hand.kLeft) * RobotMap.FORWARDS_BACKWARDS_SENSITIVITY, 
-				RobotMap.driverController.getX(Hand.kRight) * RobotMap.X_INVERTED * RobotMap.ROTATION_SENSITIVTY);
+		RobotMap.driverController.getX(Hand.kRight) * RobotMap.X_INVERTED * RobotMap.ROTATION_SENSITIVTY);
 	}
 	
 	/**
@@ -50,14 +50,13 @@ public class DriveTrainSubsystem extends Subsystem
 	 */
 	public void tankDrive()
 	{
-		//RobotMap.driveTrain.tankDrive(RobotMap.driverController.getY(Hand.kLeft), RobotMap.driverController.getY(Hand.kRight));
 		if (RobotMap.driverController.getY(Hand.kLeft) < -0.1)
 		{
-			RobotMap.frontLeftTalon.set(ControlMode.PercentOutput, Math.pow(RobotMap.driverController.getY(Hand.kLeft), 2));
+			RobotMap.frontLeftTalon.set(ControlMode.PercentOutput, -(Math.pow(RobotMap.driverController.getY(Hand.kLeft), 2)));
 		}
 		else
 		{
-			RobotMap.frontLeftTalon.set(ControlMode.PercentOutput, -(Math.pow(RobotMap.driverController.getY(Hand.kLeft), 2)));
+			RobotMap.frontLeftTalon.set(ControlMode.PercentOutput, Math.pow(RobotMap.driverController.getY(Hand.kLeft), 2));
 		}
 		
 		if (RobotMap.driverController.getY(Hand.kRight) < -0.1)

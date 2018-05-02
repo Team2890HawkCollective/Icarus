@@ -264,9 +264,6 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("Right Side Encoder Velocity", RobotMap.frontRightTalon.getSelectedSensorVelocity(0));
 		
 		//SmartDashboard.putData("AutoTuneVelocity", new AutoTuneVelocity(RobotMap.driveTrainSubsystem, new BobTalonSRX(2), 1, 4000, 0));
-		
-		RobotMap.rearLeftTalon.follow(RobotMap.frontLeftTalon);
-		RobotMap.rearRightTalon.follow(RobotMap.frontRightTalon);
 	
 	}
 

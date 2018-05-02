@@ -165,12 +165,12 @@ public class RobotMap
 	public static PowerDistributionPanel powerDP;
 
 	//Talons
-	public static TalonSRX frontRightTalon;
-	public static TalonSRX rearRightTalon;
-	public static TalonSRX frontLeftTalon;
-	public static TalonSRX rearLeftTalon;
-	//public static WPI_TalonSRX leftTowerTalon;
-	public static TalonSRX rightTowerTalon;
+	public static WPI_TalonSRX frontRightTalon;
+	public static WPI_TalonSRX rearRightTalon;
+	public static WPI_TalonSRX frontLeftTalon;
+	public static WPI_TalonSRX rearLeftTalon;
+	//public static WPI_WPI_TalonSRX leftTowerTalon;
+	public static WPI_TalonSRX rightTowerTalon;
 	public static SpeedControllerGroup rightTalonGroup;
 	public static SpeedControllerGroup leftTalonGroup;
 	
@@ -264,15 +264,15 @@ public class RobotMap
 		ratchetSolenoid = new DoubleSolenoid(RATCHET_ENGAGE_CHANNEL_PORT, RATCHET_DISENGAGE_CHANNEL_PORT);
 		
 		//Talons
-		frontRightTalon = new TalonSRX(FRONT_RIGHT_TALON_ID);
-		rearRightTalon = new TalonSRX(REAR_RIGHT_TALON_ID);
-		frontLeftTalon = new TalonSRX(FRONT_LEFT_TALON_ID);
-		rearLeftTalon = new TalonSRX(REAR_LEFT_TALON_ID);
-		//leftTowerTalon = new WPI_TalonSRX(RIGHT_TALON_TOWER_ID); 
-		rightTowerTalon = new TalonSRX(LEFT_TALON_TOWER_ID);
+		frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
+		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
+		frontLeftTalon = new WPI_TalonSRX(FRONT_LEFT_TALON_ID);
+		rearLeftTalon = new WPI_TalonSRX(REAR_LEFT_TALON_ID);
+		//leftTowerTalon = new WPI_WPI_TalonSRX(RIGHT_TALON_TOWER_ID); 
+		rightTowerTalon = new WPI_TalonSRX(LEFT_TALON_TOWER_ID);
 		
-		//rightTalonGroup = new SpeedControllerGroup((SpeedController) frontRightTalon, (SpeedController) rearRightTalon);
-		//leftTalonGroup = new SpeedControllerGroup((SpeedController) frontLeftTalon, (SpeedController) rearLeftTalon);
+		rightTalonGroup = new SpeedControllerGroup(frontRightTalon);
+		leftTalonGroup = new SpeedControllerGroup(frontLeftTalon);
 		
 		//Subsystems
 		driveTrainSubsystem = new DriveTrainSubsystem();
@@ -304,7 +304,7 @@ public class RobotMap
 		m_oi = new OI();
 		powerDP = new PowerDistributionPanel(62);
 		
-		//driveTrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
+		driveTrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
 		//driveTrain = new DifferentialDrive()
 		
 		initialGyro = RobotMap.gyro.getAngle();
@@ -326,7 +326,7 @@ public class RobotMap
 		upperElevatorLimitSwitch.setName("ManipulatorSubsystem", "upperElevatorLimitSwitch");
 		lowerElevatorLimitSwitch.setName("ManipulatorSubsystem", "lowerElevatorLimitSwitch");
 		
-		//driveTrain.setSubsystem("DriveTrainSubsystem");
+		driveTrain.setSubsystem("DriveTrainSubsystem");
 
 		powerDP.setSubsystem("ElectricalSubsystem");
 		
