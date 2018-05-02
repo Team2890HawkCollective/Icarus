@@ -125,7 +125,6 @@ public class FollowTrajectory extends Command {
 		setValue = SetValueMotionProfile.Disable;
 		
 		RobotMap.frontLeftTalon.set(ControlMode.MotionProfile, setValue.value);
-		RobotMap.frontRightTalon.set(ControlMode.MotionProfile, setValue.value);
 
 		if(trajectoryToFollow == null) {
 			

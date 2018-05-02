@@ -66,6 +66,9 @@ public class Robot extends TimedRobot
 
 		RobotMap.frontLeftTalon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.frontRightTalon.setSelectedSensorPosition(0, 0, 0);
+		
+		//RobotMap.frontLeftTalon.setInverted(true);
+		//RobotMap.rearLeftTalon.setInverted(true);
 	}
 	
 	/**
@@ -209,15 +212,10 @@ public class Robot extends TimedRobot
 		
 		RobotMap.startThread();
 
-		/*RobotMap.frontLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.frontLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.rearLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.frontRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
-		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);*/
-		
-		RobotMap.frontLeftTalon.configClosedloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
-		RobotMap.rearLeftTalon.configClosedloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
-		RobotMap.frontRightTalon.configClosedloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
-		RobotMap.rearRightTalon.configClosedloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 
 		Scheduler.getInstance().add(RobotMap.controlManipulatorCommand);
 		Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
@@ -296,7 +294,7 @@ public class Robot extends TimedRobot
                 SmartDashboard.putString("In 1st if: ", "In");
                 System.out.println("1st: ");
                 
-                Scheduler.getInstance().add(new FollowTrajectory(new SameSideSwitch(RobotMap.isRight)));
+                Scheduler.getInstance().add(new SameSideSwitchCommandGroup(RobotMap.isRight));
                 
                 return;
             }

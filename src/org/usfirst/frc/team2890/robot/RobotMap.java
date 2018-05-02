@@ -251,7 +251,7 @@ public class RobotMap
 		assistantDriverController = new XboxController(ASSISTANT_DRIVER_CONTROLLER_PORT);
 		
 		//Sensors
-		gyro = new AHRS(SerialPort.Port.kUSB);
+		gyro = new AHRS(SPI.Port.kMXP);
 		rangeFinder = new Ultrasonic(RANGEFINDER_PINGCHANNEL, RANGEFINDER_ECHOCHANNEL);
 		upperElevatorLimitSwitch = new DigitalInput(UPPER_LIMIT_SWITCH_PORT);
 		lowerElevatorLimitSwitch = new DigitalInput(LOWER_LIMIT_SWITCH_PORT);
@@ -333,6 +333,9 @@ public class RobotMap
 		//Setting encoders
 		frontLeftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
 		frontRightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+		
+		RobotMap.frontLeftTalon.setInverted(true);
+		RobotMap.rearLeftTalon.setInverted(true);
 	}
 
 	public static void startThread()

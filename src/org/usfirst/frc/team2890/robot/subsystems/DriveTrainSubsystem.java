@@ -51,9 +51,23 @@ public class DriveTrainSubsystem extends Subsystem
 	public void tankDrive()
 	{
 		//RobotMap.driveTrain.tankDrive(RobotMap.driverController.getY(Hand.kLeft), RobotMap.driverController.getY(Hand.kRight));
-		RobotMap.frontLeftTalon.set(ControlMode.PercentOutput, Math.pow(RobotMap.driverController.getY(Hand.kLeft), 2));
-		RobotMap.frontRightTalon.set(ControlMode.PercentOutput, Math.pow(RobotMap.driverController.getY(Hand.kRight), 2));
+		if (RobotMap.driverController.getY(Hand.kLeft) < -0.1)
+		{
+			RobotMap.frontLeftTalon.set(ControlMode.PercentOutput, Math.pow(RobotMap.driverController.getY(Hand.kLeft), 2));
+		}
+		else
+		{
+			RobotMap.frontLeftTalon.set(ControlMode.PercentOutput, -(Math.pow(RobotMap.driverController.getY(Hand.kLeft), 2)));
+		}
 		
+		if (RobotMap.driverController.getY(Hand.kRight) < -0.1)
+		{
+			RobotMap.frontRightTalon.set(ControlMode.PercentOutput, -(Math.pow(RobotMap.driverController.getY(Hand.kRight), 2)));
+		}
+		else
+		{
+			RobotMap.frontRightTalon.set(ControlMode.PercentOutput, Math.pow(RobotMap.driverController.getY(Hand.kRight), 2));
+		}
 	}
 	
 	/**
