@@ -67,6 +67,16 @@ public class Robot extends TimedRobot
 		RobotMap.frontLeftTalon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.frontRightTalon.setSelectedSensorPosition(0, 0, 0);
 	}
+	
+	/**
+	 * This function is run periodically while the robot is on
+	 */
+	@Override
+	public void robotPeriodic()
+	{
+		RobotMap.rearLeftTalon.follow(RobotMap.frontLeftTalon);
+		RobotMap.rearRightTalon.follow(RobotMap.frontRightTalon);
+	}
 
 	/**
 	 * This function is called once each time the robot enters Disabled mode.

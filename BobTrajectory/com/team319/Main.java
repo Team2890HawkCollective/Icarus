@@ -26,7 +26,7 @@ public class Main {
 		standardConfig.wheelbase_width_feet = inInches(31.5);
 		standardConfig.wheel_dia_inches = 5;
 		standardConfig.scale_factor = 1.39; 
-		standardConfig.encoder_ticks_per_rev = 480;
+		standardConfig.encoder_ticks_per_rev = 4096;
 
 		generateCenterSwitch();
 		generateSameSideSwitch();
