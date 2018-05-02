@@ -2,6 +2,8 @@ package org.usfirst.frc.team2890.robot.commands;
 
 import org.usfirst.frc.team2890.robot.RobotMap;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.command.TimedCommand;
 
 /**
@@ -31,7 +33,7 @@ public class LiftUpCommand extends TimedCommand
      */
     protected void execute() 
     {
-    	RobotMap.rightTowerTalon.set(RobotMap.TOWER_UP_VARIABLE * RobotMap.TOWER_UP_DIRECTION);
+    	RobotMap.rightTowerTalon.set(ControlMode.PercentOutput, RobotMap.TOWER_UP_VARIABLE * RobotMap.TOWER_UP_DIRECTION);
 		//RobotMap.leftTowerTalon.set(RobotMap.TOWER_UP_VARIABLE * RobotMap.TOWER_UP_DIRECTION);
 		
 		System.out.println("In Lift Tower Command. ");
@@ -42,7 +44,7 @@ public class LiftUpCommand extends TimedCommand
      */
     protected void end() 
     {
-    	RobotMap.rightTowerTalon.stopMotor();
+    	RobotMap.rightTowerTalon.set(ControlMode.PercentOutput, 0);
     	//RobotMap.leftTowerTalon.stopMotor();
     }
 

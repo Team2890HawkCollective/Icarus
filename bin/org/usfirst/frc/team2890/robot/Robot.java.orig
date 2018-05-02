@@ -8,21 +8,17 @@
 package org.usfirst.frc.team2890.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.*;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-<<<<<<< HEAD
+import org.usfirst.frc.team2890.robot.commands.*;
+
 import org.usfirst.frc.team319.paths.*;
 import org.usfirst.frc.team319.robot.commands.*;
-
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
-=======
-import org.usfirst.frc.team2890.robot.commands.*;
->>>>>>> DocumentationMergeToMotionProfiling
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -67,7 +63,14 @@ public class Robot extends TimedRobot
 		//This Command is Right
 		m_chooser.addObject("Autonomous from the Right: ", new RRAutonomousRightCommandGroup());
 		
+<<<<<<< HEAD
 		SmartDashboard.putData("Auto mode", m_chooser);
+=======
+		//RobotMap.gyro.calibrate();
+				
+		RobotMap.frontLeftTalon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.rearRightTalon.setSelectedSensorPosition(0, 0, 0);
+>>>>>>> ShuffleBoardTesting
 	}
 
 	/**
@@ -200,12 +203,30 @@ public class Robot extends TimedRobot
 		}
 		
 		RobotMap.startThread();
+<<<<<<< HEAD
 
 		RobotMap.frontLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.rearLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.frontRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
 
+=======
+		
+		//Scheduler.getInstance().
+		//RobotMap.talonRampOnCommand.start();
+		/*RobotMap.frontLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.rearLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.frontRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);*/
+		
+		RobotMap.frontLeftTalon.configClosedloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.rearLeftTalon.configClosedloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.frontRightTalon.configClosedloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.rearRightTalon.configClosedloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		
+		//Scheduler.getInstance().add(RobotMap.controlCubeCommand);
+		//Scheduler.getInstance().add(RobotMap.controlGripperCommand);
+>>>>>>> ShuffleBoardTesting
 		Scheduler.getInstance().add(RobotMap.controlManipulatorCommand);
 		Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
 		
@@ -220,10 +241,16 @@ public class Robot extends TimedRobot
 	{
 		Scheduler.getInstance().run();
 
+<<<<<<< HEAD
+		
 		SmartDashboard.putNumber("Rectangle", RobotMap.hambyRoomGripPipelineShortRange.filterContoursOutput.size());
+=======
+		/*SmartDashboard.putNumber("Rectangle", RobotMap.hambyRoomGripPipelineShortRange.filterContoursOutput.size());
+>>>>>>> ShuffleBoardTesting
 		SmartDashboard.putNumber("Center X: ", RobotMap.centerX);
 		SmartDashboard.putNumber("Distance From Target: ", RobotMap.distanceFromTargetUsingTargeting);
 		SmartDashboard.putNumber("Angle: ", RobotMap.angleFromTarget);
+		
 		
 		SmartDashboard.putBoolean("Upper Limit Switch (false if pressed): ", RobotMap.sensorSubsystem.isUpperLimitSwitchPressed());
 		SmartDashboard.putBoolean("Lower Limit Switch (true if pressed): ", RobotMap.sensorSubsystem.isLowerLimitSwitchPressed());
@@ -240,9 +267,51 @@ public class Robot extends TimedRobot
 		
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
 		SmartDashboard.putNumber("Gyro Rate:", RobotMap.gyro.getRate());
-		
+<<<<<<< HEAD
+=======
 		System.out.println("Amps: " + RobotMap.leftTowerTalon.getOutputCurrent());
+		System.out.println("Volts: " + RobotMap.rightTowerTalon.getMotorOutputVoltage());*/
+>>>>>>> ShuffleBoardTesting
+		
+		SmartDashboard.putNumber("Gyro X", RobotMap.gyro.getRawGyroX());
+		SmartDashboard.putNumber("Gyro Y", RobotMap.gyro.getRawGyroY());
+		SmartDashboard.putNumber("Gyro Z", RobotMap.gyro.getRawGyroZ());
+		SmartDashboard.putNumber("Gyro: ", RobotMap.gyro.getAngle());
+		SmartDashboard.putNumber("Acceleration X", RobotMap.gyro.getRawAccelX());
+		SmartDashboard.putNumber("Acceleration Y", RobotMap.gyro.getRawAccelY());
+		SmartDashboard.putNumber("Acceleration Z", RobotMap.gyro.getRawAccelZ());
+		SmartDashboard.putNumber("Acceleration Full Scale Range G", RobotMap.gyro.getAccelFullScaleRangeG());
+		SmartDashboard.putNumber("Pitch", RobotMap.gyro.getPitch());
+		SmartDashboard.putNumber("Roll", RobotMap.gyro.getRoll());
+		SmartDashboard.putNumber("Yaw", RobotMap.gyro.getYaw());
+		SmartDashboard.putNumber("Compass", RobotMap.gyro.getCompassHeading());
+		
+		
+<<<<<<< HEAD
+		//System.out.println("Amps: " + RobotMap.leftTowerTalon.getOutputCurrent());
 		System.out.println("Volts: " + RobotMap.rightTowerTalon.getMotorOutputVoltage());
+=======
+		/*if(RobotMap.driverController.getAButton())
+    	{
+    		RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kForward);
+    		System.out.println("shifting to low gear");
+    			
+    	}
+		else if(RobotMap.driverController.getBButton())
+    	{
+    		RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kReverse);
+    		System.out.println("shifting to high gearr");
+    	}
+		else if (RobotMap.driverController.getXButton())
+			RobotMap.gearBoxSolenoid.set(DoubleSolenoid.Value.kOff);*/
+		
+		SmartDashboard.putData("Gyro", RobotMap.gyro);
+		SmartDashboard.putNumber("Left Side Encoder Position", RobotMap.frontLeftTalon.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Left Side Encoder Velocity", RobotMap.frontLeftTalon.getSelectedSensorVelocity(0));
+		SmartDashboard.putNumber("Right Side Encoder Position", RobotMap.rearRightTalon.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Right Side Encoder Velocity", RobotMap.rearRightTalon.getSelectedSensorVelocity(0));
+	
+>>>>>>> ShuffleBoardTesting
 	}
 
 	/**
@@ -251,7 +320,24 @@ public class Robot extends TimedRobot
 	@Override
 	public void testPeriodic() 
 	{
+<<<<<<< HEAD
 		
+=======
+		/*
+		if(RobotMap.flag)
+		{ 
+			//RobotMap.compressor.setClosedLoopControl(true);
+			RobotMap.flag = false;
+		}
+		//if(RobotMap.driverController.getBButton())
+		//{
+			//RobotMap.testTalon.set(1);
+		//}
+		//RobotMap.compressor.setClosedLoopControl(true);
+		RobotMap.frontLeftTalon.set(1);
+		RobotMap.leftTowerTalon.set(1);
+		*/
+>>>>>>> ShuffleBoardTesting
 	}
 	
 	/**
@@ -261,7 +347,6 @@ public class Robot extends TimedRobot
 	public void scheduleCommands()
 	{
 		if(RobotMap.isRight)
-<<<<<<< HEAD
         {
             SmartDashboard.putString("In R If Statement: ", "R");
             if(m_chooser.getSelected().getName().equals("RRAutonomousRightCommandGroup"))
@@ -326,72 +411,6 @@ public class Robot extends TimedRobot
                 return;
             }
         }
-=======
-		{
-			SmartDashboard.putString("In R If Statement: ", "R");
-			if(m_chooser.getSelected().getName().equals("RRAutonomousRightCommandGroup"))
-			{
-				SmartDashboard.putString("In 1st if: ", "In");
-				System.out.println("1st: ");
-				
-				Scheduler.getInstance().add(RobotMap.autonomousRightCommandGroup);
-				
-				return;
-			}
-			else if(m_chooser.getSelected().getName().equals("LLAutonomousLeftCommandGroup"))
-			{
-				System.out.println("2nd: ");
-				SmartDashboard.putString("In 2nd if: ", "In");
-				
-				Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
-				
-				return;
-			}
-			//In middle
-			else if(m_chooser.getSelected().getName().equals("TestCommandDontHateMeTaylor"))
-			{
-				System.out.println("3rd: ");
-				SmartDashboard.putString("In 3rd if: ", "In");
-				
-				Scheduler.getInstance().add(RobotMap.autonomousTargetingRightCommandGroup);
-				
-				return;
-			}
-		}
-		else
-		{
-			SmartDashboard.putString("In L If Statement: ", "L");
-			
-			if(m_chooser.getSelected().getName().equals("RRAutonomousRightCommandGroup"))
-			{
-				System.out.println("4th: ");
-				SmartDashboard.putString("In 4th if: ", "In");
-				
-				Scheduler.getInstance().add(RobotMap.timedDriveForwardAutonomousCommand);
-				
-				return;
-			}
-			else if(m_chooser.getSelected().getName().equals("LLAutonomousLeftCommandGroup"))
-			{
-				System.out.println("5th ");
-				SmartDashboard.putString("In 5th if: ", "In");
-				
-				Scheduler.getInstance().add(RobotMap.autonomousLeftCommandGroup);
-				
-				return;
-			}
-			//In middle
-			else if(m_chooser.getSelected().getName().equals("TestCommandDontHateMeTaylor"))
-			{
-				System.out.println("6th: ");
-				SmartDashboard.putString("In 6th if: ", "In");
-				
-				Scheduler.getInstance().add(RobotMap.autonomousTargetingLeftCommandGroup);
-				
-				return;
-			}
-		}
->>>>>>> DocumentationMergeToMotionProfiling
 	}
 	
 	@Override

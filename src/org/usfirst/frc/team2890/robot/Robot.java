@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2890.robot.commands.*;
-
+import org.usfirst.frc.team319.models.BobTalonSRX;
 import org.usfirst.frc.team319.paths.*;
 import org.usfirst.frc.team319.robot.commands.*;
 
@@ -65,7 +65,7 @@ public class Robot extends TimedRobot
 		SmartDashboard.putData("Auto mode", m_chooser);
 
 		RobotMap.frontLeftTalon.setSelectedSensorPosition(0, 0, 0);
-		RobotMap.rearRightTalon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.frontRightTalon.setSelectedSensorPosition(0, 0, 0);
 	}
 
 	/**
@@ -154,8 +154,8 @@ public class Robot extends TimedRobot
 	{
 		
 		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
-		System.out.println(RobotMap.rangeFinderDistanceInches);
-		System.out.println(RobotMap.RANGE_TARGET);
+		//System.out.println(RobotMap.rangeFinderDistanceInches);
+		//System.out.println(RobotMap.RANGE_TARGET);
 		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
 		
 		RobotMap.rightAutonomousMiddleTimeDrive = SmartDashboard.getNumber("Time Drive Forward For the Middle (RIGHT SIDE): ", -1);
@@ -211,6 +211,7 @@ public class Robot extends TimedRobot
 
 		Scheduler.getInstance().add(RobotMap.controlManipulatorCommand);
 		Scheduler.getInstance().add(RobotMap.xboxDriveCommand);
+		//Scheduler.getInstance().add(RobotMap.autoTuneVelocity);
 		
 		RobotMap.compressor.setClosedLoopControl(true);
 	}
@@ -251,8 +252,13 @@ public class Robot extends TimedRobot
 		SmartDashboard.putData("Gyro", RobotMap.gyro);
 		SmartDashboard.putNumber("Left Side Encoder Position", RobotMap.frontLeftTalon.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Left Side Encoder Velocity", RobotMap.frontLeftTalon.getSelectedSensorVelocity(0));
-		SmartDashboard.putNumber("Right Side Encoder Position", RobotMap.rearRightTalon.getSelectedSensorPosition(0));
-		SmartDashboard.putNumber("Right Side Encoder Velocity", RobotMap.rearRightTalon.getSelectedSensorVelocity(0));
+		SmartDashboard.putNumber("Right Side Encoder Position", RobotMap.frontRightTalon.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Right Side Encoder Velocity", RobotMap.frontRightTalon.getSelectedSensorVelocity(0));
+		
+		//SmartDashboard.putData("AutoTuneVelocity", new AutoTuneVelocity(RobotMap.driveTrainSubsystem, new BobTalonSRX(2), 1, 4000, 0));
+		
+		RobotMap.rearLeftTalon.follow(RobotMap.frontLeftTalon);
+		RobotMap.rearRightTalon.follow(RobotMap.frontRightTalon);
 	
 	}
 
@@ -262,6 +268,7 @@ public class Robot extends TimedRobot
 	@Override
 	public void testPeriodic() 
 	{
+		//SmartDashboard.putData("AutoTuneVelocity", new AutoTuneVelocity(RobotMap.driveTrainSubsystem, new BobTalonSRX(2), 1, 4000, 0));
 		
 	}
 	

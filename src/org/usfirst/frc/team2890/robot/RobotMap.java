@@ -13,7 +13,10 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team2890.robot.commands.*;
 import org.usfirst.frc.team2890.robot.subsystems.*;
+import org.usfirst.frc.team319.models.BobTalonSRX;
+import org.usfirst.frc.team319.robot.commands.AutoTuneVelocity;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.*;
 import com.ctre.phoenix.motorcontrol.*;
@@ -105,7 +108,6 @@ public class RobotMap
 	public static double angleFromTarget;
 	public static double rangeFinderDistanceInches;
 	
-	public static final double AUTONOMOUS_MIDDLE_ONE_SECOND_TIMED_DRIVE = 1.0;
 	public static double rightAutonomousMiddleTimeDrive = 1.0;
 	public static double leftAutonomousMiddleTimeDrive = 1.0;//time in seconds 
 	public static double autonomousLeftOrRightTimeDrive = 3.0;
@@ -163,12 +165,12 @@ public class RobotMap
 	public static PowerDistributionPanel powerDP;
 
 	//Talons
-	public static WPI_TalonSRX frontRightTalon;
-	public static WPI_TalonSRX rearRightTalon;
-	public static WPI_TalonSRX frontLeftTalon;
-	public static WPI_TalonSRX rearLeftTalon;
+	public static TalonSRX frontRightTalon;
+	public static TalonSRX rearRightTalon;
+	public static TalonSRX frontLeftTalon;
+	public static TalonSRX rearLeftTalon;
 	//public static WPI_TalonSRX leftTowerTalon;
-	public static WPI_TalonSRX rightTowerTalon;
+	public static TalonSRX rightTowerTalon;
 	public static SpeedControllerGroup rightTalonGroup;
 	public static SpeedControllerGroup leftTalonGroup;
 	
@@ -236,6 +238,7 @@ public class RobotMap
 	public static CommandGroup autonomousRightCommandGroup;
 	public static CommandGroup autonomousCommandGroupChooser;
 	public static CommandGroup testCommandGroup;
+	public static CommandGroup autoTuneVelocity;
 	
 	/**
 	 * Instantiates ALL objects and variables with their default values<br>
@@ -261,15 +264,15 @@ public class RobotMap
 		ratchetSolenoid = new DoubleSolenoid(RATCHET_ENGAGE_CHANNEL_PORT, RATCHET_DISENGAGE_CHANNEL_PORT);
 		
 		//Talons
-		frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
-		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
-		frontLeftTalon = new WPI_TalonSRX(FRONT_LEFT_TALON_ID);
-		rearLeftTalon = new WPI_TalonSRX(REAR_LEFT_TALON_ID);
+		frontRightTalon = new TalonSRX(FRONT_RIGHT_TALON_ID);
+		rearRightTalon = new TalonSRX(REAR_RIGHT_TALON_ID);
+		frontLeftTalon = new TalonSRX(FRONT_LEFT_TALON_ID);
+		rearLeftTalon = new TalonSRX(REAR_LEFT_TALON_ID);
 		//leftTowerTalon = new WPI_TalonSRX(RIGHT_TALON_TOWER_ID); 
-		rightTowerTalon = new WPI_TalonSRX(LEFT_TALON_TOWER_ID);
+		rightTowerTalon = new TalonSRX(LEFT_TALON_TOWER_ID);
 		
-		rightTalonGroup = new SpeedControllerGroup(frontRightTalon, rearRightTalon);
-		leftTalonGroup = new SpeedControllerGroup(frontLeftTalon, rearLeftTalon);
+		//rightTalonGroup = new SpeedControllerGroup((SpeedController) frontRightTalon, (SpeedController) rearRightTalon);
+		//leftTalonGroup = new SpeedControllerGroup((SpeedController) frontLeftTalon, (SpeedController) rearLeftTalon);
 		
 		//Subsystems
 		driveTrainSubsystem = new DriveTrainSubsystem();
@@ -295,17 +298,19 @@ public class RobotMap
 		closeGripperCommand = new CloseGripperCommand();
 		openGripperCommand = new OpenGripperCommand();
 		autonomousDelayCommand = new AutonomousDelayCommand(2.0);
+		autoTuneVelocity = new AutoTuneVelocity(RobotMap.driveTrainSubsystem, new BobTalonSRX(1), 0, 4000, 30);
 		
 		//Misc
 		m_oi = new OI();
 		powerDP = new PowerDistributionPanel(62);
 		
-		driveTrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
+		//driveTrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
+		//driveTrain = new DifferentialDrive()
 		
 		initialGyro = RobotMap.gyro.getAngle();
 		
-		rightTalonGroup.setInverted(true);
-		leftTalonGroup.setInverted(true);
+		//rightTalonGroup.setInverted(true);
+		//leftTalonGroup.setInverted(true);
 
 		System.out.println("In robotInit method");
 
@@ -321,13 +326,13 @@ public class RobotMap
 		upperElevatorLimitSwitch.setName("ManipulatorSubsystem", "upperElevatorLimitSwitch");
 		lowerElevatorLimitSwitch.setName("ManipulatorSubsystem", "lowerElevatorLimitSwitch");
 		
-		driveTrain.setSubsystem("DriveTrainSubsystem");
+		//driveTrain.setSubsystem("DriveTrainSubsystem");
 
 		powerDP.setSubsystem("ElectricalSubsystem");
 		
 		//Setting encoders
 		frontLeftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
-		rearRightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+		frontRightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
 	}
 
 	public static void startThread()

@@ -2,6 +2,8 @@ package org.usfirst.frc.team2890.robot.subsystems;
 
 import org.usfirst.frc.team2890.robot.RobotMap;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -42,21 +44,21 @@ public class ManipulatorSubsystem extends Subsystem
     	//Tower Down
     	if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft) > RobotMap.TRIGGER_SENSITIVIY && !RobotMap.lowerLimitSwitch)
     	{
-    		RobotMap.rightTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
+    		RobotMap.rightTowerTalon.set(ControlMode.PercentOutput, RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
     		//RobotMap.leftTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
     		System.out.println("left Trigger: " + RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
     	}
     	//Tower up
     	else if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) > RobotMap.TRIGGER_SENSITIVIY && RobotMap.upperLimitSwitch)
     	{
-    		RobotMap.rightTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) * RobotMap.TOWER_UP_DIRECTION);
+    		RobotMap.rightTowerTalon.set(ControlMode.PercentOutput, RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) * RobotMap.TOWER_UP_DIRECTION);
     		//RobotMap.leftTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) * RobotMap.TOWER_UP_DIRECTION);
     		System.out.println("right Trigger: " + RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight));
     	}
     	//Stop tower
     	else
     	{
-    		RobotMap.rightTowerTalon.stopMotor();
+    		RobotMap.rightTowerTalon.set(ControlMode.PercentOutput, 0);
     		//RobotMap.leftTowerTalon.stopMotor();
     	}
     	
@@ -184,12 +186,12 @@ public class ManipulatorSubsystem extends Subsystem
     {
 		if(RobotMap.upperLimitSwitch)
 		{
-    		RobotMap.rightTowerTalon.stopMotor();
+    		RobotMap.rightTowerTalon.set(ControlMode.PercentOutput, 0);
     		//RobotMap.leftTowerTalon.stopMotor();
 		}
 		else
 		{
-	    	RobotMap.rightTowerTalon.set(RobotMap.TOWER_UP_VARIABLE * RobotMap.TOWER_UP_DIRECTION);
+	    	RobotMap.rightTowerTalon.set(ControlMode.PercentOutput, RobotMap.TOWER_UP_VARIABLE * RobotMap.TOWER_UP_DIRECTION);
 			//RobotMap.leftTowerTalon.set(RobotMap.TOWER_UP_VARIABLE * RobotMap.TOWER_UP_DIRECTION);
 			RobotMap.liftUpFlag = true;
 		}

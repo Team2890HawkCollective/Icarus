@@ -19,6 +19,8 @@ public class AutoTuneVelocity extends CommandGroup {
     public AutoTuneVelocity(Subsystem requiredSubsystem, BobTalonSRX talon, int srxParameterSlot,
     		double desiredVelocity, int numSamplesRequired) {
     	
+    	System.out.println("Command Activated");
+    	
     	addSequential(new WaitCommand("safety_wait_command", 5.0));
     	
     	addSequential(new AutoTuneVelocitySpinUp(requiredSubsystem, talon, ControlMode.PercentOutput, 1.0));

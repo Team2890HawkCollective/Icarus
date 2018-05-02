@@ -10,6 +10,8 @@ package org.usfirst.frc.team2890.robot.subsystems;
 import org.usfirst.frc.team2890.robot.RobotMap;
 import org.usfirst.frc.team2890.robot.commands.*;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -48,7 +50,10 @@ public class DriveTrainSubsystem extends Subsystem
 	 */
 	public void tankDrive()
 	{
-		RobotMap.driveTrain.tankDrive(RobotMap.driverController.getY(Hand.kLeft), RobotMap.driverController.getY(Hand.kRight));
+		//RobotMap.driveTrain.tankDrive(RobotMap.driverController.getY(Hand.kLeft), RobotMap.driverController.getY(Hand.kRight));
+		RobotMap.frontLeftTalon.set(ControlMode.PercentOutput, Math.pow(RobotMap.driverController.getY(Hand.kLeft), 2));
+		RobotMap.frontRightTalon.set(ControlMode.PercentOutput, Math.pow(RobotMap.driverController.getY(Hand.kRight), 2));
+		
 	}
 	
 	/**
