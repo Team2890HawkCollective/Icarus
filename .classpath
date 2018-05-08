@@ -4,25 +4,5 @@
 	<classpathentry kind="src" output="BobTrajectorybin" path="BobTrajectory"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/Dependencies"/>
-	<classpathentry kind="var" path="wpilib" sourcepath="wpilib.sources"/>
-	<classpathentry kind="var" path="networktables" sourcepath="networktables.sources"/>
-	<classpathentry kind="var" path="opencv" sourcepath="opencv.sources"/>
-	<classpathentry kind="var" path="cscore" sourcepath="cscore.sources"/>
-	<classpathentry kind="var" path="wpiutil" sourcepath="wpiutil.sources"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/cscore-sources.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/cscore.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-javadoc.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/json-simple-1.1.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/ntcore-sources.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/ntcore.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/opencv-sources.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/opencv.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/WPILib-sources.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/WPILib.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/wpiutil-sources.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/wpiutil.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

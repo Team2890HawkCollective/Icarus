@@ -79,6 +79,8 @@ public class Robot extends TimedRobot
 	{
 		RobotMap.rearLeftTalon.follow(RobotMap.frontLeftTalon);
 		RobotMap.rearRightTalon.follow(RobotMap.frontRightTalon);
+		
+		SmartDashboard.putData("Gyro", RobotMap.gyro);
 	}
 
 	/**
@@ -169,7 +171,6 @@ public class Robot extends TimedRobot
 		RobotMap.rangeFinderDistanceInches = RobotMap.rangeFinder.getRangeInches();
 		//System.out.println(RobotMap.rangeFinderDistanceInches);
 		//System.out.println(RobotMap.RANGE_TARGET);
-		SmartDashboard.putNumber("Gyro:", RobotMap.gyro.getAngle());
 		
 		RobotMap.rightAutonomousMiddleTimeDrive = SmartDashboard.getNumber("Time Drive Forward For the Middle (RIGHT SIDE): ", -1);
 		RobotMap.leftAutonomousMiddleTimeDrive = SmartDashboard.getNumber("Time Drive Forward For the Middle (LEFT SIDE): ", -1);
@@ -257,7 +258,6 @@ public class Robot extends TimedRobot
 		System.out.println("Amps: " + RobotMap.leftTowerTalon.getOutputCurrent());
 		System.out.println("Volts: " + RobotMap.rightTowerTalon.getMotorOutputVoltage());*/
 		
-		SmartDashboard.putData("Gyro", RobotMap.gyro);
 		SmartDashboard.putNumber("Left Side Encoder Position", RobotMap.frontLeftTalon.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Left Side Encoder Velocity", RobotMap.frontLeftTalon.getSelectedSensorVelocity(0));
 		SmartDashboard.putNumber("Right Side Encoder Position", RobotMap.frontRightTalon.getSelectedSensorPosition(0));
