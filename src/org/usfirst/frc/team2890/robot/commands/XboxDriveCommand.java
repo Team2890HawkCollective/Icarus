@@ -8,44 +8,60 @@
 package org.usfirst.frc.team2890.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team2890.robot.Robot;
+
 import org.usfirst.frc.team2890.robot.RobotMap;
 
 /**
- * An example command.  You can replace me with your own command.
+ * Maps the values of the joysticks to the talons via the tankDrive method
  */
-public class XboxDriveCommand extends Command {
-	public XboxDriveCommand() {
+public class XboxDriveCommand extends Command 
+{
+	
+	public XboxDriveCommand() 
+	{
 		// Use requires() here to declare subsystem dependencies
 		requires(RobotMap.driveTrainSubsystem);
 	}
 
-	// Called just before this Command runs the first time
+	/**
+	 * Called just before this Command runs the first time
+	 */
 	@Override
-	protected void initialize() {
+	protected void initialize() 
+	{
 	}
 
-	// Called repeatedly when this Command is scheduled to run
+	/**
+	 * Called repeatedly when this Command is scheduled to run
+	 */
 	@Override
 	protected void execute() 
 	{
-		RobotMap.driveTrainSubsystem.xboxArcadeDrive();
+		RobotMap.driveTrainSubsystem.tankDrive();
 	}
 
-	// Make this return true when this Command no longer needs to run execute()
+	/**
+	 * Make this return true when this Command no longer needs to run execute()
+	 */
 	@Override
-	protected boolean isFinished() {
+	protected boolean isFinished() 
+	{
 		return false;
 	}
 
-	// Called once after isFinished returns true
+	/**
+	 * Called once after isFinished returns true
+	 */
 	@Override
-	protected void end() {
+	protected void end() 
+	{
 	}
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
+	/**
+	 * Called when another command which requires one or more of the same subsystems is scheduled to run
+	 */
 	@Override
-	protected void interrupted() {
+	protected void interrupted() 
+	{
 	}
 }
