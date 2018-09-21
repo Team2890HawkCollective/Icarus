@@ -96,7 +96,7 @@ public class HambyRoomGripPipelineShortRange implements VisionPipeline {
 
 	/**
 	 * This method is a generated getter for the output of a Find_Contours.
-	 * @return ArrayList<MatOfPoint> output from Find_Contours.
+	 * @return ArrayList output from Find_Contours.
 	 */
 	public ArrayList<MatOfPoint> findContoursOutput() {
 		return findContoursOutput;
@@ -104,7 +104,7 @@ public class HambyRoomGripPipelineShortRange implements VisionPipeline {
 
 	/**
 	 * This method is a generated getter for the output of a Filter_Contours.
-	 * @return ArrayList<MatOfPoint> output from Filter_Contours.
+	 * @return ArrayList output from Filter_Contours.
 	 */
 	public ArrayList<MatOfPoint> filterContoursOutput() {
 		return filterContoursOutput;
@@ -135,7 +135,7 @@ public class HambyRoomGripPipelineShortRange implements VisionPipeline {
 	 * @param hue The min and max hue
 	 * @param sat The min and max saturation
 	 * @param lum The min and max luminance
-	 * @param output The image in which to store the output.
+	 * @param out The image in which to store the output.
 	 */
 	private void hslThreshold(Mat input, double[] hue, double[] sat, double[] lum,
 		Mat out) {
@@ -147,9 +147,7 @@ public class HambyRoomGripPipelineShortRange implements VisionPipeline {
 	/**
 	 * Sets the values of pixels in a binary image to their distance to the nearest black pixel.
 	 * @param input The image on which to perform the Distance Transform.
-	 * @param type The Transform.
-	 * @param maskSize the size of the mask.
-	 * @param output The image in which to store the output.
+	 * @param externalOnly The Transform.
 	 */
 	private void findContours(Mat input, boolean externalOnly,
 		List<MatOfPoint> contours) {
@@ -177,7 +175,7 @@ public class HambyRoomGripPipelineShortRange implements VisionPipeline {
 	 * @param maxWidth maximum width
 	 * @param minHeight minimum height
 	 * @param maxHeight maximimum height
-	 * @param Solidity the minimum and maximum solidity of a contour
+	 * @param solidity the minimum and maximum solidity of a contour
 	 * @param minVertexCount minimum vertex Count of the contours
 	 * @param maxVertexCount maximum vertex Count
 	 * @param minRatio minimum ratio of width to height
