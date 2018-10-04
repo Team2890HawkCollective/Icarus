@@ -77,8 +77,8 @@ public class Robot extends TimedRobot
 	@Override
 	public void robotPeriodic()
 	{
-		//RobotMap.rearLeftTalon.follow(RobotMap.frontLeftTalon);
-		//RobotMap.rearRightTalon.follow(RobotMap.frontRightTalon);
+		RobotMap.rearLeftTalon.follow(RobotMap.frontLeftTalon);
+		RobotMap.rearRightTalon.follow(RobotMap.frontRightTalon);
 		
 		SmartDashboard.putData("Gyro", RobotMap.gyro);
 	}

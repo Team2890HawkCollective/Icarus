@@ -16,7 +16,7 @@ import org.usfirst.frc.team2890.robot.subsystems.*;
 import org.usfirst.frc.team319.models.BobTalonSRX;
 import org.usfirst.frc.team319.robot.commands.AutoTuneVelocity;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.*;
 import com.ctre.phoenix.motorcontrol.*;
@@ -271,8 +271,8 @@ public class RobotMap
 		//leftTowerTalon = new WPI_WPI_TalonSRX(RIGHT_TALON_TOWER_ID); 
 		rightTowerTalon = new WPI_TalonSRX(LEFT_TALON_TOWER_ID);
 		
-		rightTalonGroup = new SpeedControllerGroup(frontRightTalon);
-		leftTalonGroup = new SpeedControllerGroup(frontLeftTalon);
+		//rightTalonGroup = new SpeedControllerGroup(frontRightTalon);
+		//leftTalonGroup = new SpeedControllerGroup(frontLeftTalon);
 		
 		//Subsystems
 		driveTrainSubsystem = new DriveTrainSubsystem();
