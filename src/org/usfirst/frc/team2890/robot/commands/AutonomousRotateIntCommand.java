@@ -11,50 +11,60 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team2890.robot.*;
 
 /**
- * An example command.  You can replace me with your own command.
+ * Rotates the bot a set amount of degrees
  */
 public class AutonomousRotateIntCommand extends Command 
 {
-
 	private double turnDegrees;
+	
 	public AutonomousRotateIntCommand(double turnDegrees) 
 	{
 		// Use requires() here to declare subsystem dependencies
-		//rotationAngle = degrees;
 		requires(RobotMap.driveTrainSubsystem);
 		this.turnDegrees = turnDegrees;
-		
 	}
 
-	// Called just before this Command runs the first time
+	/**
+	 * Called just before this Command runs the first time
+	 */
 	@Override
-	protected void initialize() {
+	protected void initialize() 
+	{
 		RobotMap.stopRotating = false;
 		RobotMap.goalAngle = RobotMap.gyro.getAngle() + turnDegrees;
 	}
 
-	// Called repeatedly when this Command is scheduled to run
+	/**
+	 * Called repeatedly when this Command is scheduled to run
+	 */
 	@Override
 	protected void execute() 
 	{
 		RobotMap.driveTrainSubsystem.turnDegrees(RobotMap.goalAngle, turnDegrees);
 	}
 
-	// Make this return true when this Command no longer needs to run execute()
+	/**
+	 * Make this return true when this Command no longer needs to run execute()
+	 */
 	@Override
 	protected boolean isFinished() 
 	{
 		return RobotMap.stopRotating;
 	}
 
-	// Called once after isFinished returns true
+	/**
+	 * Called once after isFinished returns true
+	 */
 	@Override
-	protected void end() {
+	protected void end() 
+	{
 	}
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
+	/**
+	 * Called when another command which requires one or more of the same subsystems is scheduled to run
+	 */
 	@Override
-	protected void interrupted() {
+	protected void interrupted() 
+	{
 	}
 }

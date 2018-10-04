@@ -6,7 +6,6 @@
 /*----------------------------------------------------------------------------*/
 
 package org.usfirst.frc.team2890.robot;
-import org.usfirst.frc.team2890.robot.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
