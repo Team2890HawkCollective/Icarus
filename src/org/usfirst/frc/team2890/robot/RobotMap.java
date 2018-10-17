@@ -65,8 +65,8 @@ public class RobotMap
 	public static final int RATCHET_DISENGAGE_CHANNEL_PORT = 7;
 	public static final int RANGEFINDER_PINGCHANNEL = 0;
 	public static final int RANGEFINDER_ECHOCHANNEL = 1;
-	public static final int LEFT_TALON_TOWER_ID = 5;
-	public static final int RIGHT_TALON_TOWER_ID = 6;
+//	public static final int LEFT_TALON_TOWER_ID = 5;
+//	public static final int RIGHT_TALON_TOWER_ID = 6;
 	public static final int LOWER_LIMIT_SWITCH_PORT = 8;
 	public static final int UPPER_LIMIT_SWITCH_PORT = 9;
 	
@@ -81,23 +81,16 @@ public class RobotMap
 	public static final double X_AXIS_UPPER_DEADBAND = 0.01;
 	public static final double ROTATION_SENSITIVTY = 0.7; //from 0.65
 	public static final double FORWARDS_BACKWARDS_SENSITIVITY = 1.0; //from 0.8
-<<<<<<< HEAD
 	public static final double AUTONOMOUS_FORWARD_SPEED = -.5; //-.65
 	public static final double AUTONOMOUS_BACKWARD_SPEED = .5; //.65
 	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.45; // from 0.65
 	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.45; // from -0.65
-=======
-	public static final double AUTONOMOUS_FORWARD_SPEED = -0.65; //-.65
-	public static final double AUTONOMOUS_BACKWARD_SPEED = 0.65; //.65
-	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.5; // from 0.65
-	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.5; // from -0.65
->>>>>>> a1f793077d5079396c220c5f7b6ec4ec360527d3
 	public static final double AUTONOMOUS_KILL_SWITCH = 0;
 	public static final double RANGE_TARGET = 12.0;
-	public static final double TOWER_UP_VARIABLE = 1.0;
-	public static final double TOWER_DOWN_VARIABLE = 1.0;
-	public static final double TRIGGER_SENSITIVIY = .15; //At this point, the tower will start moving.
-	public static final int TOWER_UP_DIRECTION = -1; 
+//	public static final double TOWER_UP_VARIABLE = 1.0;
+//	public static final double TOWER_DOWN_VARIABLE = 1.0;
+//	public static final double TRIGGER_SENSITIVIY = .15; //At this point, the tower will start moving.
+//	public static final int TOWER_UP_DIRECTION = -1; 
 	public static final double LIFT_TIMED_RAISE = 1.0;
 	public static final double AUTONOMOUS_MIDDLE_ONE_SECOND_TIMED_DRIVE = 1.0;
 	
@@ -112,13 +105,9 @@ public class RobotMap
 	public static double rightAutonomousMiddleTimeDrive = 1.0;
 	public static double leftAutonomousMiddleTimeDrive = 1.0;//time in seconds 
 	public static double autonomousLeftOrRightTimeDrive = 3.0;
-<<<<<<< HEAD
 	public static double driveStraightTimeDrive = 0.25;
-=======
-	public static double driveStraightTimeDrive = 5.0;
 	public static double autonomousSwitchLiftTime = 2.5;
 	public static double autonomousScaleLiftTime = 6.0;
->>>>>>> a1f793077d5079396c220c5f7b6ec4ec360527d3
 	
 	public static double initialGyro;
 	public static double goalAngle;
@@ -212,11 +201,9 @@ public class RobotMap
 	public static Command talonRampOnCommand;
 	public static Command talonRampOffCommand;
 	public static Command stopMovingCommand;
-<<<<<<< HEAD
 	public static Command maxCurrentControlCommand;
-=======
 	public static Command autonomousDelayCommand;
->>>>>>> a1f793077d5079396c220c5f7b6ec4ec360527d3
+
 	
 	//===============================================
 	//AUTONOMOUS COMMANDS
@@ -274,8 +261,8 @@ public class RobotMap
 		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
 		frontLeftTalon = new WPI_TalonSRX(FRONT_LEFT_TALON_ID);
 		rearLeftTalon = new WPI_TalonSRX(REAR_LEFT_TALON_ID);
-		leftTowerTalon = new WPI_TalonSRX(RIGHT_TALON_TOWER_ID); 
-		rightTowerTalon = new WPI_TalonSRX(LEFT_TALON_TOWER_ID);
+//		leftTowerTalon = new WPI_TalonSRX(RIGHT_TALON_TOWER_ID); 
+//		rightTowerTalon = new WPI_TalonSRX(LEFT_TALON_TOWER_ID);
 		
 		rightTalonGroup = new SpeedControllerGroup(frontRightTalon, rearRightTalon);
 		leftTalonGroup = new SpeedControllerGroup(frontLeftTalon, rearLeftTalon);
@@ -298,10 +285,7 @@ public class RobotMap
 		getDistanceInInches = new RangeFinderFindDistanceInInchesCommand();
 		rangedDriveForwardCommand = new AutonomousRangedDriveForwardCommand();
 		testCommandGroup = new TestCommandDontHateMeTaylor();
-<<<<<<< HEAD
 		maxCurrentControlCommand = new MaxCurrentCommand(.25);
-
-=======
 		liftUpCommand = new LiftUpCommand(LIFT_TIMED_RAISE);
 		clawDownCommand = new ClawDownCommand();
 		closeGripperCommand = new CloseGripperCommand();
@@ -315,11 +299,10 @@ public class RobotMap
 		
 		driveTrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
 		
->>>>>>> a1f793077d5079396c220c5f7b6ec4ec360527d3
 		initialGyro = RobotMap.gyro.getAngle();
 		
-		rightTalonGroup.setInverted(true);
-		leftTalonGroup.setInverted(true);
+//		rightTalonGroup.setInverted(true);
+//		leftTalonGroup.setInverted(true);
 
 		System.out.println("In robotInit method");
 	}
