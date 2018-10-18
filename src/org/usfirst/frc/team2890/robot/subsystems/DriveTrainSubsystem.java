@@ -65,8 +65,7 @@ public class DriveTrainSubsystem extends Subsystem
 		
 		double temp2 = RobotMap.frontLeftTalon.getMotorOutputVoltage();
 		if(temp2>maxVolt)
-			maxVolt=temp2;
-		
+			maxVolt=temp2;		
 	}
 	
 	/**

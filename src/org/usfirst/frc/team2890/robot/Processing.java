@@ -89,9 +89,9 @@ public class Processing
 				angleToGoal = Math.toDegrees(angleToGoal);
 				// prints angle
 				//System.out.println("Angle: " + angleToGoal);
-				}
 			}
-			return angleToGoal;
+		}
+		return angleToGoal;
 	}
 
 }

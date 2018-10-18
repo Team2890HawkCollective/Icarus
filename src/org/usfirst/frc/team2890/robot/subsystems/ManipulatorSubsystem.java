@@ -37,10 +37,7 @@ public class ManipulatorSubsystem extends Subsystem
     {
     	RobotMap.upperLimitSwitch = RobotMap.sensorSubsystem.isUpperLimitSwitchPressed();
     	RobotMap.lowerLimitSwitch = RobotMap.sensorSubsystem.isLowerLimitSwitchPressed();
-<<<<<<< HEAD
     	RobotMap.secondaryLowerLimitSwitch = RobotMap.sensorSubsystem.isSecondaryLowerLimitSwitchPressed();
-=======
->>>>>>> c46bf84ab5a0278a92cb22a9ee2547d6b6813428
     	
     	//controlTower method
     	//Tower Down
