@@ -2,16 +2,17 @@ package org.usfirst.frc.team2890.robot.subsystems;
 
 import org.usfirst.frc.team2890.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * Controls all aspects of the Manipulator<br>
+ * ControlManipulator() method is used during teleop<br>
+ * All other methods are used during autonomous
  */
-public class ManipulatorSubsystem extends Subsystem {
-
+public class ManipulatorSubsystem extends Subsystem 
+{
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -21,11 +22,25 @@ public class ManipulatorSubsystem extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
+    /**
+     * Maps the buttons from the controller to the different functions of the manipulator<br>
+     * <b><i>All these buttons are placed on the Assistant Driver Controller</i></b><br>
+     * <b>Left Trigger</b> Pulls Tower Down. Slows down when first limit switch is pressed, and auto stops when near the bottom<br>
+     * <b>Right Trigger</b> Lifts Tower Up. SUPPOSEDLY Auto stops when near the top <i>Limit switch too sensitive to be placed properly, functionality not mechanically operational</i><br>
+     * <b>A Button</b> Shifts Gears<br>
+     * <b>Y Button</b> Raises/Lowers Elbow<br>
+     * <b>X Button</b> Opens/Closes Gripper<br>
+     * <b>Start Button</b> Engages/Disengages Ratchet<br>
+     * <b><i>ON DRIVER CONTROLLER</i> A Button</b> "Turns On/Off" Second camera
+     */
     public void controlManipulator()
     {
     	RobotMap.upperLimitSwitch = RobotMap.sensorSubsystem.isUpperLimitSwitchPressed();
     	RobotMap.lowerLimitSwitch = RobotMap.sensorSubsystem.isLowerLimitSwitchPressed();
+<<<<<<< HEAD
     	RobotMap.secondaryLowerLimitSwitch = RobotMap.sensorSubsystem.isSecondaryLowerLimitSwitchPressed();
+=======
+>>>>>>> c46bf84ab5a0278a92cb22a9ee2547d6b6813428
     	
     	//controlTower method
     	//Tower Down
@@ -59,44 +74,6 @@ public class ManipulatorSubsystem extends Subsystem {
     	{
     		RobotMap.towerLoweringSensitivity = 1.0;
     	}
-    	//Tower Down
-    	/*if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft) > RobotMap.TRIGGER_SENSITIVIY)
-    	{   
-    		if(RobotMap.lowerLimitSwitch)
-    		{
-        		RobotMap.rightTowerTalon.stopMotor();
-        		RobotMap.leftTowerTalon.stopMotor();
-    		}
-    		else if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft) > RobotMap.TRIGGER_SENSITIVIY)
-    		{
-    			RobotMap.rightTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
-        		RobotMap.leftTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kLeft));
-        	}
-    		else
-        	{
-        		RobotMap.rightTowerTalon.stopMotor();
-        		RobotMap.leftTowerTalon.stopMotor();
-        	}
-    	}
-    	//Tower up
-    	else if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) > RobotMap.TRIGGER_SENSITIVIY)
-    	{
-    		if(RobotMap.upperLimitSwitch)
-    		{
-    			RobotMap.rightTowerTalon.stopMotor();
-        		RobotMap.leftTowerTalon.stopMotor();
-    		}
-    		else if (RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) > RobotMap.TRIGGER_SENSITIVIY)
-    		{
-    			RobotMap.rightTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) * RobotMap.TOWER_UP_DIRECTION);
-        		RobotMap.leftTowerTalon.set(RobotMap.assistantDriverController.getTriggerAxis(Hand.kRight) * RobotMap.TOWER_UP_DIRECTION);
-    		}
-    		else
-        	{
-        		RobotMap.rightTowerTalon.stopMotor();
-        		RobotMap.leftTowerTalon.stopMotor();
-        	}
-    	}*/
     	
     	if (RobotMap.driverController.getAButtonPressed())
     	{
@@ -202,24 +179,36 @@ public class ManipulatorSubsystem extends Subsystem {
     	}
     }
     
+    /**
+     * Opens up the gripper
+     */
     public void openGripper()
     {
     	RobotMap.grabberSolenoid.set(DoubleSolenoid.Value.kForward);
     	RobotMap.openedGripperFlag = true;
     }
     
+    /**
+     * Closes the gripper
+     */
     public void closeGripper()
     {
     	RobotMap.grabberSolenoid.set(DoubleSolenoid.Value.kReverse);
     	RobotMap.closedGripperFlag = true;
     }
     
+    /**
+     * Lowers the elbow
+     */
     public void dropClaw()
     {
     	RobotMap.elbowSolenoid.set(DoubleSolenoid.Value.kForward);
     	RobotMap.clawDownFlag = true;
     }
     
+    /**
+     * Lifts the tower up until the upper limit switch is pressed
+     */
     public void liftUp()
     {
 		if(RobotMap.upperLimitSwitch)

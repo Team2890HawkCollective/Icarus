@@ -5,9 +5,10 @@ import org.usfirst.frc.team2890.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Runs the method from the Manipulator Susbsystem that controls all aspects of the bot not related to the drivetrain and used during teleop mode
  */
-public class ControlManipulatorCommand extends Command {
+public class ControlManipulatorCommand extends Command 
+{
 
     public ControlManipulatorCommand() 
     {
@@ -16,32 +17,42 @@ public class ControlManipulatorCommand extends Command {
     	requires(RobotMap.manipulatorSubsystem);
     }
 
-    // Called just before this Command runs the first time
+    /**
+     * Called just before this Command runs the first time
+     */
     protected void initialize()
     {
     	
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Called repeatedly when this Command is scheduled to run
+     */
     protected void execute()
     {
     	RobotMap.manipulatorSubsystem.controlManipulator();
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     * Make this return true when this Command no longer needs to run execute()
+     */
     protected boolean isFinished() 
     {
         return false;
     }
 
-    // Called once after isFinished returns true
+    /**
+     * Called once after isFinished returns true
+     */
     protected void end() 
     {
     	
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
+    /**
+     * Called when another command which requires one or more of the same subsystems is scheduled to run
+     */
+    protected void interrupted() 
+    {
     }
 }

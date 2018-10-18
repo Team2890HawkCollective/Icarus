@@ -14,57 +14,123 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * An example subsystem.  You can replace me with your own Subsystem.
+ * Controls all aspects of the drivetrain<br>
+ * Used during teleop with the xboxArcadeDrive and tankDrive methods<br>
+ * Used during autonomous with everything else from line:54 to line:214
  */
 public class DriveTrainSubsystem extends Subsystem 
 {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 	//requires.RobotMap.driveTrainSubsystem;
+	public static double maxCurrent= -1;
+	public static double maxVolt = -1;
 
+	/**
+	 * Sets the xbox drive command as the default command for this subsystem
+	 */
 	public void initDefaultCommand() 
 	{
 		setDefaultCommand(new XboxDriveCommand());
 	}
 	
+	/**
+	 * Maps the values of the joysticks to the talons<br>
+	 * <img src="arcade_drive.png" alt="Arcade Drive">
+	 */
 	public void xboxArcadeDrive()
 	{
 		RobotMap.driveTrain.arcadeDrive(RobotMap.driverController.getY(Hand.kLeft) * RobotMap.forwardsBackwardsSensitivity, 
 				RobotMap.driverController.getX(Hand.kRight) * RobotMap.X_INVERTED * RobotMap.ROTATION_SENSITIVTY);
 	}
 	
+	/**
+	 * Maps the values of the joysticks to the talons<br>
+	 * <img src="tank_drive.gif" alt="Tank Drive">
+	 */
 	public void tankDrive()
 	{
 		RobotMap.driveTrain.tankDrive((RobotMap.driverController.getY(Hand.kLeft) * RobotMap.forwardsBackwardsSensitivity), (RobotMap.driverController.getY(Hand.kRight) * RobotMap.forwardsBackwardsSensitivity));
 	}
 	
+	/**
+	 * Moves the robot forward by manually setting the arcadeDrive method values
+	 */
 	public void driveForward()
 	{
 		RobotMap.driveTrain.arcadeDrive(RobotMap.AUTONOMOUS_FORWARD_SPEED, 0);
+		double temp = RobotMap.frontLeftTalon.getOutputCurrent();
+		if(temp>maxCurrent)
+			maxCurrent=temp;
+		
+		double temp2 = RobotMap.frontLeftTalon.getMotorOutputVoltage();
+		if(temp2>maxVolt)
+			maxVolt=temp2;
+		
 	}
 	
-	
+	/**
+	 * Moves the robot backward by manually setting the arcadeDrive method values
+	 */
 	public void driveBackward()
 	{
 		RobotMap.driveTrain.arcadeDrive(RobotMap.AUTONOMOUS_BACKWARD_SPEED, 0);
 	}
 	
+	/**
+	 * Rotates the robot left by manually setting the arcadeDrive method values
+	 */
 	public void turnLeft()
 	{
 
 		RobotMap.driveTrain.arcadeDrive(0, RobotMap.AUTONOMOUS_ROTATE_LEFT_SPEED);
 	}
 	
+	/**
+	 * Rotates the robot right by manually setting the arcadeDrive medthod values
+	 */
 	public void turnRight()
 	{
 		RobotMap.driveTrain.arcadeDrive(0, RobotMap.AUTONOMOUS_ROTATE_RIGHT_SPEED);
 	}
-	    
+	
+	/**
+	 * Stops the robot moving by calling the driveTrain.stopMotor() method
+	 */
 	public void stopMoving()
 	{
 		RobotMap.driveTrain.stopMotor();
 	}
 	
+	/**
+	 * @deprecated
+	 * Turns off the ramp on the talons
+	 */
+	public void talonRampOff()
+	{
+		RobotMap.frontLeftTalon.configOpenloopRamp(RobotMap.RAMP_OFF_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.frontRightTalon.configOpenloopRamp(RobotMap.RAMP_OFF_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.rearLeftTalon.configOpenloopRamp(RobotMap.RAMP_OFF_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_OFF_TIME, RobotMap.RAMP_TIMEOUT);
+	}
+	
+	/**
+	 * @deprecated
+	 * Turns on the ramp on the talons
+	 */
+	public void talonRampOn()
+	{
+		RobotMap.frontLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.frontRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.rearLeftTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+		RobotMap.rearRightTalon.configOpenloopRamp(RobotMap.RAMP_TIME, RobotMap.RAMP_TIMEOUT);
+	}
+	
+	/**
+	 * @deprecated
+	 * SUPPOSEDLY Rotates the robot by using the gyro and camera<br>
+	 * NOT WORKING
+	 */
 	public void autonomousRotateWithCamera()
 	{
 		double turnValue = 0; //PLEASE REPLACE ZERO WITH CAMERA THREAD INPUT!!!
@@ -80,25 +146,39 @@ public class DriveTrainSubsystem extends Subsystem
 		} */
 		
 		if(turnValue > 0) 
+		{
+			turnLeft();
+			goalAngle = currentAngle + turnValue;
+			if(currentAngle <= goalAngle+1 || currentAngle >= goalAngle-1) 
 			{
-				turnLeft();
-				goalAngle = currentAngle + turnValue;
-				if(currentAngle <= goalAngle+1 || currentAngle >= goalAngle-1) stopMoving();
+				stopMoving();
 			}
+		}
+		
 		if(turnValue < 0) 
+		{
+			turnRight();
+			goalAngle = currentAngle + turnValue;
+			if(currentAngle <= goalAngle+1 || currentAngle >= goalAngle-1)
 			{
-				turnRight();
-				goalAngle = currentAngle + turnValue;
-				if(currentAngle <= goalAngle+1 || currentAngle >= goalAngle-1) stopMoving();
+				stopMoving();
 			}
+		}
 	}
 	
+	/**
+	 * Rotates the robot a provided amount of degrees
+	 * @param goalAngle
+	 * @param turnDegrees
+	 */
 	public void turnDegrees(double goalAngle, double turnDegrees)
 	{
 		if(turnDegrees > 0)
 		{
 			if(RobotMap.gyro.getAngle() < goalAngle)
+			{
 				turnRight();
+			}
 			else
 			{
 				System.out.println("Stopped Moving");
@@ -109,7 +189,9 @@ public class DriveTrainSubsystem extends Subsystem
 		else
 		{
 			if(RobotMap.gyro.getAngle() > goalAngle)
+			{
 				turnLeft();
+			}
 			else
 			{
 				stopMoving();
@@ -118,6 +200,11 @@ public class DriveTrainSubsystem extends Subsystem
 		}
 	}
 	
+	/**
+	 * @deprecated
+	 * SUPPOSEDLY moves the robot forward until a distance is reached
+	 * NOT WORKING
+	 */
 	public void rangedDriveForward()
 	{
 		if(RobotMap.rangeFinder.getRangeInches() >= RobotMap.RANGE_TARGET)

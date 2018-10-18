@@ -15,7 +15,6 @@ import org.usfirst.frc.team2890.robot.commands.*;
 import org.usfirst.frc.team2890.robot.subsystems.*;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.*;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
@@ -27,8 +26,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.interfaces.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -51,10 +48,17 @@ public class RobotMap
 	//===============================================
 	//PORT IDS
 	//===============================================
+<<<<<<< HEAD
 	public static final int FRONT_RIGHT_TALON_ID = 1;
 	public static final int REAR_RIGHT_TALON_ID = 6; //chnage t
 	public static final int FRONT_LEFT_TALON_ID = 3;
 	public static final int REAR_LEFT_TALON_ID = 2;
+=======
+	public static final int FRONT_RIGHT_TALON_ID = 2;
+	public static final int REAR_RIGHT_TALON_ID = 3;
+	public static final int FRONT_LEFT_TALON_ID = 1;
+	public static final int REAR_LEFT_TALON_ID = 4;
+>>>>>>> c46bf84ab5a0278a92cb22a9ee2547d6b6813428
 	public static final int TEST_TALON_ID = 6;
 	public static final int DRIVER_CONTROLLER_PORT = 0;
 	public static final int ASSISTANT_DRIVER_CONTROLLER_PORT = 1;
@@ -75,18 +79,30 @@ public class RobotMap
 	public static final int UPPER_LIMIT_SWITCH_PORT = 9;
 	
 	//===============================================
-	//VARIABLES
-	//===============================================
+	//CONSTANTS
+	//==============================================
 	public static final int X_INVERTED = -1;
 	public static final int RAMP_TIMEOUT = 1;
 	public static final double RAMP_TIME = 0.25;
+	public static final double RAMP_OFF_TIME = 0.0;
 	public static final double X_AXIS_LOWER_DEADBAND = -0.01;
 	public static final double X_AXIS_UPPER_DEADBAND = 0.01;
 	public static final double ROTATION_SENSITIVTY = 0.7; //from 0.65
+<<<<<<< HEAD
+=======
+	public static final double FORWARDS_BACKWARDS_SENSITIVITY = 1.0; //from 0.8
+<<<<<<< HEAD
+	public static final double AUTONOMOUS_FORWARD_SPEED = -.5; //-.65
+	public static final double AUTONOMOUS_BACKWARD_SPEED = .5; //.65
+	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.45; // from 0.65
+	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.45; // from -0.65
+=======
+>>>>>>> c46bf84ab5a0278a92cb22a9ee2547d6b6813428
 	public static final double AUTONOMOUS_FORWARD_SPEED = -0.65; //-.65
 	public static final double AUTONOMOUS_BACKWARD_SPEED = 0.65; //.65
 	public static final double AUTONOMOUS_ROTATE_LEFT_SPEED = 0.5; // from 0.65
 	public static final double AUTONOMOUS_ROTATE_RIGHT_SPEED = -0.5; // from -0.65
+>>>>>>> a1f793077d5079396c220c5f7b6ec4ec360527d3
 	public static final double AUTONOMOUS_KILL_SWITCH = 0;
 	public static final double RANGE_TARGET = 12.0;
 	public static final double TOWER_UP_VARIABLE = 1.0;
@@ -94,22 +110,32 @@ public class RobotMap
 	public static final double TRIGGER_SENSITIVIY = .15; //At this point, the tower will start moving.
 	public static final int TOWER_UP_DIRECTION = -1; 
 	public static final double LIFT_TIMED_RAISE = 1.0;
+	public static final double AUTONOMOUS_MIDDLE_ONE_SECOND_TIMED_DRIVE = 1.0;
 	
+	//===============================================
+	//VARIABLES
+	//===============================================
 	public static double centerX;
 	public static double distanceFromTargetUsingTargeting;
 	public static double angleFromTarget;
 	public static double rangeFinderDistanceInches;
 	
-	public static final double AUTONOMOUS_MIDDLE_ONE_SECOND_TIMED_DRIVE = 1.0;
 	public static double rightAutonomousMiddleTimeDrive = 1.0;
 	public static double leftAutonomousMiddleTimeDrive = 1.0;//time in seconds 
 	public static double autonomousLeftOrRightTimeDrive = 3.0;
+<<<<<<< HEAD
+	public static double driveStraightTimeDrive = 0.25;
+=======
 	public static double driveStraightTimeDrive = 5.0;
 	public static double autonomousSwitchLiftTime = 2.5;
 	public static double autonomousScaleLiftTime = 6.0;
+<<<<<<< HEAD
 	public static double forwardsBackwardsSensitivity = 1.0; //from 0.8
 	
 	public static double towerLoweringSensitivity = 1.0;
+=======
+>>>>>>> a1f793077d5079396c220c5f7b6ec4ec360527d3
+>>>>>>> c46bf84ab5a0278a92cb22a9ee2547d6b6813428
 	
 	public static double initialGyro;
 	public static double goalAngle;
@@ -119,70 +145,98 @@ public class RobotMap
 	public static String gameData;
 	public static String gameDataLetter;
 	
-	//TESTING VARIABLES
 	public static boolean flag = true;
 	public static boolean stopRotating = false;
 	public static boolean firstTimeThrough = true;
 	public static boolean isRight = true;
-	public static boolean controlGripperFlag = true;
-	public static boolean controlCubeFlag = true;
-	public static boolean controlRatchetFlag = true;
-	public static boolean rangeFinderExitFlag = false;
+	
 	public static boolean keepThreadRunning = true;
-	public static boolean shiftGearButtonFlag = true;
-	public static boolean liftUpFlag = false;
 	public static boolean upperLimitSwitch = false;
 	public static boolean lowerLimitSwitch = false;
 	public static boolean secondaryLowerLimitSwitch = false; // Slows down speed during the last inches of lowering the tower
 	
+<<<<<<< HEAD
 	public static boolean openedGripperFlag = false;
 	public static boolean closedGripperFlag = false;
 	public static boolean forwardsBackwardsSensitivityFlag = false;
 	public static boolean clawDownFlag = false;
 	public static boolean ratchetEngaged = false;
 	public static boolean highGear = false;
+=======
+	//Teleop Flags
+>>>>>>> c46bf84ab5a0278a92cb22a9ee2547d6b6813428
 	public static boolean lowGear = false;
+	public static boolean highGear = false;
+	public static boolean shiftGearButtonFlag = true;
 	public static boolean elbowIsDown = false;
+	public static boolean controlCubeFlag = true;
+	public static boolean controlGripperFlag = true;
+	public static boolean controlRatchetFlag = true;
+	public static boolean ratchetEngaged = false;
 	public static boolean turnSecondCameraOn = true;
-	//
 	
+	//Autonomous Flags
+	public static boolean openedGripperFlag = false;
+	public static boolean closedGripperFlag = false;
+	public static boolean clawDownFlag = false;
+	public static boolean liftUpFlag = false;
+	public static boolean rangeFinderExitFlag = false;
+		
 	//===============================================
 	//TALONS, CONTROLLERS & OTHER OBJECTS
 	//===============================================
+	//Vision
 	public static Thread m_visionThread;
 	public static GripPipeline gripPipeline;
 	public static HambyRoomGripPipelineLongRange hambyRoomGripPipelineLongRange;
 	public static HambyRoomGripPipelineShortRange hambyRoomGripPipelineShortRange;	
 	
+	//Controllers
 	public static XboxController driverController;
 	public static XboxController assistantDriverController;
+	
+	//Talons
 	public static WPI_TalonSRX frontRightTalon;
 	public static WPI_TalonSRX rearRightTalon;
 	public static WPI_TalonSRX frontLeftTalon;
 	public static WPI_TalonSRX rearLeftTalon;
 	public static WPI_TalonSRX leftTowerTalon;
 	public static WPI_TalonSRX rightTowerTalon;
+	public static SpeedControllerGroup rightTalonGroup;
+	public static SpeedControllerGroup leftTalonGroup;
+	
+	//Sensors
 	public static Ultrasonic rangeFinder;
 	public static DigitalInput upperElevatorLimitSwitch;
 	public static DigitalInput lowerElevatorLimitSwitch;
+<<<<<<< HEAD
 	public static DigitalInput secondaryLowerElevatorLimitSwitch;
 	public static SpeedControllerGroup rightTalonGroup;
 	public static SpeedControllerGroup leftTalonGroup;
+=======
+	public static ADXRS450_Gyro gyro;
+	
+	//Subsystems
+>>>>>>> c46bf84ab5a0278a92cb22a9ee2547d6b6813428
 	public static DifferentialDrive driveTrain;
 	public static DriveTrainSubsystem driveTrainSubsystem;
 	public static SensorSubsystem sensorSubsystem;
 	public static ManipulatorSubsystem manipulatorSubsystem;
-	public static OI m_oi;
-	public static ADXRS450_Gyro gyro;
+	
+	//Pneumatics
 	public static Compressor compressor;
 	public static DoubleSolenoid grabberSolenoid;
 	public static DoubleSolenoid elbowSolenoid;
 	public static DoubleSolenoid gearBoxSolenoid;
 	public static DoubleSolenoid ratchetSolenoid;
 	
+	//Cameras
 	public static UsbCamera camera;
 	public static UsbCamera secondCamera;
-
+	
+	//Misc
+	public static OI m_oi;
+	
 	//===============================================
 	//COMMANDS
 	//===============================================
@@ -191,17 +245,21 @@ public class RobotMap
 	public static Command talonRampOnCommand;
 	public static Command talonRampOffCommand;
 	public static Command stopMovingCommand;
+<<<<<<< HEAD
+	public static Command maxCurrentControlCommand;
+=======
 	public static Command autonomousDelayCommand;
+>>>>>>> a1f793077d5079396c220c5f7b6ec4ec360527d3
 	
 	//===============================================
 	//AUTONOMOUS COMMANDS
 	//===============================================
 	public static Command m_autonomousCommand;
 	public static Command driveForwardAutonomousCommand;
+	public static Command timedDriveForwardAutonomousCommand;
 	public static Command driveBackwardAutonomousCommand;
 	public static Command turnLeftAutonomousCommand;
 	public static Command turnRightAutonomousCommand;
-	public static Command timedDriveForwardAutonomousCommand;
 	public static Command rotationAutonomous; 
 	public static Command controlManipulatorCommand;
 	public static Command getDistanceInInches; //Testing on SmartDashboard
@@ -211,34 +269,48 @@ public class RobotMap
 	public static Command closeGripperCommand;
 	public static Command openGripperCommand;
 	
-	public static CommandGroup autonomousTargetingRightCommandGroup;
+	//===============================================
+	//AUTONOMOUS COMMANDGROUPS
+	//===============================================
 	public static CommandGroup autonomousTargetingLeftCommandGroup;
+	public static CommandGroup autonomousTargetingRightCommandGroup;
 	public static CommandGroup autonomousLeftCommandGroup;
 	public static CommandGroup autonomousRightCommandGroup;
 	public static CommandGroup autonomousCommandGroupChooser;
 	public static CommandGroup testCommandGroup;
 	public static CommandGroup autonomousForwardCommandGroup;
 	
+	/**
+	 * Instantiates ALL objects and variables with their default values<br>
+	 * Called at robot startup
+	 */
 	public static void init()
-	{
-		m_oi = new OI();
-		
+	{		
+		//Controllers
 		driverController = new XboxController(DRIVER_CONTROLLER_PORT);
 		assistantDriverController = new XboxController(ASSISTANT_DRIVER_CONTROLLER_PORT);
 		
+		//Sensors
 		gyro = new ADXRS450_Gyro();
 		rangeFinder = new Ultrasonic(RANGEFINDER_PINGCHANNEL, RANGEFINDER_ECHOCHANNEL);
+		upperElevatorLimitSwitch = new DigitalInput(UPPER_LIMIT_SWITCH_PORT);
+		lowerElevatorLimitSwitch = new DigitalInput(LOWER_LIMIT_SWITCH_PORT);
 		
+		//Pneumatics
 		compressor = new Compressor();
 		grabberSolenoid = new DoubleSolenoid(GRABBER_SOLENOID_FORWARD_PORT, GRABBER_SOLENOID_BACKWARD_PORT); //GRABBER_SOLENOID_FORWARD_PORT, GRABBER_SOLENOID_BACKWARD_PORT
 		elbowSolenoid = new DoubleSolenoid(ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT); //ROTATE_SOLENOID_FORWARD_PORT, ROTATE_SOLENOID_BACKWARD_PORT
 		gearBoxSolenoid = new DoubleSolenoid(GEARBOX_SOLENOID_FORWARD_PORT, GEARBOX_SOLENOID_BACKWARD_PORT); //GEARBOX_SOLENOID_FORWARD_PORT, GEARBOX_SOLENOID_BACKWARD_PORT
 		ratchetSolenoid = new DoubleSolenoid(RATCHET_ENGAGE_CHANNEL_PORT, RATCHET_DISENGAGE_CHANNEL_PORT);
 		
+<<<<<<< HEAD
 		upperElevatorLimitSwitch = new DigitalInput(UPPER_LIMIT_SWITCH_PORT);
 		lowerElevatorLimitSwitch = new DigitalInput(LOWER_LIMIT_SWITCH_PORT);
 		secondaryLowerElevatorLimitSwitch = new DigitalInput(SECONDARY_LOWER_LIMIT_SWITCH_PORT);
 		
+=======
+		//Talons
+>>>>>>> c46bf84ab5a0278a92cb22a9ee2547d6b6813428
 		frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
 		rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
 		frontLeftTalon = new WPI_TalonSRX(FRONT_LEFT_TALON_ID);
@@ -249,17 +321,12 @@ public class RobotMap
 		rightTalonGroup = new SpeedControllerGroup(frontRightTalon, rearRightTalon);
 		leftTalonGroup = new SpeedControllerGroup(frontLeftTalon, rearLeftTalon);
 		
-		//DriveTrainSubsystem.talonRampOn(); // This is for testing, a command should be called instead
-		
-		rightTalonGroup.setInverted(true);
-		leftTalonGroup.setInverted(true);
-		
-		driveTrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
-		
+		//Subsystems
 		driveTrainSubsystem = new DriveTrainSubsystem();
 		sensorSubsystem = new SensorSubsystem();
 		manipulatorSubsystem = new ManipulatorSubsystem();
 
+		//Commands
 		xboxDriveCommand = new XboxDriveCommand();
 		talonRampOnCommand = new TalonRampOnCommand();
 		talonRampOffCommand = new TalonRampOffCommand();
@@ -272,13 +339,34 @@ public class RobotMap
 		getDistanceInInches = new RangeFinderFindDistanceInInchesCommand();
 		rangedDriveForwardCommand = new AutonomousRangedDriveForwardCommand();
 		testCommandGroup = new TestCommandDontHateMeTaylor();
+<<<<<<< HEAD
+		maxCurrentControlCommand = new MaxCurrentCommand(.25);
+
+=======
 		liftUpCommand = new LiftUpCommand(LIFT_TIMED_RAISE);
 		clawDownCommand = new ClawDownCommand();
 		closeGripperCommand = new CloseGripperCommand();
+<<<<<<< HEAD
 		openGripperCommand = new OpenGripperCommand(1.0);
 		autonomousDelayCommand = new AutonomousDelayCommand(1.0);
 
+=======
+		openGripperCommand = new OpenGripperCommand();
+		autonomousDelayCommand = new AutonomousDelayCommand(2.0);
+		
+		driveTrainSubsystem.xboxArcadeDrive();
+		
+		//Misc
+		m_oi = new OI();
+		
+		driveTrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
+		
+>>>>>>> a1f793077d5079396c220c5f7b6ec4ec360527d3
+>>>>>>> c46bf84ab5a0278a92cb22a9ee2547d6b6813428
 		initialGyro = RobotMap.gyro.getAngle();
+		
+		rightTalonGroup.setInverted(true);
+		leftTalonGroup.setInverted(true);
 
 		System.out.println("In robotInit method");
 	}
